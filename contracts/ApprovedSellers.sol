@@ -11,34 +11,23 @@ contract ApprovedSellers {
   
   bool internal requireSellerApproval_;
   
-  mapping(address => bool ) internal _isApprovedSeller;
-  
-  // only approved sellers shall pass
-  modifier approvedSellerOnly() virtual {
-    require(_approvedSeller(msg.sender) == true && requireSellerApproval_ == true, "approved seller only");
-    _;
-  }
-  
+  mapping(address => bool) internal _isApprovedSeller;
+
   /// @notice add an approved seller
-  function _addApprovedSeller(address approvedSeller_) internal {
-    _isApprovedSeller[approvedSeller_] = true;
-    emit ApprovedSellerAdded(approvedSeller_);
-  }
-  
-  /// @notice remove an approved seller
-  function _removeApprovedSeller( address approvedSeller_ ) internal {
-    _isApprovedSeller[approvedSeller_] = false;
-    emit ApprovedSellerRemoved(approvedSeller_);
+  function _setApprovedSeller(address seller, bool approveState) internal {
+    _isApprovedSeller[seller] = approveState;
+    if(approveState) emit ApprovedSellerAdded(seller);
+    else emit ApprovedSellerRemoved(seller);
   }
   
   /// @notice check if an address is an approved seller
-  function _approvedSeller(address seller) internal view returns (bool isApproved) {
-    isApproved = _isApprovedSeller[seller];
+  function _approvedSeller(address seller) internal view returns (bool) {
+    return _isApprovedSeller[seller];
   }
 
   /// @notice return require seller approval flag
-  function requireSellerApproval() public returns (bool _requireSellerApproval) {
-    requireSellerApproval_ = _requireSellerApproval;
+  function requireSellerApproval() public view returns (bool _requireSellerApproval) {
+    _requireSellerApproval = requireSellerApproval_;
   }
 
 }
