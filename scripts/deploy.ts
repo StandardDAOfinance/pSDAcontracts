@@ -14,12 +14,17 @@ async function main() {
   // await hre.run('compile');
 
   // We get the contract to deploy
-  const Greeter = await ethers.getContractFactory("Greeter");
-  const greeter = await Greeter.deploy("Hello, Hardhat!");
+  const PSDAToken = await ethers.getContractFactory("PSDAToken");
+  const token = await PSDAToken.deploy("PSDA Token", "PSDA", 4, 60000000, 1000000);
+  await token.deployed();
+  console.log("token deployed to:", token.address);
 
-  await greeter.deployed();
+  const daiAddress = "0x6B175474E89094C44Da98b954EedeAC495271d0F";
 
-  console.log("Greeter deployed to:", greeter.address);
+  const PSDAPresale = await ethers.getContractFactory("PSDAPresale");
+  const tokensale = await PSDAPresale.deploy();
+  await tokensale.deployed();
+  console.log("token deployed to:", token.address);
 }
 
 // We recommend this pattern to be able to use async/await everywhere
