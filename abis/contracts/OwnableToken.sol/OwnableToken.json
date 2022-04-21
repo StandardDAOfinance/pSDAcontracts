@@ -1,0 +1,13 @@
+[
+  "event ApprovedSellerAdded(address indexed)",
+  "event ApprovedSellerRemoved(address indexed)",
+  "event OwnershipTransferred(address indexed,address indexed)",
+  "function addApprovedSeller(address)",
+  "function addApprovedSellers(address[])",
+  "function owner() view returns (address)",
+  "function removeApprovedSeller(address)",
+  "function removeApprovedSellers(address[])",
+  "function renounceOwnership()",
+  "function requireSellerApproval() view returns (bool)",
+  "function transferOwnership(address)"
+]

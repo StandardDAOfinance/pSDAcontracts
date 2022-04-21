@@ -1,0 +1,7 @@
+[
+  "event ControllerAdded(address indexed,address indexed)",
+  "event ControllerRemoved(address indexed,address indexed)",
+  "function addController(address)",
+  "function isController(address) view returns (bool)",
+  "function relinquishControl()"
+]

@@ -1,0 +1,4 @@
+[
+  "function getIncreasedPrice() view returns (uint256)",
+  "function getTokenPrice() view returns (tuple(uint256,uint8,uint256,uint256))"
+]

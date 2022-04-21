@@ -1,0 +1,8 @@
+[
+  "event TokenPurchased(uint256,address indexed,uint256,uint256)",
+  "event TokenSaleClosed(uint256,tuple(address,address,uint256,uint256,address,address,string,string,string,bool,uint256,uint256,uint256,uint256,uint256,uint256,tuple(uint256,uint8,uint256,uint256)))",
+  "event TokenSaleOpen(uint256,tuple(address,address,uint256,uint256,address,address,string,string,string,bool,uint256,uint256,uint256,uint256,uint256,uint256,tuple(uint256,uint8,uint256,uint256)))",
+  "event TokenSaleSettingsUpdated(uint256,tuple(address,address,uint256,uint256,address,address,string,string,string,bool,uint256,uint256,uint256,uint256,uint256,uint256,tuple(uint256,uint8,uint256,uint256)))",
+  "function getTokenSaleSettings(uint256) view returns (tuple(address,address,uint256,uint256,address,address,string,string,string,bool,uint256,uint256,uint256,uint256,uint256,uint256,tuple(uint256,uint8,uint256,uint256)))",
+  "function updateTokenSaleSettings(uint256,tuple(address,address,uint256,uint256,address,address,string,string,string,bool,uint256,uint256,uint256,uint256,uint256,uint256,tuple(uint256,uint8,uint256,uint256)))"
+]

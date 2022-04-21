@@ -1,0 +1,8 @@
+[
+  "event MinterRegistered(address indexed,uint256)",
+  "event MinterReloaded(address indexed,uint256)",
+  "event MinterUnregistered(address indexed,uint256)",
+  "function burn(address,uint256,uint256)",
+  "function mint(address,uint256,uint256,uint256)",
+  "function minter(address) returns (tuple(address,uint256,uint256,uint256))"
+]

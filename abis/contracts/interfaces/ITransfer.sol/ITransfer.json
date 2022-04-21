@@ -1,0 +1,5 @@
+[
+  "event Transfer(address indexed,address indexed,uint256,uint256)",
+  "function transfer(address,uint256,uint256)",
+  "function transferFrom(address,address,uint256,uint256)"
+]

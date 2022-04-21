@@ -1,0 +1,8 @@
+{
+  "Test1": [
+    {"name":"Test1Facet","remove":[]}
+  ],
+  "Test2": [
+    {"name":"Test2Facet","remove":["testNewPayable()"]}
+  ]
+}

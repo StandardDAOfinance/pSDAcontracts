@@ -1,0 +1,6 @@
+[
+  "function computeAddress(bytes32,bytes32) view returns (address)",
+  "function computeDeploymentAddress(bytes32,bytes32,address) pure returns (address)",
+  "function deploy(uint256,uint256)",
+  "function deployment(uint256) view returns (address)"
+]

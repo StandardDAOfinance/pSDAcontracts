@@ -1,0 +1,8 @@
+[
+  "event RoyaltyFeeChanged(address indexed,uint256 indexed,uint256)",
+  "event RoyaltyOwnershipTransferred(uint256 indexed,address indexed,address indexed)",
+  "function getFee(uint256) returns (uint256)",
+  "function royaltyOwner(uint256) returns (address)",
+  "function setFee(uint256,uint256)",
+  "function transferOwnership(uint256,address)"
+]

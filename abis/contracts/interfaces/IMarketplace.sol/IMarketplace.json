@@ -1,0 +1,6 @@
+[
+  "event Bids(uint256 indexed,address,uint256)",
+  "event Closes(uint256 indexed)",
+  "event Listings(uint256 indexed,address indexed,uint256 indexed,address,address,address,uint256,bool)",
+  "event Sales(uint256 indexed,address indexed,uint256,uint256,uint256 indexed)"
+]
