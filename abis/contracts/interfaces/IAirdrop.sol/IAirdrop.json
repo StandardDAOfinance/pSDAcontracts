@@ -1,7 +1,0 @@
-[
-  "event AirdropLaunched(uint256 indexed,tuple(bool,uint256,bytes32,uint256,uint256,uint256,uint256,uint256,uint256,uint256,tuple(uint256,uint8,uint256,uint256),uint256))",
-  "event AirdropRedeemed(uint256 indexed,address indexed,uint256 indexed,bytes32[],uint256)",
-  "function airdrop(uint256) view returns (tuple(bool,uint256,bytes32,uint256,uint256,uint256,uint256,uint256,uint256,uint256,tuple(uint256,uint8,uint256,uint256),uint256))",
-  "function airdropRedeemed(uint256,address) view returns (bool)",
-  "function redeemAirdrop(uint256,uint256,address,uint256,uint256,bytes32[]) payable"
-]

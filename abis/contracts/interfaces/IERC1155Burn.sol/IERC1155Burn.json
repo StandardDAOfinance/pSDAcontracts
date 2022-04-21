@@ -1,4 +1,0 @@
-[
-  "event MinterBurned(address,uint256,uint256)",
-  "function burn(address,uint256,uint256)"
-]

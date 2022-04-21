@@ -1,5 +1,0 @@
-[
-  "event ApprovedSellerAdded(address indexed)",
-  "event ApprovedSellerRemoved(address indexed)",
-  "function requireSellerApproval() view returns (bool)"
-]

@@ -1,4 +1,0 @@
-[
-  "event TokenWithdawn(address,address,uint256,uint256)",
-  "function withdraw(address,address,uint256,uint256)"
-]

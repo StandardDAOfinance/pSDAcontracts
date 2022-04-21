@@ -1,7 +1,0 @@
-[
-  "event AllowBurningStateUpdated(bool)",
-  "event AllowMintingStateUpdated(bool)",
-  "function burn(uint256)",
-  "function burnFrom(address,uint256)",
-  "function mint(address,uint256)"
-]

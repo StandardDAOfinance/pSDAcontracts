@@ -1,4 +1,0 @@
-[
-  "function getHash(address,uint256) pure returns (bytes32)",
-  "function verify(bytes32,bytes32,bytes32[]) pure returns (bool)"
-]

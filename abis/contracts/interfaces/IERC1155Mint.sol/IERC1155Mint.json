@@ -1,4 +1,0 @@
-[
-  "event MinterMinted(address,uint256,uint256)",
-  "function mint(address,uint256,uint256,bytes)"
-]
