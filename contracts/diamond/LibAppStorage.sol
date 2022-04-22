@@ -7,10 +7,54 @@ import "../utils/AddressSet.sol";
 import "../interfaces/IMarketplace.sol";
 import "../interfaces/ITokenMinter.sol";
 import "../interfaces/ITokenSale.sol";
+import "../interfaces/IForge.sol";
+import "../interfaces/IGemPool.sol";
+import "../interfaces/IClaim.sol";
+import "../interfaces/IRequirement.sol";
 import "../interfaces/IAirdropTokenSale.sol";
 import "../interfaces/IERC721A.sol";
 
 import {LibDiamond} from "./LibDiamond.sol";
+
+struct SvgLayer {
+    address svgLayersContract;
+    uint16 offset;
+    uint16 size;
+}
+
+
+struct GemPoolStorage {
+    // gem pools data
+    mapping(uint256 => IGemPool.GemPoolStruct) _gemPools;
+    // record hashes created by the gem pools
+    mapping(uint256 => UInt256Set.Set) _recordHashes;
+    // gem requirements banked within the gem pool
+    mapping(uint256 => IToken.Token[]) _bankedRequirements;
+    // claim data
+    mapping(uint256 => IClaim.Claim) _claims;
+    uint256 _claimIndex;
+    // staked totals
+    mapping(address => uint256) _stakedTotal;
+    //requirement data
+    IRequirement.RequirementData _requirementData;
+    // all symbols listed in the gem pool
+    string[] _symbols;
+}
+
+struct ForgeStorage {
+    // the forge settings by forge id
+    mapping(uint256 => ForgeDefinition) forges;
+    uint256[] forgeIds;
+    // the forge item settings by forge item id
+    mapping(uint256 => mapping(uint256 => ForgeItemDefinition)) forgeItems;
+    uint256[] forgeItemIds;
+    // forged item hashes by forge id
+    mapping(uint256 => UInt256Set.Set) forgedItemHashes;
+    // all forged item hashes
+    UInt256Set.Set allforgedItemHashes;
+    // all forge symbols
+    string[] symbols;
+}
 
 // struct for erc1155 storage
 struct ERC1155Storage {
@@ -118,6 +162,11 @@ struct TokenSaleStorage {
     mapping(address => ITokenSale.TokenSaleEntry) tokenSaleEntries;
 }
 
+// fee manager storage
+struct FeeManagerStorage {
+    mapping(string => uint256) _fees;
+}
+
 struct AirdropTokenSaleStorage {
     uint256 tsnonce;
     mapping(uint256 => uint256) nonces;
@@ -142,6 +191,12 @@ struct MerkleAirdropStorage {
 struct MarketUtilsStorage {
     mapping(uint256 => bool) validTokens;
 }
+
+struct BankStorage {
+    address token;
+    mapping(address => mapping(uint256 => uint256)) balances;
+}
+
 
 struct AppStorage {
     // gem pools data
@@ -168,6 +223,14 @@ struct AppStorage {
     TokenAttributeStorage tokenAttributeStorage;
     // airdrop token sale storage
     AirdropTokenSaleStorage airdropTokenSaleStorage;
+    // fee manager storage
+    FeeManagerStorage feeManagerStorage;
+    // bank storage
+    BankStorage bankStorage;
+    // forge storage
+    ForgeStorage forgeStorage;
+    // gem pool storage
+    GemPoolStorage gemPoolStorage;
 }
 
 library LibAppStorage {

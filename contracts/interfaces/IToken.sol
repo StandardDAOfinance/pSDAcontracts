@@ -5,6 +5,13 @@ pragma solidity >=0.8.0;
 /// @notice common struct definitions for tokens
 interface IToken {
 
+
+    enum TokenType {
+        ERC20,
+        ERC721,
+        ERC1155
+    }
+
     struct Token {
 
         uint256 id;
