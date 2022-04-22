@@ -1,0 +1,24 @@
+{
+    "contractAddress":"0x0000000000000000000000000000000000000000",
+    "token":"0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
+    "tokenHash":0,
+    "collectionHash":"tokenSaleCollectionHash",
+    "owner":"0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+    "payee":"0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+    "symbol":"TOK",
+    "name":"Shell Shakas 3",
+    "description":"This is an awesome token sale",
+    "openState":true,
+    "startTime":"StartTime",
+    "endTime":"EndTime",
+    "maxQuantity":20,
+    "maxQuantityPerSale":5,
+    "minQuantityPerSale":0,
+    "maxQuantityPerAccount":100,
+    "initialPrice":{
+        "price":"1100000000000000",
+        "priceModifier":0,
+        "priceModifierFactor":0,
+        "maxPrice":0
+    }
+}

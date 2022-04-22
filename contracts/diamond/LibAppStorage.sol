@@ -12,6 +12,7 @@ import "../interfaces/IERC721A.sol";
 
 import {LibDiamond} from "./LibDiamond.sol";
 
+// struct for erc1155 storage
 struct ERC1155Storage {
     mapping(uint256 => mapping(address => uint256)) _balances;
     mapping(address => mapping(address => bool)) _operatorApprovals;
@@ -26,6 +27,7 @@ struct ERC1155Storage {
     address _approvalProxy;
 }
 
+// struct for erc721a storage
 struct ERC721AStorage {
     // The tokenId of the next token to be minted.
     uint256 _currentIndex;
@@ -53,6 +55,7 @@ struct ERC721AStorage {
     mapping(address => mapping(address => bool)) _operatorApprovals;
 }
 
+// erc2981 storage struct
 struct ERC2981Storage {
     // royalty receivers by token hash
     mapping(uint256 => address) royaltyReceiversByHash;
@@ -60,6 +63,7 @@ struct ERC2981Storage {
     mapping(uint256 => uint256) royaltyFeesByHash;
 }
 
+// attribute mutatiom pool storage
 struct AttributeMutationPoolStorage {
     string _attributeKey;
     uint256 _attributeValuePerPeriod;
@@ -68,14 +72,17 @@ struct AttributeMutationPoolStorage {
     mapping (address => mapping (uint256 => uint256)) _tokenDepositHeight;
 }
 
+// token attribute storage
 struct TokenAttributeStorage {
     mapping(uint256 => mapping(string => uint256)) attributes;
 }
 
+// merkle utils storage
 struct MerkleUtilsStorage {
     mapping(uint256 => uint256) tokenHashToIds;
 }
 
+// NFT marketplace storage
 struct MarketplaceStorage {
     uint256 itemsSold;
     uint256 itemIds;
@@ -83,12 +90,14 @@ struct MarketplaceStorage {
     mapping(uint256 => bool) idToListed;
 }
 
+// token minter storage
 struct TokenMinterStorage {
     address token;
     mapping(uint256 => uint256) tokenAuditHashes;
     mapping(uint256 => string) tokenGiaNumbers;
 }
 
+// fractionalized token storage
 struct FractionalizedTokenData {
     string symbol;
     string name;
@@ -98,11 +107,13 @@ struct FractionalizedTokenData {
     uint256 totalFractions;
 }
 
+// fractionalizer storage
 struct FractionalizerStorage {
     address fTokenTemplate;
     mapping(address => FractionalizedTokenData) fractionalizedTokens;
 }
 
+// token sale storage
 struct TokenSaleStorage {
     mapping(address => ITokenSale.TokenSaleEntry) tokenSaleEntries;
 }

@@ -1,0 +1,19 @@
+{
+  "whitelistOnly": true,
+  "whitelistId": 0,
+  "whitelistHash": 0,
+  "maxQuantity": 5,
+  "maxQuantityPerSale": 2,
+  "minQuantityPerSale": 1,
+  "maxQuantityPerAccount": 2,
+  "quantitySold": 0,
+  "startTime": "1645260900",
+  "endTime": "1649261500",
+  "initialPrice": {
+      "price": "1000000000000000",
+      "priceModifier": 0,
+      "priceModifierFactor": 0,
+      "maxPrice": 0
+  },
+  "tokenHash": 0
+}

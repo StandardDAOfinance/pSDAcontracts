@@ -4,7 +4,6 @@ pragma solidity ^0.8.0;
 import "./ITokenPrice.sol";
 import "./IAirdrop.sol";
 
-///
 /// @notice A token seller is a contract that can sell tokens to a token buyer.
 /// The token buyer can buy tokens from the seller by paying a certain amount
 /// of base currency to receive a certain amount of erc1155 tokens. the number
@@ -45,6 +44,7 @@ interface IAirdropTokenSale {
 
         // inital price of the token sale
         ITokenPrice.TokenPriceData initialPrice;
+
     }
 
     /// @notice emitted when a token is opened
