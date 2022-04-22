@@ -10,7 +10,7 @@ abstract contract Controllable is IControllable {
     /**
      * @dev Throws if called by any account not in authorized list
      */
-    modifier onlyController() {
+    modifier onlyController() virtual {
         require(
             _controllers[msg.sender] == true || address(this) == msg.sender,
             "Controllable: caller is not a controller"

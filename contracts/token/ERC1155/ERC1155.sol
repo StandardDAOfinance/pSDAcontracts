@@ -82,6 +82,13 @@ contract ERC1155 is Context, ERC165, IERC1155, IERC1155MetadataURI, Initializabl
         _setURI(uri_);
     }
 
+    function _initializeToken(string memory name_, string memory symbol_, string memory baseUri_) internal {
+        require(bytes(_name).length == 0, "ERC721 token name already set");
+        _name = name_;
+        _symbol = symbol_;
+       _setURI(baseUri_);
+    }
+
     /**
      * @dev See {IERC165-supportsInterface}.
      */

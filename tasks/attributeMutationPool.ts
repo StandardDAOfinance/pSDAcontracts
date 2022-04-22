@@ -22,7 +22,6 @@ task("stake-token", "stake a token")
       "AttributeMutationPoolFacet"
     );
 
-    //event GemTokenMinted(address indexed receiver, uint256 indexed tokenId, uint256 indexed auditHash, uint256 amount);
     tokenMinterContract.on(
       "TokenDeposited",
       (staker: string, tokenId: BigNumber) => {
@@ -39,15 +38,12 @@ task("stake-token", "stake a token")
       }
     );
 
-    let tx = await tokenContract.setApprovalForAll(
+    const tx = await tokenContract.setApprovalForAll(
       tokenMinterContract.address,
       true,
       { gasLimit: 400000 }
     );
     await tx.wait();
-
-    console.log("pausing...");
-    await pause(30000);
   });
 
 /**
@@ -62,7 +58,6 @@ task("unstake-token", "stake a token")
       "AttributeMutationPoolFacet"
     );
 
-    //event GemTokenMinted(address indexed receiver, uint256 indexed tokenId, uint256 indexed auditHash, uint256 amount);
     tokenMinterContract.on(
       "TokenWithdrawn",
       (staker: string, tokenId: BigNumber, totalAccrued: BigNumber) => {
@@ -72,6 +67,6 @@ task("unstake-token", "stake a token")
 
     const tx = await tokenMinterContract.unstake(token, { gasLimit: 400000 });
     await tx.wait();
-
+    console.log("token unstaked");
     await pause(30000);
   });

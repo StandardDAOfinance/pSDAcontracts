@@ -89,11 +89,10 @@ async function publishWhitelist(
   const airdropId = (airdropValues[1] = airdropValues[2] = airdropObj.rootHash);
 
   // save the whitelist - destroy any existing data
-  const MerkleProof = Moralis.Object.extend(
-    dataModel["MerkleProofs"].collection
-  );
-  var deleteQuery = new Moralis.Query(MerkleProof);
+  const MerkleProof = Moralis.Object.extend(dataModel.MerkleProofs.collection);
+  const deleteQuery = new Moralis.Query(MerkleProof);
   deleteQuery.equalTo("airdropId", airdropId);
+  // delete the existing whitelist
   const results = await deleteQuery.find();
   if (results && results.length > 0) {
     await Promise.all(results.map(async (r) => r.destroy()));
@@ -114,10 +113,10 @@ async function publishWhitelist(
   }
 
   // get the merkle proof for the whitelist
-  const Whitelists = Moralis.Object.extend(dataModel["Whitelists"].collection);
+  const Whitelists = Moralis.Object.extend(dataModel.Whitelists.collection);
 
   // get a count of existing whitelists
-  var countQuery = new Moralis.Query(Whitelists);
+  const countQuery = new Moralis.Query(Whitelists);
   countQuery.limit(1000);
   const countResults = (await countQuery.find()).length + 1;
 
@@ -199,20 +198,20 @@ task(
       console.log(`publish tokensale ${tokensaleData.name}`);
 
       async function createTokenSaleAndWait(): Promise<void> {
-        return new Promise(async (resolve: any, reject): Promise<void> => {
+        return new Promise((resolve: any, reject): any => {
           airdropTokenSale.on(
             "TokensaleCreated",
             async (tokensaleId: any, tokensaleData: any) => {
-              console.log(`TokensaleCreated ${tokensaleId}`);
-              return resolve();
+              console.log(`Tokensale Created ${tokensaleId}`);
+              return resolve(null);
             }
           );
           // create the token sale contract, passing in token sale settings and airdrop setting
-          let tx = await airdropTokenSale.createTokenSale(
-            tokenSaleSettingsArray,
-            []
-          );
-          await tx.wait();
+          airdropTokenSale
+            .createTokenSale(tokenSaleSettingsArray, [])
+            .then((tx: any) => tx.wait())
+            .then(() => resolve())
+            .catch(reject);
         });
       }
 
@@ -246,7 +245,6 @@ task(
       // // connect to the moralis server
       await connectToMoralis();
 
-      const multiTokenContract = await getContractDeployment(hre, "ERC1155");
       const tokenSaleContract = await getDiamondFacet(
         hre,
         "MerkleAirdropFacet"
@@ -255,11 +253,12 @@ task(
       // publishj whitelist to the moralis server
       const wlData = await publishWhitelist(
         hre,
-        name,
+        id,
         airdropData,
         whitelistData
       );
       console.log(`publish airdrop ${wlData}`);
+
       // add the airdrop to the contract
       const tx = await tokenSaleContract.contract.addAirdrop(wlData);
       await tx.wait();
@@ -276,12 +275,10 @@ task("get-airdrop-redeemers", "Get a list of airdrop redeemers")
     await connectToMoralis();
 
     // get the merkle proof for the whitelist
-    const Redemptions = Moralis.Object.extend(
-      dataModel["Redemptions"].collection
-    );
+    const Redemptions = Moralis.Object.extend(dataModel.Redemptions.collection);
     const query = new Moralis.Query(Redemptions);
     query.equalTo("address", airdrop);
-    let data: any = await query.find();
+    const data: any = await query.find();
 
     if (data && data.length > 0) {
       const out = [];
@@ -297,111 +294,101 @@ task("get-airdrop-redeemers", "Get a list of airdrop redeemers")
 /**
  * publish the airdrop using the airdrop json file and the whitelist json file
  */
-// task('redeem-airdrop', 'Redeem airdrop')
-//   .addParam('airdrop', 'The airdrop id')
-//   .addParam('address', 'The redeem address')
-//   .addParam('txval', 'The value to attach')
-//   .addParam('quantity', 'The quantity to purchase')
-//   .setAction(
-//     async (
-//       { airdrop, address, txval, quantity },
-//       hre: HardhatRuntimeEnvironment
-//     ) => {
+task("redeem-airdrop", "Redeem airdrop")
+  .addParam("airdrop", "The airdrop id")
+  .addParam("address", "The redeem address")
+  .addParam("txval", "The value to attach")
+  .addParam("quantity", "The quantity to purchase")
+  .setAction(
+    async (
+      { airdrop, address, txval, quantity },
+      hre: HardhatRuntimeEnvironment
+    ) => {
+      // connect to the moralis server
+      await connectToMoralis();
 
-//       // connect to the moralis server
-//       await connectToMoralis();
+      // get the merkle proof for the whitelist
+      const MerkleProof = Moralis.Object.extend(
+        dataModel.MerkleProofs.collection
+      );
+      const query = new Moralis.Query(MerkleProof);
+      query.equalTo("airdropId", airdrop);
+      const data: any = (await query.find()).map((e) => e.attributes).reverse();
 
-//       // get the merkle proof for the whitelist
-//       const MerkleProof = Moralis.Object.extend(dataModel['MerkleProofs'].collection);
-//       const query = new Moralis.Query(MerkleProof);
-//       query.equalTo('airdropId', airdrop);
-//       const data: any = (await query.find()).map(e => e.attributes).reverse();
+      if (data) {
+        console.log(`retrieved merkle proof for airdrop ${airdrop}`);
+        const tokenSaleName = data[0].tokenSaleName;
+        const airdropO = new AirDrop(data);
+        const index = airdropO.getIndex(address);
+        const value = airdropO.getAmount(index);
+        const proof = airdropO.getMerkleProof(index);
+        const root = airdropO.rootHash;
+        const leafHash = airdropO.leaves[index];
+        const airdropId = airdrop;
+        const key = address;
+        const airdropData = {
+          tokenSaleName,
+          airdropId,
+          key,
+          quantity,
+          value,
+          leafHash,
+          proof,
+          root,
+        };
+        // get the airdrop data
+        console.log("airdrop data", airdropData);
 
-//       if (data) {
-//         console.log(`retrieved merkle proof for airdrop ${airdrop}`);
-//         const tokenSaleName = data[0].tokenSaleName;
-//         const airdropO = new AirDrop(data);
-//         const index = airdropO.getIndex(address);
-//         const value = airdropO.getAmount(index);
-//         const proof = airdropO.getMerkleProof(index);
-//         const root = airdropO.rootHash;
-//         const leafHash = airdropO.leaves[index];
-//         const airdropId = airdrop;
-//         const key = address;
-//         const airdropData = {
-//           tokenSaleName,
-//           airdropId,
-//           key,
-//           quantity,
-//           value,
-//           leafHash,
-//           proof,
-//           root
-//         };
-//         // get the airdrop data
-//         console.log('airdrop data', airdropData);
+        const tokenSaleContract = await getDiamondFacet(
+          hre,
+          "MerkleAirdropFacet"
+        );
 
-//         const tokenSaleContract = await getTokenSaleContract(
-//           hre,
-//           tokenSaleName
-//         );
+        const redeemAndWait = async (
+          tokenSaleContract: any,
+          airdropData: any
+        ) => {
+          return new Promise(async (resolve: any, reject): Promise<void> => {
+            const { airdropId, key, quantity, value, leafHash, proof } =
+              airdropData;
 
-//         const redeemAndWait = async (
-//           tokenSaleContract: any,
-//           airdropData: any
-//         ) => {
-//           return new Promise(
-//             async (resolve: any, reject): Promise<void> => {
-//               const {
-//                 airdropId,
-//                 key,
-//                 quantity,
-//                 value,
-//                 leafHash,
-//                 proof
-//               } = airdropData;
-
-//               tokenSaleContract.on(
-//                 'AirdropRedeemed',
-//                 async (
-//                   airdropId: any,
-//                   beneficiary: any,
-//                   tokenHash: any,
-//                   proof: any,
-//                   amount: any
-//                 ) => {
-//                   console.log(
-//                     `AirdropRedeemed: ${airdropId} ${beneficiary} ${tokenHash} ${proof} ${amount} ${value}`
-//                   );
-//                   resolve();
-//                 }
-//               );
-//               console.log(tokenSaleContract.address);
-//               //  call redeem to redeem the airdrop
-//               const valid = await tokenSaleContract.verify(
-//                 root,
-//                 leafHash,
-//                 proof
-//               );
-//               const tx = await tokenSaleContract.redeem(
-//                 airdropId,
-//                 leafHash,
-//                 key,
-//                 quantity,
-//                 value,
-//                 proof,
-//                 {
-//                   value: BigNumber.from(
-//                     (hre as any).ethers.utils.parseEther(txval + '')
-//                   )
-//                 }
-//               );
-//               await tx.wait();
-//               console.log('redeemed');
-//             }
-//           );
-//         };
-//         await redeemAndWait(tokenSaleContract.contract, airdropData);
-//       }
-//     }
-//   );
+            tokenSaleContract.on(
+              "AirdropRedeemed",
+              async (
+                airdropId: any,
+                beneficiary: any,
+                tokenHash: any,
+                proof: any,
+                amount: any
+              ) => {
+                console.log(
+                  `AirdropRedeemed: ${airdropId} ${beneficiary} ${tokenHash} ${proof} ${amount} ${value}`
+                );
+                resolve();
+              }
+            );
+            console.log(tokenSaleContract.address);
+            //  call redeem to redeem the airdrop
+            const valid = await tokenSaleContract.verify(root, leafHash, proof);
+            console.log(`valid: ${valid}`);
+            const tx = await tokenSaleContract.redeem(
+              airdropId,
+              leafHash,
+              key,
+              quantity,
+              value,
+              proof,
+              {
+                value: BigNumber.from(
+                  (hre as any).ethers.utils.parseEther(txval + "")
+                ),
+              }
+            );
+            await tx.wait();
+            console.log("redeemed");
+          });
+        };
+        await redeemAndWait(tokenSaleContract.contract, airdropData);
+      }
+    }
+  );

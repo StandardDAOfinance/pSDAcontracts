@@ -2,7 +2,7 @@
 pragma solidity >=0.8.0;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
-import "./ApprovedSellers.sol";
+import "./utils/ApprovedSellers.sol";
 
 contract OwnableToken is ApprovedSellers, Ownable {
 
