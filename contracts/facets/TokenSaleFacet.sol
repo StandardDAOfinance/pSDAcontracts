@@ -2,9 +2,10 @@
 // OpenZeppelin Contracts v4.4.1 (token/ERC1155/utils/ERC1155Receiver.sol)
 pragma solidity ^0.8.0;
 
+import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
+
 import "../diamond/LibAppStorage.sol";
 import "../interfaces/ITokenSale.sol";
-import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 
 /**
  * @dev Implements a token sale. Contains a number of tokens for sale. Sets of tokens are minted into the contract (or transferred into it) and then sold at a set price.

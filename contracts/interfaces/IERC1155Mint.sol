@@ -5,7 +5,7 @@ pragma solidity >=0.8.0;
 interface IERC1155Mint {
 
     /// @notice event emitted when tokens are minted
-    event MinterMinted(
+    event Minted(
         address target,
         uint256 tokenHash,
         uint256 amount
@@ -21,5 +21,7 @@ interface IERC1155Mint {
         uint256 amount,
         bytes memory data
     ) external;
+
+    function setMintAllowance(address receiver, uint256 tokenId, uint256 amount) external;
 
 }

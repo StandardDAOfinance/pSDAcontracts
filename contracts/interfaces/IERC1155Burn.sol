@@ -5,7 +5,7 @@ pragma solidity >=0.8.0;
 interface IERC1155Burn {
 
     /// @notice event emitted when tokens are burned
-    event MinterBurned(
+    event Burned(
         address target,
         uint256 tokenHash,
         uint256 amount
