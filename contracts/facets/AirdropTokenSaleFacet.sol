@@ -13,8 +13,6 @@ import "../interfaces/IERC1155Mint.sol";
 
 import "../interfaces/IAirdropTokenSale.sol";
 
-import "../utils/Withdrawable.sol";
-
 import "../interfaces/IPower.sol";
 
 import {IMerkleAirdropRedeemer} from "./MerkleAirdropFacet.sol";
@@ -35,7 +33,6 @@ interface IMerkleAirdropAdder {
 
 contract AirdropTokenSaleFacet is
     ITokenSale,
-    Withdrawable,
     Modifiers,
     IPower // returns the chain id
 {
@@ -458,24 +455,6 @@ contract AirdropTokenSaleFacet is
                 .maxQuantityPerAccount,
             s.airdropTokenSaleStorage._tokenSales[tokenSaleId].initialPrice
         );
-    }
-
-    function withdraw(
-        address recipient,
-        address token,
-        uint256 id,
-        uint256 amount
-    ) external virtual override onlyOwner {
-        // require the contract balance be greater than the amount to withdraw
-        require(address(this).balance >= amount, "Insufficient funds");
-
-        // perform the withdrawal
-        if (token == address(0)) {
-            payable(recipient).transfer(amount);
-        }
-
-        // emit the event
-        emit TokenWithdrawn(recipient, token, id, amount);
     }
 
     /// @notice Updates the token sale settings
