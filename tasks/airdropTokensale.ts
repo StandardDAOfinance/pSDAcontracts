@@ -7,9 +7,15 @@ import { keccak256, sha256, solidityPack } from "ethers/lib/utils";
 import fs from "fs";
 import { connectToMoralis } from "../src/lib/moralis";
 import { getDiamondFacet, getContractDeployment } from "../src/lib/deploy";
-
+import { utils } from 'ethers';
 import AirDrop from "../src/lib/airdrop";
 import Moralis from "moralis/node";
+
+// pause for the specified ms
+function sleep(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+const sortAlphaNum = (a: any, b: any) => a.hash.localeCompare(b.hash, 'en', { numeric: true })
 
 export const dataModel = {
   Airdrops: {
@@ -173,7 +179,7 @@ task(
       // create the token sale data to pass into the contract
       const tokenSaleSettingsArray = [
         tokensaleData.contractAddress,
-        multiToken, // updated --Kartik
+        multiToken.address, // updated --Kartik
         0,
         tokenSaleCollectionHash,
         ownerAddress,
@@ -216,6 +222,7 @@ task(
       }
 
       await createTokenSaleAndWait();
+      await sleep(5000);
 
       // report on it
       console.log(
@@ -260,7 +267,7 @@ task(
       console.log(`publish airdrop ${wlData}`);
 
       // add the airdrop to the contract
-      const tx = await tokenSaleContract.contract.addAirdrop(wlData);
+      const tx = await tokenSaleContract.addAirdrop(wlData);
       await tx.wait();
     }
   );
@@ -294,30 +301,29 @@ task("get-airdrop-redeemers", "Get a list of airdrop redeemers")
 /**
  * publish the airdrop using the airdrop json file and the whitelist json file
  */
-task("redeem-airdrop", "Redeem airdrop")
-  .addParam("airdrop", "The airdrop id")
-  .addParam("address", "The redeem address")
-  .addParam("txval", "The value to attach")
-  .addParam("quantity", "The quantity to purchase")
+task('redeem-airdrop', 'Redeem airdrop')
+  .addParam('tokensale', 'The tokensale id')
+  .addParam('airdrop', 'The airdrop id')
+  .addParam('address', 'The redeem address')
+  .addParam('txval', 'The value to attach')
+  .addParam('quantity', 'The quantity to purchase')
   .setAction(
     async (
-      { airdrop, address, txval, quantity },
+      { tokensale, airdrop, address, txval, quantity },
       hre: HardhatRuntimeEnvironment
     ) => {
+
       // connect to the moralis server
       await connectToMoralis();
 
       // get the merkle proof for the whitelist
-      const MerkleProof = Moralis.Object.extend(
-        dataModel.MerkleProofs.collection
-      );
+      const MerkleProof = Moralis.Object.extend(dataModel['MerkleProofs'].collection);
       const query = new Moralis.Query(MerkleProof);
-      query.equalTo("airdropId", airdrop);
-      const data: any = (await query.find()).map((e) => e.attributes).reverse();
+      query.equalTo('airdropId', airdrop);
+      const data: any = (await query.find()).map(e => e.attributes).reverse();
 
       if (data) {
         console.log(`retrieved merkle proof for airdrop ${airdrop}`);
-        const tokenSaleName = data[0].tokenSaleName;
         const airdropO = new AirDrop(data);
         const index = airdropO.getIndex(address);
         const value = airdropO.getAmount(index);
@@ -327,19 +333,22 @@ task("redeem-airdrop", "Redeem airdrop")
         const airdropId = airdrop;
         const key = address;
         const airdropData = {
-          tokenSaleName,
           airdropId,
           key,
           quantity,
           value,
           leafHash,
           proof,
-          root,
+          root
         };
         // get the airdrop data
-        console.log("airdrop data", airdropData);
+        console.log('airdrop data', airdropData);
 
         const tokenSaleContract = await getDiamondFacet(
+          hre,
+          "AirdropTokenSaleFacet"
+        );
+        const merkleAirdropFacet = await getDiamondFacet(
           hre,
           "MerkleAirdropFacet"
         );
@@ -348,47 +357,236 @@ task("redeem-airdrop", "Redeem airdrop")
           tokenSaleContract: any,
           airdropData: any
         ) => {
-          return new Promise(async (resolve: any, reject): Promise<void> => {
-            const { airdropId, key, quantity, value, leafHash, proof } =
-              airdropData;
+          return new Promise(
+            async (resolve: any, reject): Promise<void> => {
+              const {
+                airdropId,
+                key,
+                quantity,
+                value,
+                leafHash,
+                proof
+              } = airdropData;
 
-            tokenSaleContract.on(
-              "AirdropRedeemed",
-              async (
-                airdropId: any,
-                beneficiary: any,
-                tokenHash: any,
-                proof: any,
-                amount: any
-              ) => {
-                console.log(
-                  `AirdropRedeemed: ${airdropId} ${beneficiary} ${tokenHash} ${proof} ${amount} ${value}`
-                );
-                resolve();
-              }
-            );
-            console.log(tokenSaleContract.address);
-            //  call redeem to redeem the airdrop
-            const valid = await tokenSaleContract.verify(root, leafHash, proof);
-            console.log(`valid: ${valid}`);
-            const tx = await tokenSaleContract.redeem(
-              airdropId,
-              leafHash,
-              key,
-              quantity,
-              value,
-              proof,
-              {
-                value: BigNumber.from(
-                  (hre as any).ethers.utils.parseEther(txval + "")
-                ),
-              }
-            );
-            await tx.wait();
-            console.log("redeemed");
-          });
+              merkleAirdropFacet.on(
+                'AirdropRedeemed',
+                async (
+                  airdropId: any,
+                  beneficiary: any,
+                  tokenHash: any,
+                  proof: any,
+                  amount: any
+                ) => {
+                  console.log(
+                    `AirdropRedeemed: ${airdropId} ${beneficiary} ${tokenHash} ${proof} ${amount} ${value}`
+                  );
+                  resolve();
+                }
+              );
+              console.log(tokenSaleContract.address);
+              // //  call redeem to redeem the airdrop
+              // const valid = await merkleproof.verify(
+              //   root,
+              //   leafHash,
+              //   proof
+              // );
+              const txValue = BigNumber.from(
+                (hre as any).ethers.utils.parseEther(txval + '')
+              ).toHexString()
+              console.log(`redeeming ${quantity} of ${txValue}`);
+              console.log(hre.ethers.utils.parseEther('1'));
+
+              const tx = await tokenSaleContract.redeemToken(
+                tokensale,
+                airdropId,
+                leafHash,
+                key,
+                quantity,
+                txValue,
+                proof,
+                {
+                  gasLimit: 1800000,
+                  value: txValue
+                }
+              );
+              await tx.wait();
+              console.log('redeemed');
+            }
+          );
         };
-        await redeemAndWait(tokenSaleContract.contract, airdropData);
+        await redeemAndWait(tokenSaleContract, airdropData);
       }
     }
   );
+
+
+task(
+  'reveal-tokensale',
+  'Reveal the airdrop, hashsorting the assignable with a given salt to randomize the order or assignments.'
+)
+  .addParam('name', 'The tokensale name')
+  .addParam('random', 'A random hex value for the hashsort')
+  .setAction(async ({ name, random }, hre: HardhatRuntimeEnvironment) => {
+
+    // get the token sale contract using tokensale name
+    const tokenSaleContract = await getDiamondFacet(
+      hre,
+      "AirdropTokenSaleFacet"
+    );
+    console.log(`\n\nContract address using tokensale name : ${tokenSaleContract.address} \n`)
+
+    // connect to the moralis server
+    await connectToMoralis();
+    console.log('Connected to moralis \n');
+
+    // get the Purcahses records with no assigned metadata
+    const Reveals = Moralis.Object.extend(dataModel['Reveals'].collection);
+    let reveal = new Reveals();
+    reveal.set('salt', random);
+    reveal = await reveal.save();
+
+    // get the Purcahses records with no assigned metadata
+    const Purchases = Moralis.Object.extend(dataModel['Purchases'].collection);
+    const query = new Moralis.Query(Purchases);
+    query.limit(100000);
+    query.equalTo('confirmed', true);
+    query.equalTo('metadata', null);
+    query.equalTo('address', tokenSaleContract.address.toLowerCase());
+
+    let data: any = (await query.find());
+    data = data.map((e: any) => { return { "id": e.id, "attributes": e.attributes }; })
+    console.log(`Purchased/Minted records -  ${data.length}`);
+
+    // get the Metadata records with a limit of purchases with no assigned tokenId
+    const Metadata = Moralis.Object.extend(dataModel['Metadata'].collection);
+    const queryMetadata = new Moralis.Query(Metadata);
+    queryMetadata.equalTo('tokenId', null);
+    queryMetadata.equalTo('system', false);
+    queryMetadata.limit(100000);
+
+    const dataMetadata: any = (await queryMetadata.find()).map(e => {
+      return {
+        "id": e.id, "hash": sha256(utils.id(
+          JSON.stringify(e.attributes.metadata) + BigNumber.from(random).toString()
+        ))
+      };
+    });
+    console.log(`Metadata records -  ${dataMetadata.length} \n`);
+
+    if (dataMetadata.length) {
+
+      const sortedData = dataMetadata.sort(sortAlphaNum);
+      // console.log(sortedData);
+
+      for (let i = 0; i < sortedData.length; i++) {
+
+        if (!data[i] || !data[i].id) continue;
+
+        console.log(`\nMapped one to another ( Purchases - ${data[i]} / Metadata - ${sortedData[i]} )`);
+
+        // fetch Purchase data using object id so we can update it
+        const queryPurchasesUpdate = new Moralis.Query(Purchases);
+        queryPurchasesUpdate.equalTo('objectId', data[i].id);
+
+        // fetch Metdata data using object id after sorting the hash(Metadata attributes value) so we can update it
+        const queryMetadataUpdate = new Moralis.Query(Metadata);
+        queryMetadataUpdate.equalTo('objectId', sortedData[i].id);
+
+        const purchaseToBeUpdated: any = (await queryPurchasesUpdate.first());
+        const metadataToBeUpdated: any = (await queryMetadataUpdate.first());
+
+        // update the Purchase record with metadata pointer
+        metadataToBeUpdated && purchaseToBeUpdated.set("metadata", metadataToBeUpdated);
+        const resPurchases = await purchaseToBeUpdated.save();
+        // console.log(resPurchases);
+
+        // update the Metadata record with token(Purchase) pointer
+        purchaseToBeUpdated && metadataToBeUpdated.set("token", purchaseToBeUpdated);
+        purchaseToBeUpdated && metadataToBeUpdated.set("reveal", reveal);
+        purchaseToBeUpdated && metadataToBeUpdated.set("tokenId", purchaseToBeUpdated.attributes.tokenIndex + '');
+        purchaseToBeUpdated && metadataToBeUpdated.set("sortedIndex", i);
+        const resMetadata = await metadataToBeUpdated.save();
+        // console.log(resMetadata);
+      }
+
+    } else {
+      console.log(`No Metadata found to be mapped`);
+    }
+
+  });
+
+
+task(
+  'reveal-tokens-all',
+  'Assign metadata to all tokens, hashsorting the assignable with a given salt to randomize the order or assignments.'
+)
+  .addParam('name', 'The tokensale name')
+  .addParam('random', 'A random hex value for the hashsort')
+  .setAction(async ({ name, random }, hre: HardhatRuntimeEnvironment) => {
+
+    // get the token sale contract using tokensale name
+    const tokenSaleContract = await getDiamondFacet(
+      hre,
+      "AirdropTokenSaleFacet"
+    );
+    console.log(`\n\nContract address using tokensale name : ${tokenSaleContract.address} \n`)
+
+    // connect to the moralis server
+    await connectToMoralis();
+    console.log('Connected to moralis \n');
+
+    // get the Purcahses records with no assigned metadata
+    const Reveals = Moralis.Object.extend(dataModel['Reveals'].collection);
+    let reveal = new Reveals();
+    reveal.set('salt', random);
+    reveal = await reveal.save({}, { useMasterKey: true });
+
+    // get the Metadata records with a limit of purchases with no assigned tokenId
+    const Metadata = Moralis.Object.extend(dataModel['Metadata'].collection);
+    const queryMetadata1 = new Moralis.Query(Metadata);
+    queryMetadata1.equalTo('tokenId', null);
+    queryMetadata1.notEqualTo('system', true);
+    queryMetadata1.limit(100000);
+
+    const queryMetadata2 = new Moralis.Query(Metadata);
+    queryMetadata2.equalTo('tokenId', undefined);
+    queryMetadata1.notEqualTo('system', true);
+    queryMetadata2.limit(100000);
+
+    var queryMetadata = Moralis.Query.or(queryMetadata1, queryMetadata2);
+    queryMetadata.limit(100000);
+
+    const dataMetadata: any = (await queryMetadata.find({ useMasterKey: true })).map(e => {
+      return {
+        "id": e.id, "hash": sha256(utils.id(
+          JSON.stringify(e.attributes.metadata) + BigNumber.from(random).toString()
+        ))
+      };
+    });
+    console.log(`Metadata records -  ${dataMetadata.length} \n`);
+
+    if (dataMetadata.length) {
+
+      const sortedData = dataMetadata.sort(sortAlphaNum);
+      // console.log(sortedData);
+
+      for (let i = 0; i < dataMetadata.length; i++) {
+
+        // fetch Metdata data using object id after sorting the hash(Metadata attributes value) so we can update it
+        const queryMetadataUpdate = new Moralis.Query(Metadata);
+        queryMetadataUpdate.equalTo('objectId', sortedData[i].id);
+
+        const metadataToBeUpdated: any = (await queryMetadataUpdate.first({ useMasterKey: true }));
+
+        // update the Metadata record with tokenId
+        metadataToBeUpdated.set("reveal", reveal);
+        metadataToBeUpdated.set("tokenId", i + 1 + '');
+        metadataToBeUpdated.set("sortedIndex", i);
+        const resMetadata = await metadataToBeUpdated.save({}, { useMasterKey: true });
+      }
+    } else {
+      console.log(`No Metadata found to be mapped`);
+    }
+
+  });
+

@@ -137,8 +137,8 @@ struct MarketplaceStorage {
 // token minter storage
 struct TokenMinterStorage {
     address token;
-    mapping(uint256 => uint256) tokenAuditHashes;
-    mapping(uint256 => string) tokenGiaNumbers;
+    uint256 _tokenCounter;
+    mapping(uint256 => address) _tokenMinters;
 }
 
 // fractionalized token storage

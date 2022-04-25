@@ -10,13 +10,21 @@ import "../interfaces/IERC1155Burn.sol";
 import "../diamond/LibAppStorage.sol";
 import { LibDiamond } from "../diamond/LibDiamond.sol";
 
+interface ITokenAttributeSetter {
+    function setAttribute(
+        uint256 _tokenId,
+        string memory key,
+        uint256 value
+    ) external;
+}
+
 contract TokenMinterFacet {
 
     // application storage
     AppStorage internal s;
 
-    event GemToken(address indexed receiver, uint256 indexed tokenId, uint256 indexed auditHash, string giaNumber, uint256 amount);
-    event GemTokenBurn(address indexed target, uint256 indexed tokenId, uint256 indexed amount);
+    event Token(address indexed receiver, uint256 indexed tokenId);
+    event TokenBurn(address indexed target, uint256 indexed tokenId);
 
     modifier onlyController {
         require(msg.sender == LibDiamond.contractOwner()  || msg.sender == address(this), "only the contract owner can mint");
@@ -30,36 +38,18 @@ contract TokenMinterFacet {
     /// @notice mint a token associated with a collection with an amount
     /// @param target the mint receiver
     /// @param id the collection id
-    /// @param amount the amount to mint
-    function burn(string memory secret, address target, uint256 id, uint256 amount) external onlyController {
+    function burn(address target, uint256 id) external onlyController {
 
-        // rebuild the audit hash
-        bytes32 auditHash =  keccak256(abi.encodePacked(
-            secret,
-            id
-        ));
-        // make sure it matches the stored hash
-        require(s.tokenMinterStorage.tokenAuditHashes[id] == uint256(auditHash), "token not valid");
-
-        // delete the stored hash
-        delete s.tokenMinterStorage.tokenAuditHashes[id];
-        delete s.tokenMinterStorage.tokenGiaNumbers[id];
+        delete s.tokenMinterStorage._tokenMinters[id];
 
         // burn the token
-        IERC1155Burn(s.tokenMinterStorage.token).burn(target, id, amount);
+        IERC1155Burn(s.tokenMinterStorage.token).burn(target, id, 1);
 
         // emit the event
-        emit GemTokenBurn(target, id, amount);
+        emit TokenBurn(target, id);
     }
 
-    function mint(string memory secret, address receiver, string memory giaNumber, uint256 amount) external onlyController returns(bytes32 publicHash)  {
-
-        // require all string inputs to have a value
-        require(bytes(secret).length != 0, "secret cannot be empty");
-        require(bytes(giaNumber).length != 0, "giaNumber cannot be empty");
-
-        // require amount be nonzero
-        require(amount != 0, "amount cannot be zero");
+    function mint(address receiver) external onlyController returns(bytes32 publicHash)  {
 
         // require receiver not be the zero address
         require(receiver != address(0x0), "receiver cannot be the zero address");
@@ -67,40 +57,39 @@ contract TokenMinterFacet {
         // create a keccak256 hash using the contract address, the collection, and the gia number
         publicHash =  keccak256(abi.encodePacked(
             address(this),
-            giaNumber
+            s.tokenMinterStorage._tokenCounter
         ));
+        s.tokenMinterStorage._tokenCounter++;
 
-        // create an audit hash using the secret, contract address, the collection, and the gia number
-        bytes32 auditHash =  keccak256(abi.encodePacked(
-            secret,
-            publicHash
-        ));
+        // store the audit hash
+        s.tokenMinterStorage._tokenMinters[uint256(publicHash)] = msg.sender;
 
-        // require that this token is not already minted
-        require(s.tokenMinterStorage.tokenAuditHashes[uint256(publicHash)] == 0, "token already minted");
+        ITokenAttributeSetter(address(this)).setAttribute(
+            uint256(publicHash),
+            "Rarity",
+            0
+        );
+        ITokenAttributeSetter(address(this)).setAttribute(
+            uint256(publicHash),
+            "Type",
+            0
+        );
+        ITokenAttributeSetter(address(this)).setAttribute(
+            uint256(publicHash),
+            "Power",
+            1
+        );
 
         // mint the token to the receiver using the public hash
         IERC1155Mint(s.tokenMinterStorage.token).mint(
-            address(this),
+            receiver,
             uint256(publicHash),
-            amount,
+            1,
             ""
         );
 
-        // store the audit hash
-        s.tokenMinterStorage.tokenAuditHashes[uint256(publicHash)] = uint256(auditHash);
-        s.tokenMinterStorage.tokenGiaNumbers[uint256(publicHash)] = giaNumber;
-
         // emit the event
-        emit GemToken(receiver, uint256(publicHash), uint256(auditHash), giaNumber, amount);
-    }
-
-    function getAuditHash(uint256 id) external view returns (uint256) {
-        return s.tokenMinterStorage.tokenAuditHashes[id];
-    }
-
-    function getGiaNumber(uint256 id) external view returns (string memory) {
-        return s.tokenMinterStorage.tokenGiaNumbers[id];
+        emit Token(receiver, uint256(publicHash));
     }
 
 }

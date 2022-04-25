@@ -22,28 +22,40 @@ task("stake-token", "stake a token")
       "AttributeMutationPoolFacet"
     );
 
-    tokenMinterContract.on(
-      "TokenDeposited",
-      (staker: string, tokenId: BigNumber) => {
-        console.log(`TokenDeposited: ${staker} ${tokenId}`);
-      }
-    );
 
-    tokenContract.on(
-      "ApprovalForAll",
-      async (account: string, operator: string, approved: boolean) => {
-        console.log(`TokenDeposited: ${account} ${operator} ${approved}`);
-        const tx = await tokenMinterContract.stake(token, { gasLimit: 800000 });
+    async function stakeAndWait(tokenId: BigNumber):Promise<void> {
+      return new Promise(async (resolve, reject) => { 
+        tokenMinterContract.on(
+          "TokenDeposited",
+          (staker: string, tokenId: BigNumber) => {
+            console.log(`TokenDeposited: ${staker} ${tokenId}`); 
+            resolve();
+          }
+        );
+    
+        tokenContract.on(
+          "ApprovalForAll",
+          async (account: string, operator: string, approved: boolean) => {
+            console.log(`ApprovalForAll: ${account} ${operator} ${approved}`);
+            const tx = await tokenMinterContract.stake(token, { gasLimit: 800000 });
+            await tx.wait();
+          }
+        );
+    
+        const tx = await tokenContract.setApprovalForAll(
+          tokenMinterContract.address,
+          true,
+          { gasLimit: 400000 }
+        );
         await tx.wait();
-      }
-    );
+      });
 
-    const tx = await tokenContract.setApprovalForAll(
-      tokenMinterContract.address,
-      true,
-      { gasLimit: 400000 }
-    );
-    await tx.wait();
+
+    }
+    await stakeAndWait(token);
+
+
+    pause(10000);
   });
 
 /**

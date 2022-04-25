@@ -4,6 +4,7 @@ pragma solidity ^0.8.0;
 
 import "../diamond/LibAppStorage.sol";
 import "../interfaces/IERC1155.sol";
+import "../interfaces/IPower.sol";
 
 import "hardhat/console.sol";
 
@@ -18,9 +19,9 @@ interface ITokenAttributeSetter {
 /**
  * @dev Implements an NFT staking pool
  */
-contract AttributeMutationPoolFacet is Modifiers {
+contract AttributeMutationPoolFacet is Modifiers, IPower {
 
-    event AttributeMutationPoolValuesSet(string indexed key, uint256 value);
+    event AttributeMutationPoolValuesSet(string attributeKey, uint256 updateValuePerPeriod, uint256 blocksPerPeriod, uint256 totalValueThreshold);
     event TokenDeposited(address indexed staker, uint256 indexed tokenId);
     event TokenWithdrawn(address indexed staker, uint256 indexed tokenId, uint256 totalAccrued);
     event TokenValueThresholdReached(address indexed staker, uint256 indexed tokenId, uint256 totalAccrued);
@@ -33,6 +34,7 @@ contract AttributeMutationPoolFacet is Modifiers {
         s.attributeMutationPoolStorage._attributeValuePerPeriod = updateValuePerPeriod;
         s.attributeMutationPoolStorage._attributeBlocksPerPeriod = blocksPerPeriod;
         s.attributeMutationPoolStorage._totalValueThreshold = totalValueThreshold;
+        emit AttributeMutationPoolValuesSet(attributeKey, updateValuePerPeriod, blocksPerPeriod, totalValueThreshold);
     }
 
     /// @notice deposit the token into the pool
@@ -78,14 +80,17 @@ contract AttributeMutationPoolFacet is Modifiers {
         uint256 currentAccruedValue = getAccruedValue(tokenId);
         s.attributeMutationPoolStorage._tokenDepositHeight[msg.sender][tokenId] = 0;
 
-        // send the token back to the user
-        IERC1155(s.tokenMinterStorage.token).safeTransferFrom(address(this), msg.sender, tokenId, 1, "");
         // set the attribute to the value, or the total value if value > total value
         ITokenAttributeSetter(address(this)).setAttribute(
             tokenId,
             s.attributeMutationPoolStorage._attributeKey,
             currentAccruedValue > s.attributeMutationPoolStorage._totalValueThreshold ? s.attributeMutationPoolStorage._totalValueThreshold : currentAccruedValue
         );
+        emit PowerUpdated(tokenId, currentAccruedValue);
+        
+        // send the token back to the user
+        IERC1155(s.tokenMinterStorage.token).safeTransferFrom(address(this), msg.sender, tokenId, 1, "");
+
 
         // emit a token withdrawn event
         emit TokenWithdrawn(msg.sender, tokenId, currentAccruedValue);

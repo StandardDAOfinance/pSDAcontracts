@@ -11,6 +11,6 @@ interface IWithdrawable {
     function withdraw(address recipient, address token, uint256 id, uint256 amount) external;
 
     /// @notice emitted when a withdrawal is made
-    event TokenWithdawn(address recipient, address token, uint256 id, uint256 amount);
+    event TokenWithdrawn(address recipient, address token, uint256 id, uint256 amount);
 
 }

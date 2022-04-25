@@ -9,7 +9,7 @@ import fs from "fs";
 /**
  * mint a single token given its values
  */
-task("purchase-token", "purchase an item from the marketplace")
+task("marketplace-purchase", "purchase an item from the marketplace")
   .addParam("itemid", "The item id of the marketplace listing")
   .setAction(async ({ itemid, attach }, hre: HardhatRuntimeEnvironment) => {
     // the generative token factory
