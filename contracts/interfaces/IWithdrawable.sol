@@ -8,7 +8,7 @@ interface IWithdrawable {
     /// @param token the erc20 token to withdraw or 0 for the base token (ether)
     /// @param id the token id to withdraw or 0 for the base token (ether)
     /// @param amount the amount to withdraw
-    function withdraw(address recipient, address token, uint256 id, uint256 amount) external;
+    function withdraw(address recipient, address token, uint256 id, uint256 amount) external payable;
 
     /// @notice emitted when a withdrawal is made
     event TokenWithdrawn(address recipient, address token, uint256 id, uint256 amount);

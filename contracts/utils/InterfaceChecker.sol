@@ -6,7 +6,7 @@ import { IERC1155 } from "@openzeppelin/contracts/interfaces/IERC1155.sol";
 import { IERC721 } from "@openzeppelin/contracts/interfaces/IERC721.sol";
 import { IERC20 } from "@openzeppelin/contracts/interfaces/IERC20.sol";
 
-contract InterfaceChecker {
+library InterfaceChecker {
     function isERC1155(address check) external view returns(bool) {
         return IERC165(check).supportsInterface(type(IERC1155).interfaceId);
     }
