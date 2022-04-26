@@ -3,6 +3,8 @@ pragma solidity >=0.8.0;
 
 import "@openzeppelin/contracts/token/ERC1155/IERC1155.sol";
 
+import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+
 import "./MerkleAirdropFacet.sol";
 
 import "../access/Controllable.sol";
@@ -14,8 +16,6 @@ import "../interfaces/IERC1155Mint.sol";
 import "../interfaces/IERC20Mint.sol";
 
 import "../interfaces/IAirdropTokenSale.sol";
-
-import "../interfaces/IPower.sol";
 
 import {IMerkleAirdropRedeemer} from "./MerkleAirdropFacet.sol";
 
@@ -31,11 +31,7 @@ interface IMerkleAirdropAdder {
     function addAirdrop(IAirdrop.AirdropSettings memory _airdrop) external;
 }
 
-contract AirdropTokenSaleFacet is
-    ITokenSale,
-    Modifiers,
-    IPower // returns the chain id
-{
+contract AirdropTokenSaleFacet is ITokenSale, Modifiers {
     /// @notice emitted when a token is opened
     event TokenSaleOpen(
         uint256 tokenSaleId,
@@ -78,16 +74,14 @@ contract AirdropTokenSaleFacet is
     /// @notice intialize the contract. should be called by overriding contract
     /// @param tokenSaleInit struct with tokensale data
     function createTokenSale(
-        IAirdropTokenSale.TokenSaleSettings memory tokenSaleInit,
-        IAirdrop.AirdropSettings[] calldata settingsList
+        IAirdropTokenSale.TokenSaleSettings memory tokenSaleInit
     ) public virtual returns (uint256 tokenSaleId) {
         // sanity check input values
         require(
             tokenSaleInit.token != address(0),
             "Multitoken address must be set"
         );
-        if (settingsList.length > 0)
-            IMerkleAirdrop(address(this)).initMerkleAirdrops(settingsList);
+
         // set settings object
         tokenSaleId = uint256(
             keccak256(
@@ -113,8 +107,27 @@ contract AirdropTokenSaleFacet is
     function _purchase(
         uint256 tokenSaleId,
         uint256 _drop,
-        address receiver
+        address receiver,
+        uint256 quantity
     ) internal returns (uint256) {
+        // if the payment type is erc20, then transfer the tokens from the sender to the contract
+        if (
+            s.merkleAirdropStorage._settings[_drop].paymentType ==
+            IAirdropTokenSale.PaymentType.TOKEN &&
+            s.merkleAirdropStorage._settings[_drop].tokenAddress != address(0)
+        ) {
+            address tokenAddress = s
+                .merkleAirdropStorage
+                ._settings[_drop]
+                .tokenAddress;
+            uint256 price = s
+                .merkleAirdropStorage
+                ._settings[_drop]
+                .initialPrice
+                .price * quantity;
+            IERC20(tokenAddress).transferFrom(msg.sender, address(this), price);
+        }
+
         // request (mint) the tokens. This method must be overridden
         uint256 tokenHash;
         if (_drop != 0) {
@@ -129,29 +142,9 @@ contract AirdropTokenSaleFacet is
                 ._tokenSales[tokenSaleId]
                 .tokenHash;
         }
-        // check the token hash, make one if source is zero
-        if (tokenHash == 0) {
-            s.airdropTokenSaleStorage.nonces[tokenSaleId] =
-                s.airdropTokenSaleStorage.nonces[tokenSaleId] +
-                1;
-            tokenHash = uint256(
-                keccak256(
-                    abi.encodePacked(
-                        "airdropTokenSale",
-                        receiver,
-                        tokenSaleId,
-                        s.airdropTokenSaleStorage.nonces[tokenSaleId]
-                    )
-                )
-            );
-        }
+
         // mint a token to the user
-        this.airdropRedeemed(
-            tokenSaleId,
-            _drop,
-            receiver,
-            1
-        );
+        this.airdropRedeemed(tokenSaleId, _drop, receiver, 1);
 
         // increase total bought
         s.airdropTokenSaleStorage.totalPurchased[_drop] += 1;
@@ -201,35 +194,35 @@ contract AirdropTokenSaleFacet is
     ) internal {
         // only check for a non-zero drop id
         if (drop != 0) {
+
             IAirdrop.AirdropSettings storage _drop = s
                 .merkleAirdropStorage
                 ._settings[drop];
+            
             // check that the airdrop is valid
             require(_drop.whitelistId == drop, "Airdrop doesnt exist");
-            // check that the airdrop is valid
-            require(
-                !IMerkleAirdrop(address(this)).airdropRedeemed(drop, receiver),
-                "Airdrop already redeemed"
-            );
+            
+            // check that the airdrop has not yet been redeemed by the user
+            require(!IMerkleAirdrop(address(this)).airdropRedeemed(drop, receiver), "Airdrop already redeemed");
+            
             // make sure there are still tokens to purchase
-            require(
-                _drop.maxQuantity == 0 ||
-                    (_drop.maxQuantity != 0 &&
-                        _drop.quantitySold + quantity <= _drop.maxQuantity),
-                "The maximum amount of tokens has been bought."
-            );
-            // enough price is attached
-            require(
-                _drop.initialPrice.price * quantity <= valueAttached,
-                "Not enough price attached"
-            );
+            require( _drop.maxQuantity == 0 || (_drop.maxQuantity != 0 && _drop.quantitySold + quantity <= _drop.maxQuantity), "The maximum amount of tokens has been bought.");
+          
+            // if the payment type is ETH (base token) ensure that enough price is attached
+            if (_drop.paymentType == IAirdropTokenSale.PaymentType.ETH) {    
+                require(
+                    _drop.initialPrice.price * quantity <= valueAttached,
+                    "Not enough price attached"
+                );
+            }
+
             // make sure the max qty per sale is not exceeded
             require(
                 _drop.minQuantityPerSale == 0 ||
                     (_drop.minQuantityPerSale != 0 &&
                         quantity >= _drop.minQuantityPerSale),
                 "Minimum quantity per sale not met"
-            );
+            );            
             // make sure the max qty per sale is not exceeded
             require(
                 _drop.maxQuantityPerSale == 0 ||
@@ -247,6 +240,7 @@ contract AirdropTokenSaleFacet is
                 block.timestamp <= _drop.endTime || _drop.endTime == 0,
                 "The sale has ended"
             );
+
             // only enforce the whitelist if explicitly set
             if (_drop.whitelistOnly) {
                 // redeem the airdrop slot and then purchase an NFT
@@ -259,16 +253,21 @@ contract AirdropTokenSaleFacet is
                     merkleProof
                 );
             }
-            for (uint256 i = 0; i < quantity; i++) {
-                _purchase(tokenSaleId, drop, receiver);
-                emit AirdropRedeemed(
-                    drop,
-                    receiver,
-                    merkleProof,
-                    quantity
+
+            // purchase the token and then emit an event about it
+            _purchase(tokenSaleId, drop, receiver, quantity);
+            emit AirdropRedeemed(drop, receiver, merkleProof, quantity);
+
+        } else {
+             
+            // if the token sale is ETH make sure enough ETH is attached  
+            if (s.airdropTokenSaleStorage._tokenSales[tokenSaleId].paymentType == IAirdropTokenSale.PaymentType.ETH) {
+                require(
+                    s.airdropTokenSaleStorage._tokenSales[tokenSaleId].initialPrice.price * quantity <= valueAttached,
+                    "Not enough price attached"
                 );
             }
-        } else {
+            
             // make sure there are still tokens to purchase
             require(
                 s
@@ -277,15 +276,15 @@ contract AirdropTokenSaleFacet is
                     .maxQuantity ==
                     0 ||
                     (s
-                        .airdropTokenSaleStorage
-                        ._tokenSales[tokenSaleId]
-                        .maxQuantity !=
-                        0 &&
-                        s.airdropTokenSaleStorage.totalPurchased[0] <
-                        s
-                            .airdropTokenSaleStorage
-                            ._tokenSales[tokenSaleId]
-                            .maxQuantity),
+                    .airdropTokenSaleStorage
+                    ._tokenSales[tokenSaleId]
+                    .maxQuantity !=
+                    0 &&
+                    s.airdropTokenSaleStorage.totalPurchased[0] <
+                    s
+                    .airdropTokenSaleStorage
+                    ._tokenSales[tokenSaleId]
+                    .maxQuantity),
                 "The maximum amount of tokens has been bought."
             );
             // make sure the max qty per sale is not exceeded
@@ -356,10 +355,8 @@ contract AirdropTokenSaleFacet is
                     0,
                 "The sale has ended"
             );
-            // purchase a NFT
-            for (uint256 i = 0; i < quantity; i++) {
-                _purchase(tokenSaleId, drop, receiver);
-            }
+
+            _purchase(tokenSaleId, drop, receiver, quantity);
         }
     }
 
@@ -434,7 +431,9 @@ contract AirdropTokenSaleFacet is
                 .airdropTokenSaleStorage
                 ._tokenSales[tokenSaleId]
                 .maxQuantityPerAccount,
-            s.airdropTokenSaleStorage._tokenSales[tokenSaleId].initialPrice
+            s.airdropTokenSaleStorage._tokenSales[tokenSaleId].initialPrice,
+            s.airdropTokenSaleStorage._tokenSales[tokenSaleId].paymentType,
+            s.airdropTokenSaleStorage._tokenSales[tokenSaleId].tokenAddress
         );
     }
 

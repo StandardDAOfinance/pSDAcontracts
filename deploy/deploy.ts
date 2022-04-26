@@ -64,7 +64,7 @@ export default async function func(hre: HardhatRuntimeEnvironment) {
     'ERC20',
     'AirdropTokenSaleFacet',
     'MerkleAirdropFacet',
-    'TokenMinterFacet'
+    'TokenMinterFacet',
   ]
   // deploy the contracts
   for (const contract of contractsToDeploy) {
@@ -84,6 +84,9 @@ export default async function func(hre: HardhatRuntimeEnvironment) {
     hre
   );
 
+  const [signer] = await hre.ethers.getSigners();
+  const accountAddress = await signer.getAddress();
+
   const facet = await getDiamondFacet(hre, 'TokenMinterFacet');
   const token = await getContractDeployment(hre, 'ERC20');
 
@@ -94,17 +97,10 @@ export default async function func(hre: HardhatRuntimeEnvironment) {
   const name = 'Standard DAO Token';
   const symbol = 'SDT';
 
-
   let tx = await token.initialize(name, symbol, { gasLimit: 200000 });
-  await tx.wait();
-
-  const [signer] = await hre.ethers.getSigners();
-  const accountAddress = await signer.getAddress();
-
-  tx = await token.setAllowMint(true);
   await tx.wait();
 
   //tx = await token.setCap(0);
   //await tx.wait();
 }
-func.tags = ['GemPoolFactory'];
+func.tags = ['deploy'];

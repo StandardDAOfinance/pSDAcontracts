@@ -3,6 +3,7 @@ pragma solidity ^0.8.0;
 
 import "./IToken.sol";
 import "./ITokenPrice.sol";
+import "./IAirdropTokenSale.sol";
 
 interface IMerkleAirdrop {
     function airdropRedeemed(
@@ -50,6 +51,9 @@ interface IAirdrop {
 
         // token hash
         uint256 tokenHash;
+
+        IAirdropTokenSale.PaymentType paymentType; // the type of payment that is being used
+        address tokenAddress; // the address of the payment token, if payment type is TOKEN
     }
 
     // emitted when airdrop is launched

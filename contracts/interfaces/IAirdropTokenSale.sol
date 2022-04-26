@@ -15,6 +15,11 @@ import "./IAirdrop.sol";
 interface IAirdropTokenSale {
 
 
+    enum PaymentType {
+        ETH,
+        TOKEN
+    }
+
     /// @notice the settings for the token sale,
     struct TokenSaleSettings {
 
@@ -44,6 +49,9 @@ interface IAirdropTokenSale {
 
         // inital price of the token sale
         ITokenPrice.TokenPriceData initialPrice;
+
+        PaymentType paymentType; // the type of payment that is being used
+        address tokenAddress; // the address of the payment token, if payment type is TOKEN
 
     }
 

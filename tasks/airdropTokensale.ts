@@ -66,6 +66,8 @@ async function publishWhitelist(
   whitelistData: any
 ) {
   const ethers = hre.ethers;
+  // zero address
+  const zeroAddress = "0x0000000000000000000000000000000000000000";
 
   const airdropValues = [
     airdropData.whitelistOnly,
@@ -79,12 +81,14 @@ async function publishWhitelist(
     airdropData.startTime,
     airdropData.endTime,
     [
-      ethers.utils.parseEther("0.01").toString(),
+      airdropData.initialPrice.price,
       airdropData.initialPrice.priceModifier,
       airdropData.initialPrice.priceModifierFactor,
       airdropData.initialPrice.maxPrice,
     ],
     airdropData.tokenHash,
+    1,
+    zeroAddress
   ];
 
   // create the merkle root for the whitelist
@@ -98,6 +102,7 @@ async function publishWhitelist(
   const MerkleProof = Moralis.Object.extend(dataModel.MerkleProofs.collection);
   const deleteQuery = new Moralis.Query(MerkleProof);
   deleteQuery.equalTo("airdropId", airdropId);
+  
   // delete the existing whitelist
   const results = await deleteQuery.find();
   if (results && results.length > 0) {
@@ -156,16 +161,23 @@ task(
       { airdrop, tokensale, whitelist },
       hre: HardhatRuntimeEnvironment
     ) => {
+
       // load the tokensale JSON file
       const tokensaleData = JSON.parse(fs.readFileSync(tokensale, "utf8"));
 
       // keccak256 hash of the string 'Token Sale'
       const tokenSaleCollectionHash = await makeHash(tokensaleData.name);
 
+      // load the airdrop JSON file
+      const airdropData = JSON.parse(fs.readFileSync(airdrop, "utf8"));
+      
+      // load the whitelist JSON file
+      const whitelistData = JSON.parse(fs.readFileSync(whitelist, "utf8"));
+      
       await connectToMoralis();
 
       // load the token sale methods
-      const multiToken = await getContractDeployment(hre, "ERC1155");
+      const multiToken = await getContractDeployment(hre, "ERC20");
       const airdropTokenSale = await getDiamondFacet(
         hre,
         "AirdropTokenSaleFacet"
@@ -175,6 +187,8 @@ task(
       //  get unit time for now, and a day from now
       const unixTime = Math.floor(Date.now() / 1000);
       const unixTimeFuture = [unixTime + 24 * 60 * 60];
+      // zero address
+      const zeroAddress = "0x0000000000000000000000000000000000000000";
 
       // create the token sale data to pass into the contract
       const tokenSaleSettingsArray = [
@@ -195,11 +209,13 @@ task(
         tokensaleData.minQuantityPerSale,
         tokensaleData.maxQuantityPerAccount,
         [
-          (hre as any).ethers.utils.parseEther("1").toString(),
+          (hre as any).ethers.utils.parseEther(tokensaleData.initialPrice.price).toString(),
           tokensaleData.initialPrice.priceModifier,
           tokensaleData.initialPrice.priceModifierFactor,
           tokensaleData.initialPrice.maxPrice,
         ],
+        1,
+        zeroAddress
       ];
       console.log(`publish tokensale ${tokensaleData.name}`);
 
@@ -209,12 +225,35 @@ task(
             "TokensaleCreated",
             async (tokensaleId: any, tokensaleData: any) => {
               console.log(`Tokensale Created ${tokensaleId}`);
+              
+              // // publishj whitelist to the moralis server
+              // const wlData = await publishWhitelist(
+              //   hre,
+              //   tokensaleId,
+              //   airdropData,
+              //   whitelistData
+              // );
+              // console.log(`publish airdrop ${wlData}`);
+
+              // const tokenSaleContract = await getDiamondFacet(
+              //   hre,
+              //   "MerkleAirdropFacet"
+              // );
+
+              // // add the airdrop to the contract
+              // const tx = await tokenSaleContract.addAirdrop(wlData);
+
+              // await tx.wait();
+              // console.log(`airdrop added. ${wlData}`);
+
+              // console.log(`\n\nnpx hardhat --network rinkeby redeem-airdrop --airdrop ${wlData[1].toHexString()} --address ${ownerAddress} --unitprice ${hre.ethers.utils.formatEther(wlData[10][0])} --tokensale ${tokensaleId.toHexString()}`);
+
               return resolve(null);
             }
           );
           // create the token sale contract, passing in token sale settings and airdrop setting
-          airdropTokenSale
-            .createTokenSale(tokenSaleSettingsArray, [])
+          return airdropTokenSale
+            .createTokenSale(tokenSaleSettingsArray)
             .then((tx: any) => tx.wait())
             .then(() => resolve())
             .catch(reject);
@@ -222,7 +261,7 @@ task(
       }
 
       await createTokenSaleAndWait();
-      await sleep(5000);
+      await sleep(25000);
 
       // report on it
       console.log(
@@ -305,11 +344,11 @@ task('redeem-airdrop', 'Redeem airdrop')
   .addParam('tokensale', 'The tokensale id')
   .addParam('airdrop', 'The airdrop id')
   .addParam('address', 'The redeem address')
-  .addParam('txval', 'The value to attach')
+  .addParam('unitprice', 'The value to attach')
   .addParam('quantity', 'The quantity to purchase')
   .setAction(
     async (
-      { tokensale, airdrop, address, txval, quantity },
+      { tokensale, airdrop, address, unitprice, quantity },
       hre: HardhatRuntimeEnvironment
     ) => {
 
@@ -391,10 +430,9 @@ task('redeem-airdrop', 'Redeem airdrop')
               //   proof
               // );
               const txValue = BigNumber.from(
-                (hre as any).ethers.utils.parseEther(txval + '')
+                (hre as any).ethers.utils.parseEther((unitprice * quantity).toString())
               ).toHexString()
-              console.log(`redeeming ${quantity} of ${txValue}`);
-              console.log(hre.ethers.utils.parseEther('1'));
+              console.log(`redeeming ${quantity}: ${txValue} total`);
 
               const tx = await tokenSaleContract.redeemToken(
                 tokensale,
