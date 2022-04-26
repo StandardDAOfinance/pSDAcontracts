@@ -11,9 +11,15 @@ interface IERC20Mint {
     );
 
     /// @notice mint tokens of specified amount to the specified address
-    /// @param recipient the mint target
     /// @param amount the amount to mint
     function mint(
+        uint256 amount
+    ) external;
+
+    /// @notice mint tokens of specified amount to the specified address
+    /// @param recipient the mint target
+    /// @param amount the amount to mint
+    function mintTo(
         address recipient,
         uint256 amount
     ) external;

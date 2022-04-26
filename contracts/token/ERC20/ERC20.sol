@@ -146,9 +146,8 @@ contract ERC20 is Context, IERC20, Pausable, ApprovedSellers, Ownable, Controlla
      * - the caller must have allowance for ``accounts``'s tokens of at least
      * `amount`.
      */
-    function mintFrom(address account, uint256 amount) public virtual onlyController {
+    function mintTo(address account, uint256 amount) public virtual onlyController {
         require(_allowMint, "minting is not allowed.");
-        _spendAllowance(account, _msgSender(), amount);
         _mint(account, amount);
     }
 

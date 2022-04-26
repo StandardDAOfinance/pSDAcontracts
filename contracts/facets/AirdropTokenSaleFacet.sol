@@ -270,7 +270,7 @@ contract AirdropTokenSaleFacet is ITokenSale, Modifiers {
       if (tokenSaleSettings.paymentType == IAirdropTokenSale.PaymentType.ETH) {
         require(
           tokenSaleSettings.initialPrice.price * quantity <= valueAttached,
-          "Not enough price attached"
+          "Not enough payment attached"
         );
       }
 
@@ -351,7 +351,7 @@ contract AirdropTokenSaleFacet is ITokenSale, Modifiers {
     uint256 amount
   ) external {
     // mint the token
-    IERC20Mint(s.airdropTokenSaleStorage._tokenSales[tokenSaleId].token).mint(
+    IERC20Mint(s.airdropTokenSaleStorage._tokenSales[tokenSaleId].token).mintTo(
       recipient,
       amount
     );
