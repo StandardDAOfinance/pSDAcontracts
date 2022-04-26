@@ -17,18 +17,10 @@ import "@nomiclabs/hardhat-ethers";
 import "@nomiclabs/hardhat-etherscan";
 
 import "./tasks/airdropTokensale";
-import "./tasks/attributeMutationPool";
 import "./tasks/configure";
-import "./tasks/daodon";
 import "./tasks/deploy";
-import "./tasks/erc721";
-import "./tasks/erc1155";
-import "./tasks/ercCommon";
-import "./tasks/marketplace";
+import "./tasks/erc20";
 import "./tasks/moralis";
-import "./tasks/osd";
-import "./tasks/tokenAttributes";
-import "./tasks/tokenMinter";
 
 /**
  * @type import('hardhat/config').HardhatUserConfig

@@ -104,8 +104,8 @@ export default async function func(hre: HardhatRuntimeEnvironment) {
   await facet.setToken(token.address);
   await token.addController(facet.address);
 
-  const name = 'Standard DAO Token';
-  const symbol = 'SDT';
+  const name = 'PSDA Token';
+  const symbol = 'PSDA';
 
   let tx = await token.initialize(name, symbol, { gasLimit: 200000 });
   await tx.wait();
