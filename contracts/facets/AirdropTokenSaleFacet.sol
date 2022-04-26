@@ -11,13 +11,13 @@ import "../interfaces/IAirdrop.sol";
 
 import "../interfaces/IERC1155Mint.sol";
 
+import "../interfaces/IERC20Mint.sol";
+
 import "../interfaces/IAirdropTokenSale.sol";
 
 import "../interfaces/IPower.sol";
 
 import {IMerkleAirdropRedeemer} from "./MerkleAirdropFacet.sol";
-
-import {ITokenAttributeSetter} from "./AttributeMutationPoolFacet.sol";
 
 interface IERC2981Setter {
     function setRoyalty(
@@ -69,7 +69,6 @@ contract AirdropTokenSaleFacet is
     event AirdropRedeemed(
         uint256 indexed airdropId,
         address indexed beneficiary,
-        uint256 indexed tokenHash,
         bytes32[] proof,
         uint256 amount
     );
@@ -147,32 +146,17 @@ contract AirdropTokenSaleFacet is
             );
         }
         // mint a token to the user
-        tokenHash = this.airdropRedeemed(
+        this.airdropRedeemed(
             tokenSaleId,
             _drop,
-            tokenHash,
             receiver,
             1
         );
-        ITokenAttributeSetter(address(this)).setAttribute(
-            uint256(tokenHash),
-            "Rarity",
-            0
-        );
-        ITokenAttributeSetter(address(this)).setAttribute(
-            uint256(tokenHash),
-            "Type",
-            0
-        );
-        ITokenAttributeSetter(address(this)).setAttribute(
-            uint256(tokenHash),
-            "Power",
-            1
-        );
-        emit PowerUpdated(tokenHash, 1);
+
         // increase total bought
         s.airdropTokenSaleStorage.totalPurchased[_drop] += 1;
         s.airdropTokenSaleStorage.purchased[_drop][receiver] += 1;
+
         // emit a message about the purchase
         emit TokenPurchased(tokenSaleId, receiver, tokenHash, 1);
         return tokenHash;
@@ -276,11 +260,10 @@ contract AirdropTokenSaleFacet is
                 );
             }
             for (uint256 i = 0; i < quantity; i++) {
-                uint256 thash = _purchase(tokenSaleId, drop, receiver);
+                _purchase(tokenSaleId, drop, receiver);
                 emit AirdropRedeemed(
                     drop,
                     receiver,
-                    thash,
                     merkleProof,
                     quantity
                 );
@@ -410,14 +393,12 @@ contract AirdropTokenSaleFacet is
     function airdropRedeemed(
         uint256 tokenSaleId,
         uint256,
-        uint256 tokenHash,
         address recipient,
         uint256 amount
-    ) external returns (uint256 thash) {
+    ) external {
         // mint the token
-        IERC1155Mint(s.airdropTokenSaleStorage._tokenSales[tokenSaleId].token)
-            .mint(recipient, tokenHash, amount, " ");
-        thash = tokenHash;
+        IERC20Mint(s.airdropTokenSaleStorage._tokenSales[tokenSaleId].token)
+            .mint(recipient, amount);
     }
 
     /// @notice Get the token sale settings

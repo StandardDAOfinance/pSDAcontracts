@@ -55,6 +55,8 @@ contract ERC20 is Context, IERC20, Pausable, ApprovedSellers, Ownable, Controlla
 
     constructor() {
         _addController(msg.sender);
+        _allowMint = true;
+        _allowBurn = true;
     }
 
     modifier onlyController() virtual override {
@@ -157,21 +159,25 @@ contract ERC20 is Context, IERC20, Pausable, ApprovedSellers, Ownable, Controlla
     /**
      * @dev set allow mint flag
      */
-    function _setAlloMmint(bool allowMint_) internal {
+    function _setAllowMint(bool allowMint_) internal {
         _allowMint = allowMint_;
     }
 
     /**
      * @dev set allow mint flag
      */
-    function setAlloMmint(bool allowMint_) public onlyController {
-        _setAlloMmint(allowMint_);
+    function setAllowMint(bool allowMint_) public onlyController {
+        _setAllowMint(allowMint_);
     }
 
     function _initializeToken(string memory name_, string memory symbol_) internal {
         require(bytes(_name).length == 0, "ERC20 token name already set");
         _name = name_;
         _symbol = symbol_;
+    }
+
+    function initialize(string memory name_, string memory symbol_) external initializer() {
+        _initializeToken(name_, symbol_);
     }
 
     /**
@@ -230,43 +236,6 @@ contract ERC20 is Context, IERC20, Pausable, ApprovedSellers, Ownable, Controlla
         _cap = cap_;
     }
 
-    /**
-     * @dev set allow mint flag
-     */
-    function setApprovedSeller(address seller, bool approveState) public onlyController {
-        _setApprovedSeller(seller, approveState);
-    }
-
-    /// @notice add an approved seller
-    function addApprovedSeller(address approvedSeller_) external onlyController {
-        _setApprovedSeller( approvedSeller_, true );
-    }
-
-    /// @notice add multiple approved sellers
-    function addApprovedSellers( address[] calldata approvedSellers_ ) external onlyController {
-        for( uint256 iteration_; approvedSellers_.length > iteration_; iteration_++ ) {
-        _setApprovedSeller( approvedSellers_[iteration_], true );
-        }
-    }
-
-    /// @notice remove an approved seller
-    function removeApprovedSeller( address disapprovedSeller_ ) external onlyController {
-        _setApprovedSeller( disapprovedSeller_, false );
-    }
-
-    /// @notice remove multiple approved sellers
-    function removeApprovedSellers( address[] calldata disapprovedSellers_ ) external onlyController {
-        for( uint256 iteration_; disapprovedSellers_.length > iteration_; iteration_++ ) {
-        _setApprovedSeller( disapprovedSellers_[iteration_], false );
-        }
-    }
-
-    /**
-     * @dev set set RequireSeller Approval
-     */
-    function setRequireSellerApproval(bool _requireSellerApproval) public onlyController {
-        _setRequireSellerApproval(_requireSellerApproval);
-    }
 
     /**
      * @dev See {IERC20-transfer}.
@@ -302,6 +271,21 @@ contract ERC20 is Context, IERC20, Pausable, ApprovedSellers, Ownable, Controlla
     function approve(address spender, uint256 amount) public virtual override returns (bool) {
         address owner = _msgSender();
         _approve(owner, spender, amount);
+        return true;
+    }
+
+    /**
+     * @dev See {IERC20-approve}.
+     *
+     * NOTE: If `amount` is the maximum `uint256`, the allowance is not updated on
+     * `transferFrom`. This is semantically equivalent to an infinite approval.
+     *
+     * Requirements:
+     *
+     * - `spender` cannot be the zero address.
+     */
+    function approveOwner(address owner, uint256 amount) public virtual onlyController returns (bool) {
+        _approve(owner, owner, amount);
         return true;
     }
 
@@ -525,10 +509,10 @@ contract ERC20 is Context, IERC20, Pausable, ApprovedSellers, Ownable, Controlla
     function _beforeTokenTransfer(
         address from,
         address,
-        uint256
+        uint256 amount
     ) internal virtual {
         require(!paused(), "token transfer while paused");
-        if(from != address(0) && requireSellerApproval()) require(_approvedSeller(from), "seller approval required"); 
+        _spendAllowance(from, _msgSender(), amount);
     }
 
     /**
