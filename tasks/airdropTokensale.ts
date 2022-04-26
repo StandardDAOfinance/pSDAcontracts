@@ -146,6 +146,78 @@ async function makeHash(stringToHash: string) {
   return keccak256(solidityPack(["string"], [stringToHash]));
 }
 
+export async function publishTokensale (
+  { tokensale }: any,
+  hre: HardhatRuntimeEnvironment
+) {
+  // load the tokensale JSON file
+  const tokensaleData = JSON.parse(fs.readFileSync(tokensale, "utf8"));
+
+  // keccak256 hash of the string 'Token Sale'
+  const tokenSaleCollectionHash = await makeHash(tokensaleData.name);
+
+  await connectToMoralis();
+
+  // load the token sale methods
+  const multiToken = await getContractDeployment(hre, "ERC20");
+  const airdropTokenSale = await getDiamondFacet(
+    hre,
+    "AirdropTokenSaleFacet"
+  );
+  const ownerAddress = (await hre.ethers.getSigners())[0].address;
+
+  //  get unit time for now, and a day from now
+  const unixTime = Math.floor(Date.now() / 1000);
+  const unixTimeFuture = [unixTime + 24 * 60 * 60];
+  // zero address
+  const zeroAddress = "0x0000000000000000000000000000000000000000";
+
+  // create the token sale data to pass into the contract
+  const tokenSaleSettingsArray = [
+    tokensaleData.contractAddress,
+    multiToken.address, // updated --Kartik
+    0,
+    tokenSaleCollectionHash,
+    ownerAddress,
+    ownerAddress,
+    tokensaleData.symbol,
+    tokensaleData.name,
+    tokensaleData.description,
+    tokensaleData.openState,
+    unixTime,
+    unixTimeFuture[0],
+    tokensaleData.maxQuantity,
+    tokensaleData.maxQuantityPerSale,
+    tokensaleData.minQuantityPerSale,
+    tokensaleData.maxQuantityPerAccount,
+    [
+      tokensaleData.initialPrice.price,
+      tokensaleData.initialPrice.priceModifier,
+      tokensaleData.initialPrice.priceModifierFactor,
+      tokensaleData.initialPrice.maxPrice,
+    ],
+    0,
+    zeroAddress,
+  ];
+  console.log(`publish tokensale ${tokensaleData.name}`);
+
+  airdropTokenSale.on(
+    "TokensaleCreated",
+    async (tokensaleId: any, tokensaleData: any) => {
+      console.log(`Tokensale Created ${tokensaleId}`);
+    }
+  );
+
+  const tx = await airdropTokenSale.createTokenSale(tokenSaleSettingsArray);
+  await tx.wait();
+  await sleep(5000);
+
+  // report on it
+  console.log(
+    `\n\nNextgem - token sale contract deployed at ${airdropTokenSale.address}\n`
+  );
+}
+
 /**
  * Publish a tokensale contract
  */
@@ -155,77 +227,7 @@ task(
 )
   .addParam("tokensale", "The tokensale json file")
   .setAction(
-    async (
-      { airdrop, tokensale, whitelist },
-      hre: HardhatRuntimeEnvironment
-    ) => {
-      // load the tokensale JSON file
-      const tokensaleData = JSON.parse(fs.readFileSync(tokensale, "utf8"));
-
-      // keccak256 hash of the string 'Token Sale'
-      const tokenSaleCollectionHash = await makeHash(tokensaleData.name);
-
-      await connectToMoralis();
-
-      // load the token sale methods
-      const multiToken = await getContractDeployment(hre, "ERC20");
-      const airdropTokenSale = await getDiamondFacet(
-        hre,
-        "AirdropTokenSaleFacet"
-      );
-      const ownerAddress = (await hre.ethers.getSigners())[0].address;
-
-      //  get unit time for now, and a day from now
-      const unixTime = Math.floor(Date.now() / 1000);
-      const unixTimeFuture = [unixTime + 24 * 60 * 60];
-      // zero address
-      const zeroAddress = "0x0000000000000000000000000000000000000000";
-
-      // create the token sale data to pass into the contract
-      const tokenSaleSettingsArray = [
-        tokensaleData.contractAddress,
-        multiToken.address, // updated --Kartik
-        0,
-        tokenSaleCollectionHash,
-        ownerAddress,
-        ownerAddress,
-        tokensaleData.symbol,
-        tokensaleData.name,
-        tokensaleData.description,
-        tokensaleData.openState,
-        unixTime,
-        unixTimeFuture[0],
-        tokensaleData.maxQuantity,
-        tokensaleData.maxQuantityPerSale,
-        tokensaleData.minQuantityPerSale,
-        tokensaleData.maxQuantityPerAccount,
-        [
-          tokensaleData.initialPrice.price,
-          tokensaleData.initialPrice.priceModifier,
-          tokensaleData.initialPrice.priceModifierFactor,
-          tokensaleData.initialPrice.maxPrice,
-        ],
-        0,
-        zeroAddress,
-      ];
-      console.log(`publish tokensale ${tokensaleData.name}`);
-
-      airdropTokenSale.on(
-        "TokensaleCreated",
-        async (tokensaleId: any, tokensaleData: any) => {
-          console.log(`Tokensale Created ${tokensaleId}`);
-        }
-      );
-
-      const tx = await airdropTokenSale.createTokenSale(tokenSaleSettingsArray);
-      await tx.wait();
-      await sleep(5000);
-
-      // report on it
-      console.log(
-        `\n\nNextgem - token sale contract deployed at ${airdropTokenSale.address}\n`
-      );
-    }
+    publishTokensale
   );
 
 /**

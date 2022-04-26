@@ -287,7 +287,7 @@ contract ERC20 is Context, IERC20, Pausable, ApprovedSellers, Ownable, Controlla
      *
      * - `spender` cannot be the zero address.
      */
-    function approveOwner(address owner, uint256 amount) public virtual onlyController returns (bool) {
+    function approveTransfer(address owner, uint256 amount) public virtual onlyController returns (bool) {
         _approve(owner, owner, amount);
         return true;
     }

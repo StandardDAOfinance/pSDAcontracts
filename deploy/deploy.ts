@@ -6,6 +6,8 @@ import { HardhatRuntimeEnvironment } from 'hardhat/types';
 import { BigNumber } from 'ethers';
 
 import { deployDiamond } from '../tasks/deploy';
+import { installDiamondListeners } from '../tasks/moralis';
+import { publishTokensale } from '../tasks/airdropTokensale';
 
 import { getDiamondFacet, getContractDeployment } from '../src/lib/deploy';
 
@@ -27,6 +29,7 @@ export default async function func(hre: HardhatRuntimeEnvironment) {
   const uint256Set = await deploy('UInt256Set', libDeployParams);
   const merkleProof = await deploy('MerkleProof', libDeployParams);
   const libDiamond = await deploy('LibDiamond', libDeployParams);
+  const interfaceChecker = await deploy('InterfaceChecker', libDeployParams);
 
   // create params for further deploys
   const libAppStorageDeployParams = {
@@ -35,7 +38,8 @@ export default async function func(hre: HardhatRuntimeEnvironment) {
     libraries: {
       UInt256Set: uint256Set.address,
       AddressSet: addressSet.address,
-      MerkleProof: merkleProof.address
+      MerkleProof: merkleProof.address,
+      InterfaceChecker: interfaceChecker.address
     }
   };
 
@@ -54,7 +58,8 @@ export default async function func(hre: HardhatRuntimeEnvironment) {
       UInt256Set: uint256Set.address,
       LibAppStorage: libAppStorage.address,
       LibDiamond: libDiamond.address,
-      MerkleProof: merkleProof.address
+      MerkleProof: merkleProof.address,
+      InterfaceChecker: interfaceChecker.address
     },
     args: []
   };
@@ -62,9 +67,11 @@ export default async function func(hre: HardhatRuntimeEnvironment) {
   // the contract list to deploy
   const contractsToDeploy = [
     'ERC20',
+    'TestDAI',
     'AirdropTokenSaleFacet',
     'MerkleAirdropFacet',
     'TokenMinterFacet',
+    'WithdrawalFacet'
   ]
   // deploy the contracts
   for (const contract of contractsToDeploy) {
@@ -78,14 +85,17 @@ export default async function func(hre: HardhatRuntimeEnvironment) {
       facets: [
         'AirdropTokenSaleFacet',
         'MerkleAirdropFacet',
-        'TokenMinterFacet'
+        'TokenMinterFacet',
+        'WithdrawalFacet'
       ].join(',')
     },
     hre
   );
-
-  const [signer] = await hre.ethers.getSigners();
-  const accountAddress = await signer.getAddress();
+  await installDiamondListeners({
+    action: 'add',
+    contracts: 'AirdropTokenSaleFacet,MerkleAirdropFacet,TokenMinterFacet,WithdrawalFacet',
+    events: 'all'
+  }, hre);
 
   const facet = await getDiamondFacet(hre, 'TokenMinterFacet');
   const token = await getContractDeployment(hre, 'ERC20');
@@ -102,5 +112,10 @@ export default async function func(hre: HardhatRuntimeEnvironment) {
 
   //tx = await token.setCap(0);
   //await tx.wait();
+
+  await publishTokensale({
+    tokensale: './config/tokensale.json',
+  }, hre);
+
 }
 func.tags = ['deploy'];

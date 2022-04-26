@@ -73,7 +73,123 @@ task(
         action: "remove",
       });
     }
+);
+  
+export async function installDiamondListeners (
+  { action, contracts, events }: any,
+  hre: HardhatRuntimeEnvironment
+): Promise<void> {
+  if (!action.match(/^(add|remove)$/)) {
+    throw new Error(`action must be "add" or "remove"`);
+  }
+
+  const isAdding = action === "add";
+
+  // connect to moralis
+  await connectToMoralis();
+
+  // get contract events
+  const diamondDeployment = await hre.deployments.get("Diamond");
+  const chainId = (await hre.ethers.provider.getNetwork()).chainId;
+  const pause = (ms: any) =>
+    new Promise((resolve) => setTimeout(resolve, ms));
+  const BASE_URI = "https://admin.moralis.io";
+
+  const servers = await getUserServers(
+    process.env.CLI_API_KEY,
+    process.env.CLI_API_SECRET
   );
+  if (servers.length == 0) {
+    console.log("No servers found!");
+    return;
+  }
+  const server = servers[servers.length - 1];
+  const plugins2 = JSON.parse(server.plugins);
+  let plugins: any = JSON.parse(server.plugins);
+  // for(let i = 0; i < plugins2.length; i++) {
+  //   plugins.push(plugins2[i]);
+  // }
+
+  const contractsToUpdate = contracts.split(",");
+  for (const contract of contractsToUpdate) {
+    const contractDeployment = await hre.deployments.get(contract);
+    const contractObj = await hre.ethers.getContractAt(
+      contractDeployment.abi,
+      diamondDeployment.address
+    );
+    const contractEvents = contractObj.filters;
+    const eventsToUpdate = events.split(",");
+
+    const eventKeys = Object.keys(contractEvents).filter((eventName) =>
+      eventName.match(/\)/)
+    ); // Only get the topics
+    for (let i = 0; i < eventKeys.length; i++) {
+      const tableName = eventKeys[i].split("(")[0];
+      const topicHash = hre.ethers.utils.solidityKeccak256(
+        ["string"],
+        [eventKeys[i]]
+      );
+
+      if (
+        !eventsToUpdate.includes(tableName) &&
+        !eventsToUpdate.includes("all")
+      ) {
+        continue;
+      }
+
+      console.log(
+        `${isAdding ? "Installing" : "Removing"} listener ${tableName}`
+      );
+
+      // Define the new plugin
+      const plugin = {
+        id: 1,
+        path: "./evm/events",
+        order: 5,
+        options: {
+          description: `listen for ${tableName} events`,
+          abi: _process(contractObj.interface.events[eventKeys[i]]),
+          topic: topicHash,
+          address: diamondDeployment.address,
+          sync_historical: true,
+          tableName: tableName,
+          chainId: chainId,
+        },
+      };
+
+      // Push the plugin to the list
+      plugins.push(plugin);
+    }
+  }
+
+  const apiKey = process.env.CLI_API_KEY;
+  const apiSecret = process.env.CLI_API_SECRET;
+
+  // Post updated plugins to the api
+  console.log("\nPushing contract events to moralis server...");
+  await axios.post(`${BASE_URI}/api/cli/updateServerPlugins`, {
+    apiKey,
+    apiSecret,
+    parameters: {
+      serverId: server.id,
+      plugins: JSON.stringify(plugins),
+    },
+  });
+  console.log("Successfully saved the contract events!");
+
+  // Restart server to apply sync
+  await restartServer(
+    process.env.CLI_API_KEY,
+    process.env.CLI_API_SECRET,
+    server
+  );
+  await pause(90000);
+  console.log("Events are now subscribed to!");
+  console.log(
+    `Completed ${isAdding ? "adding" : "removing"} event listeners!`
+  );
+}  
+
 subtask(
   "update-diamond-listeners",
   "Add or remove event listeners for a specific contract"
@@ -82,120 +198,7 @@ subtask(
   .addParam("contracts", "The name of the contract that the events are on")
   .addParam("events", 'The name of the events, comma-separated, or "all"')
   .setAction(
-    async (
-      { action, contracts, events }: any,
-      hre: HardhatRuntimeEnvironment
-    ): Promise<void> => {
-      if (!action.match(/^(add|remove)$/)) {
-        throw new Error(`action must be "add" or "remove"`);
-      }
-
-      const isAdding = action === "add";
-
-      // connect to moralis
-      await connectToMoralis();
-
-      // get contract events
-      const diamondDeployment = await hre.deployments.get("Diamond");
-      const chainId = (await hre.ethers.provider.getNetwork()).chainId;
-      const pause = (ms: any) =>
-        new Promise((resolve) => setTimeout(resolve, ms));
-      const BASE_URI = "https://admin.moralis.io";
-
-      const servers = await getUserServers(
-        process.env.CLI_API_KEY,
-        process.env.CLI_API_SECRET
-      );
-      if (servers.length == 0) {
-        console.log("No servers found!");
-        return;
-      }
-      const server = servers[servers.length - 1];
-      const plugins2 = JSON.parse(server.plugins);
-      let plugins: any = JSON.parse(server.plugins);
-      // for(let i = 0; i < plugins2.length; i++) {
-      //   plugins.push(plugins2[i]);
-      // }
-
-      const contractsToUpdate = contracts.split(",");
-      for (const contract of contractsToUpdate) {
-        const contractDeployment = await hre.deployments.get(contract);
-        const contractObj = await hre.ethers.getContractAt(
-          contractDeployment.abi,
-          diamondDeployment.address
-        );
-        const contractEvents = contractObj.filters;
-        const eventsToUpdate = events.split(",");
-
-        const eventKeys = Object.keys(contractEvents).filter((eventName) =>
-          eventName.match(/\)/)
-        ); // Only get the topics
-        for (let i = 0; i < eventKeys.length; i++) {
-          const tableName = eventKeys[i].split("(")[0];
-          const topicHash = hre.ethers.utils.solidityKeccak256(
-            ["string"],
-            [eventKeys[i]]
-          );
-
-          if (
-            !eventsToUpdate.includes(tableName) &&
-            !eventsToUpdate.includes("all")
-          ) {
-            continue;
-          }
-
-          console.log(
-            `${isAdding ? "Installing" : "Removing"} listener ${tableName}`
-          );
-
-          // Define the new plugin
-          const plugin = {
-            id: 1,
-            path: "./evm/events",
-            order: 5,
-            options: {
-              description: `listen for ${tableName} events`,
-              abi: _process(contractObj.interface.events[eventKeys[i]]),
-              topic: topicHash,
-              address: diamondDeployment.address,
-              sync_historical: true,
-              tableName: tableName,
-              chainId: chainId,
-            },
-          };
-
-          // Push the plugin to the list
-          plugins.push(plugin);
-        }
-      }
-
-      const apiKey = process.env.CLI_API_KEY;
-      const apiSecret = process.env.CLI_API_SECRET;
-
-      // Post updated plugins to the api
-      console.log("\nPushing contract events to moralis server...");
-      await axios.post(`${BASE_URI}/api/cli/updateServerPlugins`, {
-        apiKey,
-        apiSecret,
-        parameters: {
-          serverId: server.id,
-          plugins: JSON.stringify(plugins),
-        },
-      });
-      console.log("Successfully saved the contract events!");
-
-      // Restart server to apply sync
-      await restartServer(
-        process.env.CLI_API_KEY,
-        process.env.CLI_API_SECRET,
-        server
-      );
-      await pause(90000);
-      console.log("Events are now subscribed to!");
-      console.log(
-        `Completed ${isAdding ? "adding" : "removing"} event listeners!`
-      );
-    }
+    installDiamondListeners
   );
 
 export const restartServer = async (
