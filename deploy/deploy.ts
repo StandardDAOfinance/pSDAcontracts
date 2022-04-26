@@ -10,7 +10,7 @@ import { deployDiamond } from '../tasks/deploy';
 import { getDiamondFacet, getContractDeployment } from '../src/lib/deploy';
 
 export default async function func(hre: HardhatRuntimeEnvironment) {
-  
+
   const deploy = hre.deployments.deploy;
   const owner = await (hre.ethers as any).getSigner();
   const ownerAddress = await owner.getAddress();
@@ -67,7 +67,7 @@ export default async function func(hre: HardhatRuntimeEnvironment) {
     'TokenMinterFacet'
   ]
   // deploy the contracts
-  for (const contract of contractsToDeploy) { 
+  for (const contract of contractsToDeploy) {
     await deploy(contract, deployParams);
   }
 
@@ -95,13 +95,16 @@ export default async function func(hre: HardhatRuntimeEnvironment) {
   const symbol = 'SDT';
 
 
-  tx = await token.initialize(name, symbol, {gasLimit: 200000});
+  let tx = await token.initialize(name, symbol, { gasLimit: 200000 });
   await tx.wait();
 
   const [signer] = await hre.ethers.getSigners();
   const accountAddress = await signer.getAddress();
 
-  tx = await token.setAlloMmint(true);
-  
+  tx = await token.setAllowMint(true);
+  await tx.wait();
+
+  //tx = await token.setCap(0);
+  //await tx.wait();
 }
 func.tags = ['GemPoolFactory'];

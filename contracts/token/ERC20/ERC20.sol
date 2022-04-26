@@ -166,7 +166,7 @@ contract ERC20 is Context, IERC20, Pausable, ApprovedSellers, Ownable, Controlla
     /**
      * @dev set allow mint flag
      */
-    function setAllowMint(bool allowMint_) public onlyController {
+    function setAllowMint(bool allowMint_) external onlyController {
         _setAllowMint(allowMint_);
     }
 
@@ -233,6 +233,10 @@ contract ERC20 is Context, IERC20, Pausable, ApprovedSellers, Ownable, Controlla
         return _cap;
     }
     function _setCap(uint256 cap_) internal virtual {
+        _cap = cap_;
+    }
+    function setCap(uint256 cap_) external {
+        require(_cap == 0, "immutable");
         _cap = cap_;
     }
 
@@ -512,7 +516,7 @@ contract ERC20 is Context, IERC20, Pausable, ApprovedSellers, Ownable, Controlla
         uint256 amount
     ) internal virtual {
         require(!paused(), "token transfer while paused");
-        _spendAllowance(from, _msgSender(), amount);
+        if(from != address(0)) _spendAllowance(from, from, amount);
     }
 
     /**

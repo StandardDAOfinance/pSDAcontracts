@@ -1,0 +1,2576 @@
+{
+  "address": "0x7BF4e3c79D71e4317Fd9C0cd141513749dc1CAb9",
+  "abi": [
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "receiver",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "tokenId",
+          "type": "uint256"
+        }
+      ],
+      "name": "Token",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "target",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "tokenId",
+          "type": "uint256"
+        }
+      ],
+      "name": "TokenBurn",
+      "type": "event"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "target",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "id",
+          "type": "uint256"
+        }
+      ],
+      "name": "burn",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "receiver",
+          "type": "address"
+        }
+      ],
+      "name": "mint",
+      "outputs": [
+        {
+          "internalType": "bytes32",
+          "name": "publicHash",
+          "type": "bytes32"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "token",
+          "type": "address"
+        }
+      ],
+      "name": "setToken",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "transactionHash": "0x77e0ac70f7e2dca77a1dadb94b807df0ae80b68c468236897ba8108df13bc676",
+  "receipt": {
+    "to": null,
+    "from": "0x97AEd3F8aaCbcB22b374aC49bC2354374f17235a",
+    "contractAddress": "0x7BF4e3c79D71e4317Fd9C0cd141513749dc1CAb9",
+    "transactionIndex": 24,
+    "gasUsed": "405924",
+    "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+    "blockHash": "0x022781d69406ef2d4224a695936089380cd80086aa195ee189e476daa2690333",
+    "transactionHash": "0x77e0ac70f7e2dca77a1dadb94b807df0ae80b68c468236897ba8108df13bc676",
+    "logs": [],
+    "blockNumber": 10568997,
+    "cumulativeGasUsed": "7541890",
+    "status": 1,
+    "byzantium": true
+  },
+  "args": [],
+  "numDeployments": 1,
+  "solcInputHash": "af54060ac13cd822e4c3f0f7494b07aa",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.6+commit.11564f7e\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"receiver\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"}],\"name\":\"Token\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"target\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"}],\"name\":\"TokenBurn\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"target\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"id\",\"type\":\"uint256\"}],\"name\":\"burn\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"receiver\",\"type\":\"address\"}],\"name\":\"mint\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"publicHash\",\"type\":\"bytes32\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"}],\"name\":\"setToken\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{\"burn(address,uint256)\":{\"params\":{\"id\":\"the collection id\",\"target\":\"the mint receiver\"}}},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{\"burn(address,uint256)\":{\"notice\":\"mint a token associated with a collection with an amount\"}},\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/facets/TokenMinterFacet.sol\":\"TokenMinterFacet\"},\"evmVersion\":\"berlin\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\",\"useLiteralContent\":true},\"optimizer\":{\"enabled\":true,\"runs\":5},\"remappings\":[]},\"sources\":{\"@openzeppelin/contracts/proxy/utils/Initializable.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v4.6.0-rc.0) (proxy/utils/Initializable.sol)\\n\\npragma solidity ^0.8.0;\\n\\nimport \\\"../../utils/Address.sol\\\";\\n\\n/**\\n * @dev This is a base contract to aid in writing upgradeable contracts, or any kind of contract that will be deployed\\n * behind a proxy. Since proxied contracts do not make use of a constructor, it's common to move constructor logic to an\\n * external initializer function, usually called `initialize`. It then becomes necessary to protect this initializer\\n * function so it can only be called once. The {initializer} modifier provided by this contract will have this effect.\\n *\\n * The initialization functions use a version number. Once a version number is used, it is consumed and cannot be\\n * reused. This mechanism prevents re-execution of each \\\"step\\\" but allows the creation of new initialization steps in\\n * case an upgrade adds a module that needs to be initialized.\\n *\\n * For example:\\n *\\n * [.hljs-theme-light.nopadding]\\n * ```\\n * contract MyToken is ERC20Upgradeable {\\n *     function initialize() initializer public {\\n *         __ERC20_init(\\\"MyToken\\\", \\\"MTK\\\");\\n *     }\\n * }\\n * contract MyTokenV2 is MyToken, ERC20PermitUpgradeable {\\n *     function initializeV2() reinitializer(2) public {\\n *         __ERC20Permit_init(\\\"MyToken\\\");\\n *     }\\n * }\\n * ```\\n *\\n * TIP: To avoid leaving the proxy in an uninitialized state, the initializer function should be called as early as\\n * possible by providing the encoded function call as the `_data` argument to {ERC1967Proxy-constructor}.\\n *\\n * CAUTION: When used with inheritance, manual care must be taken to not invoke a parent initializer twice, or to ensure\\n * that all initializers are idempotent. This is not verified automatically as constructors are by Solidity.\\n *\\n * [CAUTION]\\n * ====\\n * Avoid leaving a contract uninitialized.\\n *\\n * An uninitialized contract can be taken over by an attacker. This applies to both a proxy and its implementation\\n * contract, which may impact the proxy. To prevent the implementation contract from being used, you should invoke\\n * the {_disableInitializers} function in the constructor to automatically lock it when it is deployed:\\n *\\n * [.hljs-theme-light.nopadding]\\n * ```\\n * /// @custom:oz-upgrades-unsafe-allow constructor\\n * constructor() {\\n *     _disableInitializers();\\n * }\\n * ```\\n * ====\\n */\\nabstract contract Initializable {\\n    /**\\n     * @dev Indicates that the contract has been initialized.\\n     * @custom:oz-retyped-from bool\\n     */\\n    uint8 private _initialized;\\n\\n    /**\\n     * @dev Indicates that the contract is in the process of being initialized.\\n     */\\n    bool private _initializing;\\n\\n    /**\\n     * @dev Triggered when the contract has been initialized or reinitialized.\\n     */\\n    event Initialized(uint8 version);\\n\\n    /**\\n     * @dev A modifier that defines a protected initializer function that can be invoked at most once. In its scope,\\n     * `onlyInitializing` functions can be used to initialize parent contracts. Equivalent to `reinitializer(1)`.\\n     */\\n    modifier initializer() {\\n        bool isTopLevelCall = _setInitializedVersion(1);\\n        if (isTopLevelCall) {\\n            _initializing = true;\\n        }\\n        _;\\n        if (isTopLevelCall) {\\n            _initializing = false;\\n            emit Initialized(1);\\n        }\\n    }\\n\\n    /**\\n     * @dev A modifier that defines a protected reinitializer function that can be invoked at most once, and only if the\\n     * contract hasn't been initialized to a greater version before. In its scope, `onlyInitializing` functions can be\\n     * used to initialize parent contracts.\\n     *\\n     * `initializer` is equivalent to `reinitializer(1)`, so a reinitializer may be used after the original\\n     * initialization step. This is essential to configure modules that are added through upgrades and that require\\n     * initialization.\\n     *\\n     * Note that versions can jump in increments greater than 1; this implies that if multiple reinitializers coexist in\\n     * a contract, executing them in the right order is up to the developer or operator.\\n     */\\n    modifier reinitializer(uint8 version) {\\n        bool isTopLevelCall = _setInitializedVersion(version);\\n        if (isTopLevelCall) {\\n            _initializing = true;\\n        }\\n        _;\\n        if (isTopLevelCall) {\\n            _initializing = false;\\n            emit Initialized(version);\\n        }\\n    }\\n\\n    /**\\n     * @dev Modifier to protect an initialization function so that it can only be invoked by functions with the\\n     * {initializer} and {reinitializer} modifiers, directly or indirectly.\\n     */\\n    modifier onlyInitializing() {\\n        require(_initializing, \\\"Initializable: contract is not initializing\\\");\\n        _;\\n    }\\n\\n    /**\\n     * @dev Locks the contract, preventing any future reinitialization. This cannot be part of an initializer call.\\n     * Calling this in the constructor of a contract will prevent that contract from being initialized or reinitialized\\n     * to any version. It is recommended to use this to lock implementation contracts that are designed to be called\\n     * through proxies.\\n     */\\n    function _disableInitializers() internal virtual {\\n        _setInitializedVersion(type(uint8).max);\\n    }\\n\\n    function _setInitializedVersion(uint8 version) private returns (bool) {\\n        // If the contract is initializing we ignore whether _initialized is set in order to support multiple\\n        // inheritance patterns, but we only do this in the context of a constructor, and for the lowest level\\n        // of initializers, because in other contexts the contract may have been reentered.\\n        if (_initializing) {\\n            require(\\n                version == 1 && !Address.isContract(address(this)),\\n                \\\"Initializable: contract is already initialized\\\"\\n            );\\n            return false;\\n        } else {\\n            require(_initialized < version, \\\"Initializable: contract is already initialized\\\");\\n            _initialized = version;\\n            return true;\\n        }\\n    }\\n}\\n\",\"keccak256\":\"0xa38813d89d50ccd090040ce6a4d7924bba392ce31114746d8d6d3e721484f868\",\"license\":\"MIT\"},\"@openzeppelin/contracts/utils/Address.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v4.5.0) (utils/Address.sol)\\n\\npragma solidity ^0.8.1;\\n\\n/**\\n * @dev Collection of functions related to the address type\\n */\\nlibrary Address {\\n    /**\\n     * @dev Returns true if `account` is a contract.\\n     *\\n     * [IMPORTANT]\\n     * ====\\n     * It is unsafe to assume that an address for which this function returns\\n     * false is an externally-owned account (EOA) and not a contract.\\n     *\\n     * Among others, `isContract` will return false for the following\\n     * types of addresses:\\n     *\\n     *  - an externally-owned account\\n     *  - a contract in construction\\n     *  - an address where a contract will be created\\n     *  - an address where a contract lived, but was destroyed\\n     * ====\\n     *\\n     * [IMPORTANT]\\n     * ====\\n     * You shouldn't rely on `isContract` to protect against flash loan attacks!\\n     *\\n     * Preventing calls from contracts is highly discouraged. It breaks composability, breaks support for smart wallets\\n     * like Gnosis Safe, and does not provide security since it can be circumvented by calling from a contract\\n     * constructor.\\n     * ====\\n     */\\n    function isContract(address account) internal view returns (bool) {\\n        // This method relies on extcodesize/address.code.length, which returns 0\\n        // for contracts in construction, since the code is only stored at the end\\n        // of the constructor execution.\\n\\n        return account.code.length > 0;\\n    }\\n\\n    /**\\n     * @dev Replacement for Solidity's `transfer`: sends `amount` wei to\\n     * `recipient`, forwarding all available gas and reverting on errors.\\n     *\\n     * https://eips.ethereum.org/EIPS/eip-1884[EIP1884] increases the gas cost\\n     * of certain opcodes, possibly making contracts go over the 2300 gas limit\\n     * imposed by `transfer`, making them unable to receive funds via\\n     * `transfer`. {sendValue} removes this limitation.\\n     *\\n     * https://diligence.consensys.net/posts/2019/09/stop-using-soliditys-transfer-now/[Learn more].\\n     *\\n     * IMPORTANT: because control is transferred to `recipient`, care must be\\n     * taken to not create reentrancy vulnerabilities. Consider using\\n     * {ReentrancyGuard} or the\\n     * https://solidity.readthedocs.io/en/v0.5.11/security-considerations.html#use-the-checks-effects-interactions-pattern[checks-effects-interactions pattern].\\n     */\\n    function sendValue(address payable recipient, uint256 amount) internal {\\n        require(address(this).balance >= amount, \\\"Address: insufficient balance\\\");\\n\\n        (bool success, ) = recipient.call{value: amount}(\\\"\\\");\\n        require(success, \\\"Address: unable to send value, recipient may have reverted\\\");\\n    }\\n\\n    /**\\n     * @dev Performs a Solidity function call using a low level `call`. A\\n     * plain `call` is an unsafe replacement for a function call: use this\\n     * function instead.\\n     *\\n     * If `target` reverts with a revert reason, it is bubbled up by this\\n     * function (like regular Solidity function calls).\\n     *\\n     * Returns the raw returned data. To convert to the expected return value,\\n     * use https://solidity.readthedocs.io/en/latest/units-and-global-variables.html?highlight=abi.decode#abi-encoding-and-decoding-functions[`abi.decode`].\\n     *\\n     * Requirements:\\n     *\\n     * - `target` must be a contract.\\n     * - calling `target` with `data` must not revert.\\n     *\\n     * _Available since v3.1._\\n     */\\n    function functionCall(address target, bytes memory data) internal returns (bytes memory) {\\n        return functionCall(target, data, \\\"Address: low-level call failed\\\");\\n    }\\n\\n    /**\\n     * @dev Same as {xref-Address-functionCall-address-bytes-}[`functionCall`], but with\\n     * `errorMessage` as a fallback revert reason when `target` reverts.\\n     *\\n     * _Available since v3.1._\\n     */\\n    function functionCall(\\n        address target,\\n        bytes memory data,\\n        string memory errorMessage\\n    ) internal returns (bytes memory) {\\n        return functionCallWithValue(target, data, 0, errorMessage);\\n    }\\n\\n    /**\\n     * @dev Same as {xref-Address-functionCall-address-bytes-}[`functionCall`],\\n     * but also transferring `value` wei to `target`.\\n     *\\n     * Requirements:\\n     *\\n     * - the calling contract must have an ETH balance of at least `value`.\\n     * - the called Solidity function must be `payable`.\\n     *\\n     * _Available since v3.1._\\n     */\\n    function functionCallWithValue(\\n        address target,\\n        bytes memory data,\\n        uint256 value\\n    ) internal returns (bytes memory) {\\n        return functionCallWithValue(target, data, value, \\\"Address: low-level call with value failed\\\");\\n    }\\n\\n    /**\\n     * @dev Same as {xref-Address-functionCallWithValue-address-bytes-uint256-}[`functionCallWithValue`], but\\n     * with `errorMessage` as a fallback revert reason when `target` reverts.\\n     *\\n     * _Available since v3.1._\\n     */\\n    function functionCallWithValue(\\n        address target,\\n        bytes memory data,\\n        uint256 value,\\n        string memory errorMessage\\n    ) internal returns (bytes memory) {\\n        require(address(this).balance >= value, \\\"Address: insufficient balance for call\\\");\\n        require(isContract(target), \\\"Address: call to non-contract\\\");\\n\\n        (bool success, bytes memory returndata) = target.call{value: value}(data);\\n        return verifyCallResult(success, returndata, errorMessage);\\n    }\\n\\n    /**\\n     * @dev Same as {xref-Address-functionCall-address-bytes-}[`functionCall`],\\n     * but performing a static call.\\n     *\\n     * _Available since v3.3._\\n     */\\n    function functionStaticCall(address target, bytes memory data) internal view returns (bytes memory) {\\n        return functionStaticCall(target, data, \\\"Address: low-level static call failed\\\");\\n    }\\n\\n    /**\\n     * @dev Same as {xref-Address-functionCall-address-bytes-string-}[`functionCall`],\\n     * but performing a static call.\\n     *\\n     * _Available since v3.3._\\n     */\\n    function functionStaticCall(\\n        address target,\\n        bytes memory data,\\n        string memory errorMessage\\n    ) internal view returns (bytes memory) {\\n        require(isContract(target), \\\"Address: static call to non-contract\\\");\\n\\n        (bool success, bytes memory returndata) = target.staticcall(data);\\n        return verifyCallResult(success, returndata, errorMessage);\\n    }\\n\\n    /**\\n     * @dev Same as {xref-Address-functionCall-address-bytes-}[`functionCall`],\\n     * but performing a delegate call.\\n     *\\n     * _Available since v3.4._\\n     */\\n    function functionDelegateCall(address target, bytes memory data) internal returns (bytes memory) {\\n        return functionDelegateCall(target, data, \\\"Address: low-level delegate call failed\\\");\\n    }\\n\\n    /**\\n     * @dev Same as {xref-Address-functionCall-address-bytes-string-}[`functionCall`],\\n     * but performing a delegate call.\\n     *\\n     * _Available since v3.4._\\n     */\\n    function functionDelegateCall(\\n        address target,\\n        bytes memory data,\\n        string memory errorMessage\\n    ) internal returns (bytes memory) {\\n        require(isContract(target), \\\"Address: delegate call to non-contract\\\");\\n\\n        (bool success, bytes memory returndata) = target.delegatecall(data);\\n        return verifyCallResult(success, returndata, errorMessage);\\n    }\\n\\n    /**\\n     * @dev Tool to verifies that a low level call was successful, and revert if it wasn't, either by bubbling the\\n     * revert reason using the provided one.\\n     *\\n     * _Available since v4.3._\\n     */\\n    function verifyCallResult(\\n        bool success,\\n        bytes memory returndata,\\n        string memory errorMessage\\n    ) internal pure returns (bytes memory) {\\n        if (success) {\\n            return returndata;\\n        } else {\\n            // Look for revert reason and bubble it up if present\\n            if (returndata.length > 0) {\\n                // The easiest way to bubble the revert reason is using memory via assembly\\n\\n                assembly {\\n                    let returndata_size := mload(returndata)\\n                    revert(add(32, returndata), returndata_size)\\n                }\\n            } else {\\n                revert(errorMessage);\\n            }\\n        }\\n    }\\n}\\n\",\"keccak256\":\"0x2ccf9d2313a313d41a791505f2b5abfdc62191b5d4334f7f7a82691c088a1c87\",\"license\":\"MIT\"},\"contracts/diamond/LibAppStorage.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity ^0.8.0;\\n\\nimport \\\"../utils/UInt256Set.sol\\\";\\nimport \\\"../utils/AddressSet.sol\\\";\\n\\nimport \\\"../interfaces/IMarketplace.sol\\\";\\nimport \\\"../interfaces/ITokenMinter.sol\\\";\\nimport \\\"../interfaces/ITokenSale.sol\\\";\\nimport \\\"../interfaces/IForge.sol\\\";\\nimport \\\"../interfaces/IGemPool.sol\\\";\\nimport \\\"../interfaces/IClaim.sol\\\";\\nimport \\\"../interfaces/IRequirement.sol\\\";\\nimport \\\"../interfaces/IAirdropTokenSale.sol\\\";\\nimport \\\"../interfaces/IERC721A.sol\\\";\\n\\nimport {LibDiamond} from \\\"./LibDiamond.sol\\\";\\n\\nstruct SvgLayer {\\n    address svgLayersContract;\\n    uint16 offset;\\n    uint16 size;\\n}\\n\\n\\nstruct GemPoolStorage {\\n    // gem pools data\\n    mapping(uint256 => IGemPool.GemPoolStruct) _gemPools;\\n    // record hashes created by the gem pools\\n    mapping(uint256 => UInt256Set.Set) _recordHashes;\\n    // gem requirements banked within the gem pool\\n    mapping(uint256 => IToken.Token[]) _bankedRequirements;\\n    // claim data\\n    mapping(uint256 => IClaim.Claim) _claims;\\n    uint256 _claimIndex;\\n    // staked totals\\n    mapping(address => uint256) _stakedTotal;\\n    //requirement data\\n    IRequirement.RequirementData _requirementData;\\n    // all symbols listed in the gem pool\\n    string[] _symbols;\\n}\\n\\nstruct ForgeStorage {\\n    // the forge settings by forge id\\n    mapping(uint256 => ForgeDefinition) forges;\\n    uint256[] forgeIds;\\n    // the forge item settings by forge item id\\n    mapping(uint256 => mapping(uint256 => ForgeItemDefinition)) forgeItems;\\n    uint256[] forgeItemIds;\\n    // forged item hashes by forge id\\n    mapping(uint256 => UInt256Set.Set) forgedItemHashes;\\n    // all forged item hashes\\n    UInt256Set.Set allforgedItemHashes;\\n    // all forge symbols\\n    string[] symbols;\\n}\\n\\n// struct for erc1155 storage\\nstruct ERC1155Storage {\\n    mapping(uint256 => mapping(address => uint256)) _balances;\\n    mapping(address => mapping(address => bool)) _operatorApprovals;\\n    mapping(address => mapping(uint256 => uint256)) _minterApprovals;\\n\\n    // mono-uri from erc1155\\n    string _uri;\\n    string _uriBase;\\n    string _symbol;\\n    string _name;\\n\\n    address _approvalProxy;\\n}\\n\\n// struct for erc721a storage\\nstruct ERC721AStorage {\\n    // The tokenId of the next token to be minted.\\n    uint256 _currentIndex;\\n\\n    // The number of tokens burned.\\n    uint256 _burnCounter;\\n\\n    // Token name\\n    string _name;\\n\\n    // Token symbol\\n    string _symbol;\\n\\n    // Mapping from token ID to ownership details\\n    // An empty struct value does not necessarily mean the token is unowned. See ownershipOf implementation for details.\\n    mapping(uint256 => IERC721A.TokenOwnership) _ownerships;\\n\\n    // Mapping owner address to address data\\n    mapping(address => IERC721A.AddressData) _addressData;\\n\\n    // Mapping from token ID to approved address\\n    mapping(uint256 => address) _tokenApprovals;\\n\\n    // Mapping from owner to operator approvals\\n    mapping(address => mapping(address => bool)) _operatorApprovals;\\n}\\n\\n// erc2981 storage struct\\nstruct ERC2981Storage {\\n    // royalty receivers by token hash\\n    mapping(uint256 => address) royaltyReceiversByHash;\\n    // royalties for each token hash - expressed as permilliage of total supply\\n    mapping(uint256 => uint256) royaltyFeesByHash;\\n}\\n\\n// attribute mutatiom pool storage\\nstruct AttributeMutationPoolStorage {\\n    string _attributeKey;\\n    uint256 _attributeValuePerPeriod;\\n    uint256 _attributeBlocksPerPeriod;\\n    uint256 _totalValueThreshold;\\n    mapping (address => mapping (uint256 => uint256)) _tokenDepositHeight;\\n}\\n\\n// token attribute storage\\nstruct TokenAttributeStorage {\\n    mapping(uint256 => mapping(string => uint256)) attributes;\\n}\\n\\n// merkle utils storage\\nstruct MerkleUtilsStorage {\\n    mapping(uint256 => uint256) tokenHashToIds;\\n}\\n\\n// NFT marketplace storage\\nstruct MarketplaceStorage {\\n    uint256 itemsSold;\\n    uint256 itemIds;\\n    mapping(uint256 => IMarketplace.MarketItem) idToMarketItem;\\n    mapping(uint256 => bool) idToListed;\\n}\\n\\n// token minter storage\\nstruct TokenMinterStorage {\\n    address token;\\n    uint256 _tokenCounter;\\n    mapping(uint256 => address) _tokenMinters;\\n}\\n\\n// fractionalized token storage\\nstruct FractionalizedTokenData {\\n    string symbol;\\n    string name;\\n    address tokenAddress;\\n    uint256 tokenId;\\n    address fractionalizedToken;\\n    uint256 totalFractions;\\n}\\n\\n// fractionalizer storage\\nstruct FractionalizerStorage {\\n    address fTokenTemplate;\\n    mapping(address => FractionalizedTokenData) fractionalizedTokens;\\n}\\n\\n// token sale storage\\nstruct TokenSaleStorage {\\n    mapping(address => ITokenSale.TokenSaleEntry) tokenSaleEntries;\\n}\\n\\n// fee manager storage\\nstruct FeeManagerStorage {\\n    mapping(string => uint256) _fees;\\n}\\n\\nstruct AirdropTokenSaleStorage {\\n    uint256 tsnonce;\\n    mapping(uint256 => uint256) nonces;\\n    // token sale settings\\n    mapping(uint256 => IAirdropTokenSale.TokenSaleSettings) _tokenSales;\\n    // is token sale open\\n    mapping(uint256 => bool) tokenSaleOpen;\\n    // total purchased tokens per drop - 0 for public tokensale\\n    mapping(uint256 => mapping(address => uint256)) purchased;\\n    // total purchased tokens per drop - 0 for public tokensale\\n    mapping(uint256 => uint256) totalPurchased;\\n}\\n\\nstruct MerkleAirdropStorage {\\n    mapping (uint256 => IAirdrop.AirdropSettings) _settings;\\n    uint256 numSettings;\\n    mapping (uint256 => mapping(uint256 => uint256)) _redeemedData;\\n    mapping (uint256 => mapping(address => uint256)) _redeemedDataQuantities;\\n    mapping (uint256 => mapping(address => uint256)) _totalDataQuantities;\\n}\\n\\nstruct MarketUtilsStorage {\\n    mapping(uint256 => bool) validTokens;\\n}\\n\\nstruct BankStorage {\\n    address token;\\n    mapping(address => mapping(uint256 => uint256)) balances;\\n}\\n\\n\\nstruct AppStorage {\\n    // gem pools data\\n    MarketplaceStorage marketplaceStorage;\\n    // gem pools data\\n    TokenMinterStorage tokenMinterStorage;\\n    // the erc1155 token\\n    ERC1155Storage erc1155Storage;\\n    // fractionalizer storage\\n    FractionalizerStorage fractionalizerStorage;\\n    // market utils storage\\n    MarketUtilsStorage marketUtilsStorage;\\n    // token sale storage\\n    TokenSaleStorage tokenSaleStorage;\\n    // merkle airdrop storage\\n    MerkleAirdropStorage merkleAirdropStorage;\\n    // erc721a storage\\n    ERC721AStorage erc721AStorage;\\n    // erc2981 storage\\n    ERC2981Storage erc2981Storage;\\n    // attribute mutation pool storage\\n    AttributeMutationPoolStorage attributeMutationPoolStorage;\\n    // token attribute storage\\n    TokenAttributeStorage tokenAttributeStorage;\\n    // airdrop token sale storage\\n    AirdropTokenSaleStorage airdropTokenSaleStorage;\\n    // fee manager storage\\n    FeeManagerStorage feeManagerStorage;\\n    // bank storage\\n    BankStorage bankStorage;\\n    // forge storage\\n    ForgeStorage forgeStorage;\\n    // gem pool storage\\n    GemPoolStorage gemPoolStorage;\\n}\\n\\nlibrary LibAppStorage {\\n    function diamondStorage() internal pure returns (AppStorage storage ds) {\\n        assembly {\\n            ds.slot := 0\\n        }\\n    }\\n}\\n\\ncontract Modifiers {\\n    AppStorage internal s;\\n    modifier onlyOwner() {\\n        require(LibDiamond.contractOwner() == msg.sender || address(this) == msg.sender, \\\"ERC1155: only the contract owner can call this function\\\");\\n        _;\\n    }\\n}\\n\",\"keccak256\":\"0x0b18cf449788484d54202277232fcd5789728936344db6625daa3a6b00dbfd6f\",\"license\":\"MIT\"},\"contracts/diamond/LibDiamond.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity ^0.8.0;\\n\\n/******************************************************************************\\\\\\n* Author: Nick Mudge <nick@perfectabstractions.com> (https://twitter.com/mudgen)\\n* EIP-2535 Diamonds: https://eips.ethereum.org/EIPS/eip-2535\\n/******************************************************************************/\\nimport { IDiamondCut } from \\\"../interfaces/IDiamondCut.sol\\\";\\n\\n/// @notice Defines the data structures that are used to store the data for a diamond\\nlibrary LibDiamond {\\n    // the diamond storage position\\n    bytes32 constant DIAMOND_STORAGE_POSITION = keccak256(\\\"diamond.standard.diamond.storage\\\");\\n\\n    /// @notice Stores the function selectors located within the Diamond\\n    struct DiamondStorage {\\n        // maps function selectors to the facets that execute the functions.\\n        // and maps the selectors to their position in the selectorSlots array.\\n        // func selector => address facet, selector position\\n        mapping(bytes4 => bytes32) facets;\\n        // array of slots of function selectors.\\n        // each slot holds 8 function selectors.\\n        mapping(uint256 => bytes32) selectorSlots;\\n        // The number of function selectors in selectorSlots\\n        uint16 selectorCount;\\n        // Used to query if a contract implements an interface.\\n        // Used to implement ERC-165.\\n        mapping(bytes4 => bool) supportedInterfaces;\\n        // owner of the contract\\n        address contractOwner;\\n    }\\n\\n    /// @notice Returns the storage position of the diamond\\n    function diamondStorage() internal pure returns (DiamondStorage storage ds) {\\n        bytes32 position = DIAMOND_STORAGE_POSITION;\\n        assembly {\\n            ds.slot := position\\n        }\\n    }\\n\\n    // event is generated when the diamond ownership is transferred\\n    event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);\\n\\n    /// @notice set the diamond contract owner\\n    /// @param _newOwner the new owner of the diamond\\n    function setContractOwner(address _newOwner) internal {\\n        DiamondStorage storage ds = diamondStorage();\\n        address previousOwner = ds.contractOwner;\\n        ds.contractOwner = _newOwner;\\n        emit OwnershipTransferred(previousOwner, _newOwner);\\n    }\\n\\n    /// @notice returns the diamond contract owner\\n    /// @return contractOwner_ the diamond contract owner\\n    function contractOwner() internal view returns (address contractOwner_) {\\n        contractOwner_ = diamondStorage().contractOwner;\\n    }\\n\\n    /// @notice enforce contract ownership by requiring the caller to be the contract owner\\n    function enforceIsContractOwner() internal view {\\n        require(msg.sender == diamondStorage().contractOwner, \\\"LibDiamond: Must be contract owner\\\");\\n    }\\n\\n    event DiamondCut(IDiamondCut.FacetCut[] _diamondCut, address _init, bytes _calldata);\\n\\n    bytes32 constant CLEAR_ADDRESS_MASK = bytes32(uint256(0xffffffffffffffffffffffff));\\n    bytes32 constant CLEAR_SELECTOR_MASK = bytes32(uint256(0xffffffff << 224));\\n\\n    // Internal function version of diamondCut\\n    // This code is almost the same as the external diamondCut,\\n    // except it is using 'Facet[] memory _diamondCut' instead of\\n    // 'Facet[] calldata _diamondCut'.\\n    // The code is duplicated to prevent copying calldata to memory which\\n    // causes an error for a two dimensional array.\\n    function diamondCut(\\n        IDiamondCut.FacetCut[] memory _diamondCut,\\n        address _init,\\n        bytes memory _calldata\\n    ) internal {\\n        DiamondStorage storage ds = diamondStorage();\\n        uint256 originalSelectorCount = ds.selectorCount;\\n        uint256 selectorCount = originalSelectorCount;\\n        bytes32 selectorSlot;\\n        // Check if last selector slot is not full\\n        // \\\"selectorCount & 7\\\" is a gas efficient modulo by eight \\\"selectorCount % 8\\\"\\n        if (selectorCount & 7 > 0) {\\n            // get last selectorSlot\\n            // \\\"selectorSlot >> 3\\\" is a gas efficient division by 8 \\\"selectorSlot / 8\\\"\\n            selectorSlot = ds.selectorSlots[selectorCount >> 3];\\n        }\\n        // loop through diamond cut\\n        for (uint256 facetIndex; facetIndex < _diamondCut.length; facetIndex++) {\\n            (selectorCount, selectorSlot) = addReplaceRemoveFacetSelectors(\\n                selectorCount,\\n                selectorSlot,\\n                _diamondCut[facetIndex].facetAddress,\\n                _diamondCut[facetIndex].action,\\n                _diamondCut[facetIndex].functionSelectors\\n            );\\n        }\\n        if (selectorCount != originalSelectorCount) {\\n            ds.selectorCount = uint16(selectorCount);\\n        }\\n        // If last selector slot is not full\\n        // \\\"selectorCount & 7\\\" is a gas efficient modulo by eight \\\"selectorCount % 8\\\"\\n        if (selectorCount & 7 > 0) {\\n            // \\\"selectorSlot >> 3\\\" is a gas efficient division by 8 \\\"selectorSlot / 8\\\"\\n            ds.selectorSlots[selectorCount >> 3] = selectorSlot;\\n        }\\n        emit DiamondCut(_diamondCut, _init, _calldata);\\n        initializeDiamondCut(_init, _calldata);\\n    }\\n\\n    /// @notice add or replace facet selectors\\n    function addReplaceRemoveFacetSelectors(\\n        uint256 _selectorCount,\\n        bytes32 _selectorSlot,\\n        address _newFacetAddress,\\n        IDiamondCut.FacetCutAction _action,\\n        bytes4[] memory _selectors\\n    ) internal returns (uint256, bytes32) {\\n        DiamondStorage storage ds = diamondStorage();\\n        require(_selectors.length > 0, \\\"LibDiamondCut: No selectors in facet to cut\\\");\\n        if (_action == IDiamondCut.FacetCutAction.Add) {\\n            enforceHasContractCode(_newFacetAddress, \\\"LibDiamondCut: Add facet has no code\\\");\\n            for (uint256 selectorIndex; selectorIndex < _selectors.length; selectorIndex++) {\\n                bytes4 selector = _selectors[selectorIndex];\\n                bytes32 oldFacet = ds.facets[selector];\\n                require(address(bytes20(oldFacet)) == address(0), \\\"LibDiamondCut: Can't add function that already exists\\\");\\n                // add facet for selector\\n                ds.facets[selector] = bytes20(_newFacetAddress) | bytes32(_selectorCount);\\n                // \\\"_selectorCount & 7\\\" is a gas efficient modulo by eight \\\"_selectorCount % 8\\\"\\n                uint256 selectorInSlotPosition = (_selectorCount & 7) << 5;\\n                // clear selector position in slot and add selector\\n                _selectorSlot = (_selectorSlot & ~(CLEAR_SELECTOR_MASK >> selectorInSlotPosition)) | (bytes32(selector) >> selectorInSlotPosition);\\n                // if slot is full then write it to storage\\n                if (selectorInSlotPosition == 224) {\\n                    // \\\"_selectorSlot >> 3\\\" is a gas efficient division by 8 \\\"_selectorSlot / 8\\\"\\n                    ds.selectorSlots[_selectorCount >> 3] = _selectorSlot;\\n                    _selectorSlot = 0;\\n                }\\n                _selectorCount++;\\n            }\\n        } else if (_action == IDiamondCut.FacetCutAction.Replace) {\\n            enforceHasContractCode(_newFacetAddress, \\\"LibDiamondCut: Replace facet has no code\\\");\\n            for (uint256 selectorIndex; selectorIndex < _selectors.length; selectorIndex++) {\\n                bytes4 selector = _selectors[selectorIndex];\\n                bytes32 oldFacet = ds.facets[selector];\\n                address oldFacetAddress = address(bytes20(oldFacet));\\n                // only useful if immutable functions exist\\n                require(oldFacetAddress != address(this), \\\"LibDiamondCut: Can't replace immutable function\\\");\\n                require(oldFacetAddress != _newFacetAddress, \\\"LibDiamondCut: Can't replace function with same function\\\");\\n                require(oldFacetAddress != address(0), \\\"LibDiamondCut: Can't replace function that doesn't exist\\\");\\n                // replace old facet address\\n                ds.facets[selector] = (oldFacet & CLEAR_ADDRESS_MASK) | bytes20(_newFacetAddress);\\n            }\\n        } else if (_action == IDiamondCut.FacetCutAction.Remove) {\\n            require(_newFacetAddress == address(0), \\\"LibDiamondCut: Remove facet address must be address(0)\\\");\\n            // \\\"_selectorCount >> 3\\\" is a gas efficient division by 8 \\\"_selectorCount / 8\\\"\\n            uint256 selectorSlotCount = _selectorCount >> 3;\\n            // \\\"_selectorCount & 7\\\" is a gas efficient modulo by eight \\\"_selectorCount % 8\\\"\\n            uint256 selectorInSlotIndex = _selectorCount & 7;\\n            for (uint256 selectorIndex; selectorIndex < _selectors.length; selectorIndex++) {\\n                if (_selectorSlot == 0) {\\n                    // get last selectorSlot\\n                    selectorSlotCount--;\\n                    _selectorSlot = ds.selectorSlots[selectorSlotCount];\\n                    selectorInSlotIndex = 7;\\n                } else {\\n                    selectorInSlotIndex--;\\n                }\\n                bytes4 lastSelector;\\n                uint256 oldSelectorsSlotCount;\\n                uint256 oldSelectorInSlotPosition;\\n                // adding a block here prevents stack too deep error\\n                {\\n                    bytes4 selector = _selectors[selectorIndex];\\n                    bytes32 oldFacet = ds.facets[selector];\\n                    require(address(bytes20(oldFacet)) != address(0), \\\"LibDiamondCut: Can't remove function that doesn't exist\\\");\\n                    // only useful if immutable functions exist\\n                    require(address(bytes20(oldFacet)) != address(this), \\\"LibDiamondCut: Can't remove immutable function\\\");\\n                    // replace selector with last selector in ds.facets\\n                    // gets the last selector\\n                    lastSelector = bytes4(_selectorSlot << (selectorInSlotIndex << 5));\\n                    if (lastSelector != selector) {\\n                        // update last selector slot position info\\n                        ds.facets[lastSelector] = (oldFacet & CLEAR_ADDRESS_MASK) | bytes20(ds.facets[lastSelector]);\\n                    }\\n                    delete ds.facets[selector];\\n                    uint256 oldSelectorCount = uint16(uint256(oldFacet));\\n                    // \\\"oldSelectorCount >> 3\\\" is a gas efficient division by 8 \\\"oldSelectorCount / 8\\\"\\n                    oldSelectorsSlotCount = oldSelectorCount >> 3;\\n                    // \\\"oldSelectorCount & 7\\\" is a gas efficient modulo by eight \\\"oldSelectorCount % 8\\\"\\n                    oldSelectorInSlotPosition = (oldSelectorCount & 7) << 5;\\n                }\\n                if (oldSelectorsSlotCount != selectorSlotCount) {\\n                    bytes32 oldSelectorSlot = ds.selectorSlots[oldSelectorsSlotCount];\\n                    // clears the selector we are deleting and puts the last selector in its place.\\n                    oldSelectorSlot =\\n                        (oldSelectorSlot & ~(CLEAR_SELECTOR_MASK >> oldSelectorInSlotPosition)) |\\n                        (bytes32(lastSelector) >> oldSelectorInSlotPosition);\\n                    // update storage with the modified slot\\n                    ds.selectorSlots[oldSelectorsSlotCount] = oldSelectorSlot;\\n                } else {\\n                    // clears the selector we are deleting and puts the last selector in its place.\\n                    _selectorSlot =\\n                        (_selectorSlot & ~(CLEAR_SELECTOR_MASK >> oldSelectorInSlotPosition)) |\\n                        (bytes32(lastSelector) >> oldSelectorInSlotPosition);\\n                }\\n                if (selectorInSlotIndex == 0) {\\n                    delete ds.selectorSlots[selectorSlotCount];\\n                    _selectorSlot = 0;\\n                }\\n            }\\n            _selectorCount = selectorSlotCount * 8 + selectorInSlotIndex;\\n        } else {\\n            revert(\\\"LibDiamondCut: Incorrect FacetCutAction\\\");\\n        }\\n        return (_selectorCount, _selectorSlot);\\n    }\\n\\n    /// @notice initialise the DiamondCut contract\\n    function initializeDiamondCut(address _init, bytes memory _calldata) internal {\\n        if (_init == address(0)) {\\n            require(_calldata.length == 0, \\\"LibDiamondCut: _init is address(0) but_calldata is not empty\\\");\\n        } else {\\n            require(_calldata.length > 0, \\\"LibDiamondCut: _calldata is empty but _init is not address(0)\\\");\\n            if (_init != address(this)) {\\n                enforceHasContractCode(_init, \\\"LibDiamondCut: _init address has no code\\\");\\n            }\\n            (bool success, bytes memory error) = _init.delegatecall(_calldata);\\n            if (!success) {\\n                if (error.length > 0) {\\n                    // bubble up the error\\n                    revert(string(error));\\n                } else {\\n                    revert(\\\"LibDiamondCut: _init function reverted\\\");\\n                }\\n            }\\n        }\\n    }\\n\\n    function enforceHasContractCode(address _contract, string memory _errorMessage) internal view {\\n        uint256 contractSize;\\n        assembly {\\n            contractSize := extcodesize(_contract)\\n        }\\n        require(contractSize > 0, _errorMessage);\\n    }\\n}\\n\",\"keccak256\":\"0xdec0822acba9b539929f2c34457a02138bd28fd083a8feefb10a65e554f0124a\",\"license\":\"MIT\"},\"contracts/facets/TokenMinterFacet.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity ^0.8.0;\\n\\nimport \\\"@openzeppelin/contracts/proxy/utils/Initializable.sol\\\";\\n\\nimport \\\"../interfaces/ITokenMinter.sol\\\";\\nimport \\\"../interfaces/IERC1155Mint.sol\\\";\\nimport \\\"../interfaces/IERC1155Burn.sol\\\";\\n\\nimport \\\"../diamond/LibAppStorage.sol\\\";\\nimport { LibDiamond } from \\\"../diamond/LibDiamond.sol\\\";\\n\\ninterface ITokenAttributeSetter {\\n    function setAttribute(\\n        uint256 _tokenId,\\n        string memory key,\\n        uint256 value\\n    ) external;\\n}\\n\\ncontract TokenMinterFacet {\\n\\n    // application storage\\n    AppStorage internal s;\\n\\n    event Token(address indexed receiver, uint256 indexed tokenId);\\n    event TokenBurn(address indexed target, uint256 indexed tokenId);\\n\\n    modifier onlyController {\\n        require(msg.sender == LibDiamond.contractOwner()  || msg.sender == address(this), \\\"only the contract owner can mint\\\");\\n        _;\\n    }\\n\\n    function setToken(address token) external onlyController {\\n        s.tokenMinterStorage.token = token;\\n    }\\n\\n    /// @notice mint a token associated with a collection with an amount\\n    /// @param target the mint receiver\\n    /// @param id the collection id\\n    function burn(address target, uint256 id) external onlyController {\\n\\n        delete s.tokenMinterStorage._tokenMinters[id];\\n\\n        // burn the token\\n        IERC1155Burn(s.tokenMinterStorage.token).burn(target, id, 1);\\n\\n        // emit the event\\n        emit TokenBurn(target, id);\\n    }\\n\\n    function mint(address receiver) external onlyController returns(bytes32 publicHash)  {\\n\\n        // require receiver not be the zero address\\n        require(receiver != address(0x0), \\\"receiver cannot be the zero address\\\");\\n\\n        // create a keccak256 hash using the contract address, the collection, and the gia number\\n        publicHash =  keccak256(abi.encodePacked(\\n            address(this),\\n            s.tokenMinterStorage._tokenCounter\\n        ));\\n        s.tokenMinterStorage._tokenCounter++;\\n\\n        // store the audit hash\\n        s.tokenMinterStorage._tokenMinters[uint256(publicHash)] = msg.sender;\\n\\n        ITokenAttributeSetter(address(this)).setAttribute(\\n            uint256(publicHash),\\n            \\\"Rarity\\\",\\n            0\\n        );\\n        ITokenAttributeSetter(address(this)).setAttribute(\\n            uint256(publicHash),\\n            \\\"Type\\\",\\n            0\\n        );\\n        ITokenAttributeSetter(address(this)).setAttribute(\\n            uint256(publicHash),\\n            \\\"Power\\\",\\n            1\\n        );\\n\\n        // mint the token to the receiver using the public hash\\n        IERC1155Mint(s.tokenMinterStorage.token).mint(\\n            receiver,\\n            uint256(publicHash),\\n            1,\\n            \\\"\\\"\\n        );\\n\\n        // emit the event\\n        emit Token(receiver, uint256(publicHash));\\n    }\\n\\n}\\n\",\"keccak256\":\"0x03c2374bec584bc4e69a0f9806c1d424c1392abf1bca094e4100fbfbd2670acf\",\"license\":\"MIT\"},\"contracts/interfaces/IAirdrop.sol\":{\"content\":\"//SPDX-License-Identifier: Unlicense\\npragma solidity ^0.8.0;\\n\\nimport \\\"./IToken.sol\\\";\\nimport \\\"./ITokenPrice.sol\\\";\\n\\ninterface IMerkleAirdrop {\\n    function airdropRedeemed(\\n        uint256 drop,\\n        address recipient,\\n        uint256 amount\\n    ) external;\\n     function initMerkleAirdrops(IAirdrop.AirdropSettings[] calldata settingsList) external;\\n     function airdrop(uint256 drop) external view returns (IAirdrop.AirdropSettings memory settings);\\n     function airdropRedeemed(uint256 drop, address recipient) external view returns (bool isRedeemed);\\n}\\n\\n/// @notice an airdrop airdrops tokens\\ninterface IAirdrop {\\n\\n    // emitted when airdrop is redeemed\\n\\n\\n    /// @notice the settings for the token sale,\\n    struct AirdropSettings {\\n        // sell from the whitelist only\\n        bool whitelistOnly;\\n\\n        // this whitelist id - by convention is the whitelist hash\\n        uint256 whitelistId;\\n\\n        // the root hash of the merkle tree\\n        bytes32 whitelistHash;\\n\\n        // quantities\\n        uint256 maxQuantity; // max number of tokens that can be sold\\n        uint256 maxQuantityPerSale; // max number of tokens that can be sold per sale\\n        uint256 minQuantityPerSale; // min number of tokens that can be sold per sale\\n        uint256 maxQuantityPerAccount; // max number of tokens that can be sold per account\\n\\n        // quantity of item sold\\n        uint256 quantitySold;\\n\\n        // start timne and end time for token sale\\n        uint256 startTime; // block number when the sale starts\\n        uint256 endTime; // block number when the sale ends\\n\\n        // inital price of the token sale\\n        ITokenPrice.TokenPriceData initialPrice;\\n\\n        // token hash\\n        uint256 tokenHash;\\n    }\\n\\n    // emitted when airdrop is launched\\n    event AirdropLaunched(uint256 indexed airdropId, AirdropSettings airdrop);\\n\\n    // emitted when airdrop is redeemed\\n    event AirdropRedeemed(uint256 indexed airdropId, address indexed beneficiary, uint256 indexed tokenHash, bytes32[] proof, uint256 amount);\\n\\n    /// @notice airdrops check to see if proof is redeemed\\n    /// @param drop the id of the airdrop\\n    /// @param recipient the merkle proof\\n    /// @return isRedeemed the amount of tokens redeemed\\n    function airdropRedeemed(uint256 drop, address recipient) external view returns (bool isRedeemed);\\n\\n    /// @notice redeem tokens for airdrop\\n    /// @param drop the airdrop id\\n    /// @param leaf the index of the token in the airdrop\\n    /// @param recipient the beneficiary of the tokens\\n    /// @param amount tje amount of tokens to redeem\\n    /// @param merkleProof the merkle proof of the token\\n    function redeemAirdrop(uint256 drop, uint256 leaf, address recipient, uint256 amount, uint256 total, bytes32[] memory merkleProof) external payable;\\n\\n    /// @notice Get the token sale settings\\n    /// @return settings the token sale settings\\n    function airdrop(uint256 drop) external view returns (AirdropSettings memory settings);\\n\\n}\\n\",\"keccak256\":\"0x058706dad235147fd5fec33d11649a2bf16dc9164dd4fae53d68b8af5b8ba8f4\",\"license\":\"Unlicense\"},\"contracts/interfaces/IAirdropTokenSale.sol\":{\"content\":\"//SPDX-License-Identifier: Unlicense\\npragma solidity ^0.8.0;\\n\\nimport \\\"./ITokenPrice.sol\\\";\\nimport \\\"./IAirdrop.sol\\\";\\n\\n/// @notice A token seller is a contract that can sell tokens to a token buyer.\\n/// The token buyer can buy tokens from the seller by paying a certain amount\\n/// of base currency to receive a certain amount of erc1155 tokens. the number\\n/// of tokens that can be bought is limited by the seller - the seller can\\n/// specify the maximum number of tokens that can be bought per transaction\\n/// and the maximum number of tokens that can be bought in total for a given\\n/// address. The seller can also specify the price of erc1155 tokens and how\\n/// that price increases per successful transaction.\\ninterface IAirdropTokenSale {\\n\\n\\n    /// @notice the settings for the token sale,\\n    struct TokenSaleSettings {\\n\\n        // addresses\\n        address contractAddress; // the contract doing the selling\\n        address token; // the token being sold\\n        uint256 tokenHash; // the token hash being sold. set to 0 to autocreate hash\\n        uint256 collectionHash; // the collection hash being sold. set to 0 to autocreate hash\\n        // owner and payee\\n        address owner; // the owner of the contract\\n        address payee; // the payee of the contract\\n\\n        string symbol; // the symbol of the token\\n        string name; // the name of the token\\n        string description; // the description of the token\\n\\n        // open state\\n        bool openState; // open or closed\\n        uint256 startTime; // block number when the sale starts\\n        uint256 endTime; // block number when the sale ends\\n\\n        // quantities\\n        uint256 maxQuantity; // max number of tokens that can be sold\\n        uint256 maxQuantityPerSale; // max number of tokens that can be sold per sale\\n        uint256 minQuantityPerSale; // min number of tokens that can be sold per sale\\n        uint256 maxQuantityPerAccount; // max number of tokens that can be sold per account\\n\\n        // inital price of the token sale\\n        ITokenPrice.TokenPriceData initialPrice;\\n\\n    }\\n\\n    /// @notice emitted when a token is opened\\n    event TokenSaleOpen (uint256 tokenSaleId, TokenSaleSettings tokenSale );\\n\\n    /// @notice emitted when a token is opened\\n    event TokenSaleClosed (uint256 tokenSaleId, TokenSaleSettings tokenSale );\\n\\n    /// @notice emitted when a token is opened\\n    event TokenPurchased (uint256 tokenSaleId, address indexed purchaser, uint256 tokenId, uint256 quantity );\\n\\n    // token settings were updated\\n    event TokenSaleSettingsUpdated (uint256 tokenSaleId, TokenSaleSettings tokenSale );\\n\\n    /// @notice Get the token sale settings\\n    /// @return settings the token sale settings\\n    function getTokenSaleSettings(uint256 tokenSaleId) external view returns (TokenSaleSettings memory settings);\\n\\n    /// @notice Updates the token sale settings\\n    /// @param settings - the token sake settings\\n    function updateTokenSaleSettings(uint256 iTokenSaleId, TokenSaleSettings memory settings) external;\\n\\n    function initTokenSale(\\n        TokenSaleSettings memory tokenSaleInit,\\n        IAirdrop.AirdropSettings[] calldata settingsList\\n    ) external;\\n}\\n\",\"keccak256\":\"0xc7b749fa728930e1764305a5819b54131ae07461a436b46b19e2b01b54a61f20\",\"license\":\"Unlicense\"},\"contracts/interfaces/IClaim.sol\":{\"content\":\"//SPDX-License-Identifier: Unlicense\\npragma solidity ^0.8.0;\\n\\n\\n/// @notice interface for a collection of tokens. lists members of collection, allows for querying of collection members, and for minting and burning of tokens.\\ninterface IClaim {\\n\\n\\n    /// @notice represents a claim on some deposit.\\n    struct Claim {\\n\\n        // claim id.\\n        uint256 id;\\n\\n        // pool id\\n        uint256 poolId;\\n\\n        // the creator of this claim\\n        address creator;\\n\\n        // the minter of this claim. This is the contract that minted the item, not the account that created the claim.\\n        address minter;\\n\\n        // the amount of eth deposited\\n        uint256 depositAmount;\\n\\n        // the type of deposit made. 0 for ETH or an ERC20 token\\n        address depositToken;\\n\\n        // the gem quantity to mint to the user upon maturity\\n        uint256 mintQuantity;\\n\\n        // the deposit length of time, in seconds\\n        uint256 depositLength;\\n\\n        // the block number when this record was created.\\n        uint256 createdTime;\\n\\n        // the block number when this record was created.\\n        uint256 createdBlock;\\n\\n        // block number when the claim was submitted or 0 if unclaimed\\n        uint256 claimedBlock;\\n\\n        // gem hash of minted gem(s) or 0 if no gem minted\\n        uint256 gemHash;\\n\\n        // the fee that was paid\\n        uint256 feePaid;\\n    }\\n\\n    /// @notice a set of requirements. used for random access\\n    struct ClaimSet {\\n\\n        mapping(uint256 => uint256) keyPointers;\\n        uint256[] keyList;\\n        Claim[] valueList;\\n\\n    }\\n\\n    struct ClaimSettings {\\n\\n        ClaimSet claims;\\n\\n        // the total staked for each token type (0 for ETH)\\n        mapping(address => uint256) stakedTotal;\\n\\n    }\\n\\n\\n    /// @notice emitted when a token is added to the collection\\n    event ClaimCreated(\\n        address indexed user,\\n        address indexed minter,\\n        Claim claim\\n    );\\n\\n    /// @notice emitted when a token is removed from the collection\\n    event ClaimRedeemed (\\n        address indexed user,\\n        address indexed minter,\\n        Claim claim\\n    );\\n\\n    /// @notice create a claim\\n    /// @param _claim the claim to create\\n    /// @return _claimHash the claim hash\\n    function createClaim(Claim memory _claim) external payable returns (Claim memory _claimHash);\\n\\n    /// @notice submit claim for collection\\n    /// @param claimHash the id of the claim\\n    function collectClaim(uint256 claimHash, bool requireMature) external;\\n\\n    /// @notice return the next claim hash\\n    /// @return _nextHash the next claim hash\\n    function nextClaimHash() external view returns (uint256 _nextHash);\\n\\n    /// @notice get all the claims\\n    /// @return _claims all the claims\\n    function claims() external view returns (Claim[] memory _claims);\\n\\n}\\n\",\"keccak256\":\"0xee865f68cf261f4005a2de2a84f936013a10cb1fb62ea35f004961225054eb55\",\"license\":\"Unlicense\"},\"contracts/interfaces/IDiamondCut.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity ^0.8.0;\\n\\n/******************************************************************************\\\\\\n* Author: Nick Mudge <nick@perfectabstractions.com> (https://twitter.com/mudgen)\\n* EIP-2535 Diamonds: https://eips.ethereum.org/EIPS/eip-2535\\n/******************************************************************************/\\n\\ninterface IDiamondCut {\\n    enum FacetCutAction {Add, Replace, Remove}\\n    // Add=0, Replace=1, Remove=2\\n\\n    struct FacetCut {\\n        address facetAddress;\\n        FacetCutAction action;\\n        bytes4[] functionSelectors;\\n    }\\n\\n    /// @notice Add/replace/remove any number of functions and optionally execute\\n    ///         a function with delegatecall\\n    /// @param _diamondCut Contains the facet addresses and function selectors\\n    /// @param _init The address of the contract or facet to execute _calldata\\n    /// @param _calldata A function call, including function selector and arguments\\n    ///                  _calldata is executed with delegatecall on _init\\n    function diamondCut(\\n        FacetCut[] calldata _diamondCut,\\n        address _init,\\n        bytes calldata _calldata\\n    ) external;\\n\\n    event DiamondCut(FacetCut[] _diamondCut, address _init, bytes _calldata);\\n}\\n\",\"keccak256\":\"0xc00c16bfa30a3fa5f3dc684f7f8ba62c259962b25f647d9588739458989717fc\",\"license\":\"MIT\"},\"contracts/interfaces/IERC1155Burn.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity >=0.8.0;\\n\\n/// implemented by erc1155 tokens to allow burning\\ninterface IERC1155Burn {\\n\\n    /// @notice event emitted when tokens are burned\\n    event Burned(\\n        address target,\\n        uint256 tokenHash,\\n        uint256 amount\\n    );\\n\\n    /// @notice burn tokens of specified amount from the specified address\\n    /// @param target the burn target\\n    /// @param tokenHash the token hash to burn\\n    /// @param amount the amount to burn\\n    function burn(\\n        address target,\\n        uint256 tokenHash,\\n        uint256 amount\\n    ) external;\\n\\n\\n}\\n\",\"keccak256\":\"0xb211cef77f9a160fe66b21fe10d657d7ef1ce8b9570322fd22e216a7c8ff1697\",\"license\":\"MIT\"},\"contracts/interfaces/IERC1155Mint.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity >=0.8.0;\\n\\n/// implemented by erc1155 tokens to allow mminting\\ninterface IERC1155Mint {\\n\\n    /// @notice event emitted when tokens are minted\\n    event Minted(\\n        address target,\\n        uint256 tokenHash,\\n        uint256 amount\\n    );\\n\\n    /// @notice mint tokens of specified amount to the specified address\\n    /// @param recipient the mint target\\n    /// @param tokenHash the token hash to mint\\n    /// @param amount the amount to mint\\n    function mint(\\n        address recipient,\\n        uint256 tokenHash,\\n        uint256 amount,\\n        bytes memory data\\n    ) external;\\n\\n    function setMintAllowance(address receiver, uint256 tokenId, uint256 amount) external;\\n\\n}\\n\",\"keccak256\":\"0x6de8fa999edff67cba888fe013d8a7693c2aa7b74e6c7612a50199f02bed6d3d\",\"license\":\"MIT\"},\"contracts/interfaces/IERC721A.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n\\npragma solidity ^0.8.0;\\n\\n/**\\n * @dev Required interface of an ERC721 compliant contract.\\n */\\ninterface IERC721A {\\n\\n    // Compiler will pack this into a single 256bit word.\\n    struct TokenOwnership {\\n        // The address of the owner.\\n        address addr;\\n        // Keeps track of the start time of ownership with minimal overhead for tokenomics.\\n        uint64 startTimestamp;\\n        // Whether the token has been burned.\\n        bool burned;\\n    }\\n\\n    // Compiler will pack this into a single 256bit word.\\n    struct AddressData {\\n        // Realistically, 2**64-1 is more than enough.\\n        uint64 balance;\\n        // Keeps track of mint count with minimal overhead for tokenomics.\\n        uint64 numberMinted;\\n        // Keeps track of burn count with minimal overhead for tokenomics.\\n        uint64 numberBurned;\\n        // For miscellaneous variable(s) pertaining to the address\\n        // (e.g. number of whitelist mint slots used).\\n        // If there are multiple variables, please pack them into a uint64.\\n        uint64 aux;\\n    }\\n\\n}\\n\",\"keccak256\":\"0x8596388de3dbd302c9f0ddd89adb30b88bca9bef09494dfc2c11a8560612d88c\",\"license\":\"MIT\"},\"contracts/interfaces/IForge.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity >=0.8.0;\\n\\nimport \\\"./ITokenDefinitions.sol\\\";\\nimport \\\"./IRequirement.sol\\\";\\n\\n// defines the forge. The forge contains items that can be minted in exchange for input items\\nstruct ForgeDefinition {\\n    // forge identifier\\n    uint256 forgeId;\\n    // forge symbol, name, description\\n    string name;\\n    string symbol;\\n    string description;\\n    // max number of forge operations\\n    uint256 maxForgeCount;\\n    // number of times this forge has been used\\n    uint256 forgedCount;\\n    // fee for each forge operation\\n    uint256 forgeFee;\\n}\\n\\n// defines a single requirement for a forge item\\nstruct ForgeItemRequirement {\\n    // the token address of the item\\n    address tokenAddress;\\n    // the token id of the item\\n    uint256 tokenId;\\n    // the amount of the item required\\n    uint256 amount;\\n}\\n\\n// defines each item that can be forged\\nstruct ForgeItemDefinition {\\n\\n    // item name, symbol, description\\n    string name;\\n    string symbol;\\n    string description;\\n\\n    // requirements for this item\\n    ForgeItemRequirement[] requirements;\\n\\n    // probability of this item being forged, if multiple items are possible, the probability is the sum of all probabilities\\n    uint256 probability;\\n    // number of times this item can be forged\\n    uint256 maxForgeCount;\\n    // number of times this item has been forged\\n    uint256 forgedCount;\\n    // fee to be paid for forging this item. overrides the forge fee of the forge if nonzero\\n    uint256 forgeFee;\\n    // token hash to mint for this item. if zero, then the token hash is autogenerated\\n    uint256 tokenHash;\\n}\\n\\n/// @notice a crafting matrix describes a set of items that can be crafted\\ninterface IForge {\\n\\n    /// @notice create a new forge\\n    /// @param name the name of the forge\\n    /// @param symbol the symbol of the forge\\n    /// @param description the description of the forge\\n    /// @param items the items that can be forged\\n    function createForge(string calldata name, string calldata symbol, string calldata description, ForgeItemDefinition[] calldata items) external;\\n\\n    /// @notice get the forge definition\\n    /// @param symbol the symbol of the forge\\n    function getForge(string calldata symbol) external view returns (ForgeDefinition memory);\\n\\n    // function _setForge(ForgeDefinition calldata forge) internal;\\n\\n    /// @notice get the list of forgeable items\\n    function forgeableItems() external view returns (ForgeItemDefinition[] memory);\\n\\n    /// @notice add a new forgeable item\\n    /// @param item the item to add\\n    /// @return the index of the item\\n    function addForgeableItem(ForgeItemDefinition calldata item) external returns (uint256);\\n\\n    /// @notice forge an item\\n    /// @param symbol the symbol of the forge\\n    /// @param inputItems the input items\\n    /// @return the forged item\\n    function forgeAnyItem(string calldata symbol, uint256[] calldata inputItems) external returns (ForgeItemDefinition memory);\\n\\n    /// @notice forge an item\\n    /// @param symbol the symbol of the forge\\n    /// @param index the index of the item to forge\\n    /// @param inputItems the input items\\n    /// @return the forged item\\n    function forgeItemAtIndex(string calldata symbol, uint256 index, uint256[] calldata inputItems) external returns (ForgeItemDefinition memory);\\n\\n    /// @notice get the hash of a forge\\n    /// @param symbol the symbol of the forge\\n    function getForgeHash(string calldata symbol) external view returns (uint256);\\n\\n    /// @notice get the forge by hash\\n    /// @param hash the hash of the forge\\n    function getForgeByHash(uint256 hash) external view returns (ForgeDefinition memory);\\n\\n    /// @notice ForgeCreated\\n    /// @param forge the forge that was created\\n    event ForgeCreated(ForgeDefinition forge);\\n\\n    /// @notice ForgeItemAdded\\n    /// @param item the item that was added\\n    event ForgeItemAdded(ForgeItemDefinition item);\\n\\n    /// @notice ItemForged\\n    /// @param receiver the receiver of the item\\n    /// @param item the item that was forged\\n    /// @param quantity the quantity of the item that was forged\\n    event ItemForged(address receiver, ForgeItemDefinition item, uint256 quantity);\\n\\n}\\n\",\"keccak256\":\"0x49319262c023a28bf4189ca8189c3a5ff9007c0970b20fcdc4a4f751ff2bd13e\",\"license\":\"MIT\"},\"contracts/interfaces/IGemPool.sol\":{\"content\":\"//SPDX-License-Identifier: Unlicense\\npragma solidity ^0.8.0;\\n\\n\\nimport \\\"./IToken.sol\\\";\\nimport \\\"./ITokenPrice.sol\\\";\\n\\n/// @notice check the balance of earnings and collect earnings\\ninterface IGemPool {\\n\\n    /// @dev Event generated when a gem is created\\n    event GemPoolCreated(\\n\\n        // the gem pool account\\n        address creator,\\n\\n        // the gem pool account\\n        address contractAddress,\\n\\n        // the gem pool id\\n        uint256 pool,\\n\\n        // the gem token definition\\n        GemPoolSettings gemPoolDefinition\\n\\n    );\\n\\n    /// @dev Event generated when a gem is created\\n    event GemCreated(\\n\\n        // the gem pool account\\n        address account,\\n\\n        // the gem pool id\\n        uint256 pool,\\n\\n        // the gem hash\\n        uint256 gemHash,\\n\\n        // the gem token definition\\n        IToken.TokenDefinition tokenDefinition,\\n\\n        // the gem token quantity\\n        uint256 quantity\\n\\n    );\\n\\n    // mutable pool values\\n    struct GemPoolData {\\n\\n        // the gem pool id\\n        uint256 pool;\\n\\n        // nnext available gem hash\\n        uint256 nextGemHash;\\n\\n        // numbering for the next gem\\n        uint256 nextGemNumber;\\n\\n        // total number of gems minted\\n        uint256 gemsMintedCount;\\n\\n        // total amount of staked eth\\n        uint256 totalStakedEth;\\n\\n    }\\n\\n\\n    /// @notice staking pool settings - used to confignure a staking pool\\n    struct GemPoolSettings {\\n\\n        // the token address we mint on\\n        address token;\\n\\n        IToken.TokenSource tokenSource;\\n\\n        IToken.TokenDefinition tokenDefinition;\\n\\n        ITokenPrice.TokenPriceData initialPrice;\\n\\n        // is pool enabled\\n        bool enabled;\\n\\n        // is the pool visible\\n        bool visible;\\n\\n        // min and max token amounts to stake\\n        uint256 minTime;\\n\\n        // max time that the claim can be made\\n        uint256 maxTime;\\n\\n        // the difficulty step adjustment (or increase amount if PriceModifier is Static)\\n        uint256 diffstep;\\n\\n        // max total number of claims that can be made\\n        uint256 maxClaims;\\n\\n        // max quantity per claim\\n        uint256 maxQuantityPerClaim;\\n\\n        // max claims per account\\n        uint256 maxClaimsPerAccount;\\n\\n        // earn rate for this staking pool\\n        uint256 earnRatePerPeriod;\\n\\n        // the number of blocks per earning period\\n        uint256 earnPeriodBlocks;\\n\\n        // payout partial blocks\\n        bool payPartialBlocks;\\n\\n        // mint the earned token\\n        bool mintEarnedToken;\\n\\n        // max total earned amount per stake\\n        uint256 maxTotalEarnedAmount;\\n\\n        // allow outright purchases of gems\\n        bool allowPurchase;\\n\\n    }\\n\\n    struct GemPoolStruct {\\n\\n        GemPoolSettings _gemPoolSettings;\\n        GemPoolData _gemPoolData;\\n\\n    }\\n\\n    /// @notice get the hash of a gem pool\\n    function gemPoolHash(string memory symbol) external view returns (uint256 _gemPoolHash);\\n    /// @notice is token a member of the gem pool\\n    function isMemberOfPool(uint256 gemPoolId, uint256 token) external view returns (bool _isMember);\\n    /// @notice get the member gems of this pool\\n    function poolMembers(uint256 gemPoolId) external view returns (uint256[] memory _poolMembers);\\n    /// get the gem pool symbols in the contract\\n    function symbols() external view returns (string[] memory _symbols);\\n\\n}\\n\",\"keccak256\":\"0x89f3e7372c2970f97fb7775e663d081c9b3b58b6e998fcba9d44b40bf6a9e8be\",\"license\":\"Unlicense\"},\"contracts/interfaces/IMarketplace.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity ^0.8.4;\\n\\ninterface IMarketplace {\\n    event Bids(uint256 indexed itemId, address bidder, uint256 amount);\\n    event Sales(uint256 indexed itemId, address indexed owner, uint256 amount, uint256 quantity, uint256 indexed tokenId);\\n    event Closes(uint256 indexed itemId);\\n    event Listings(\\n        uint256 indexed itemId,\\n        address indexed nftContract,\\n        uint256 indexed tokenId,\\n        address seller,\\n        address receiver,\\n        address owner,\\n        uint256 price,\\n        bool sold\\n    );\\n    struct MarketItem {\\n        uint256 itemId;\\n        address nftContract;\\n        uint256 tokenId;\\n        address seller;\\n        address owner;\\n        uint256 price;\\n        uint256 quantity;\\n        bool sold;\\n        address receiver;\\n    }\\n}\\n\",\"keccak256\":\"0x1717c9a03b80bb54b3befaf32002e99048ba53b82a50bb04d8cf14f67a97f10e\",\"license\":\"MIT\"},\"contracts/interfaces/IRequirement.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity >=0.8.0;\\n\\nimport \\\"./IToken.sol\\\";\\nimport \\\"../utils/UInt256Set.sol\\\";\\n\\n/// @notice describes a list of requirements which will be checked against when someone performs an action\\ninterface IRequirement is IToken {\\n\\n    /// @notice an input requirement\\n    struct Requirement {\\n\\n        // the minter that this requirement aplpies to.\\n        address minter;\\n        // the token source to match for this requirement. Other a collection or a single token id\\n        TokenSource source;\\n        // the quantity of tokens to match for this requirement. must have at least this many tokens\\n        uint256 quantity;\\n        // whether or not to take custody of the tokens if the requirement is met\\n        bool takeCustody;\\n        // whether or not to burn the tokens if the requirement is met\\n        bool burn;\\n        // whether or not to require the exact amount of tokens to match for this requirement\\n        bool requireExactAmount;\\n\\n    }\\n\\n    // data for requirements\\n    struct RequirementData {\\n\\n        address token;\\n        address manager;\\n\\n        mapping(uint256 => Requirement[]) requirements;\\n        mapping(uint256 => TokenSet) tokens;\\n\\n        UInt256Set.Set burnedTokenIds;\\n        mapping(uint256 => uint256) burnedTokenQuantities;\\n\\n    }\\n\\n    struct RequirementSettings {\\n        RequirementData data;\\n    }\\n\\n    /// @notice get all requirements\\n    /// @return _reqs a set of requirements\\n    function requirements(uint256 collectionId) external view returns (Requirement[] memory _reqs);\\n\\n    /// @notice returns whether the specified account meets the requirement at the specified quantity factor\\n    /// @param account the minter to check\\n    /// @param req the requirement list to check\\n    /// @param quantity the quantity factor to check\\n    /// @return _tokens whether the account meets the requirements\\n    function fulfillingTokens(address account, Requirement memory req, uint256 quantity) external view returns (Token[] memory _tokens);\\n\\n    /// @notice returns whether the specified account meets the requirements at the specified quantity factor\\n    /// @param account the minter to check\\n    /// @param collectionId the requirement list to check\\n    /// @param quantity the quantity factor to check\\n    /// @return _meetsRequirements whether the account meets the requirements\\n    function meetsRequirements(address account, uint256 collectionId, uint256 quantity) external view returns (bool _meetsRequirements);\\n\\n    function custodyRequirements(\\n        uint256 transferId,\\n        address from,\\n        address token,\\n        Requirement[] memory reqs,\\n        uint256 quantity) external returns(Token[] memory _transferredTokens);\\n\\n    function releaseRequirements(\\n        uint256 transferId,\\n        address token,\\n        address to) external;\\n}\\n\",\"keccak256\":\"0xd1fe997ef5a5952a77c79d8f45c55a3b6c8cd3adfc278a5b9cc44f8c16d69b3e\",\"license\":\"MIT\"},\"contracts/interfaces/IToken.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity >=0.8.0;\\n\\n\\n/// @notice common struct definitions for tokens\\ninterface IToken {\\n\\n\\n    enum TokenType {\\n        ERC20,\\n        ERC721,\\n        ERC1155\\n    }\\n\\n    struct Token {\\n\\n        uint256 id;\\n        uint256 balance;\\n        bool burn;\\n\\n    }\\n\\n    /// @notice a set of tokens.\\n    struct TokenSet {\\n\\n        mapping(uint256 => uint256) keyPointers;\\n        uint256[] keyList;\\n        Token[] valueList;\\n\\n    }\\n\\n    /// @notice the definition for a token.\\n    struct TokenDefinition {\\n\\n        // the host multitoken\\n        address token;\\n\\n        // the id of the token definition. if static mint then also token hash\\n        uint256 id;\\n\\n        // the category name\\n        uint256 collectionId;\\n\\n        // the name of the token\\n        string name;\\n\\n        // the symbol of the token\\n        string symbol;\\n\\n        // the description of the token\\n        string description;\\n\\n        // the decimals of the token. 0 for NFT\\n        uint8 decimals;\\n\\n        // the total supply of the token\\n        uint256 totalSupply;\\n\\n        // whether to generate the id or not for new tokens. if false then we use id field of the definition to mint tokens\\n        bool generateId;\\n\\n        // probability of the item being awarded\\n        uint256 probability;\\n\\n         // the index of the probability in its array\\n        uint256 probabilityIndex;\\n\\n         // the index of the probability in its array\\n        uint256 probabilityRoll;\\n\\n    }\\n\\n    struct TokenRecord {\\n\\n        uint256 id;\\n        address owner;\\n        address minter;\\n        uint256 _type;\\n        uint256 balance;\\n\\n    }\\n\\n    /// @notice the token source type. Either a static source or a collection.\\n    enum TokenSourceType {\\n\\n        Static,\\n        Collection\\n\\n    }\\n\\n    /// @notice the token source. Specifies the source of the token - either a static source or a collection.\\n    struct TokenSource {\\n\\n        // the token source type\\n        TokenSourceType _type;\\n        // the source id if a static collection\\n        uint256 staticSourceId;\\n        // the collection source address if collection\\n        address collectionSourceAddress;\\n\\n    }\\n}\\n\",\"keccak256\":\"0x37288bbd845594ef413956da9bde6132a02eb88587b73c7254a1a926423bcab5\",\"license\":\"MIT\"},\"contracts/interfaces/ITokenDefinitions.sol\":{\"content\":\"//SPDX-License-Identifier: Unlicense\\npragma solidity ^0.8.0;\\n\\nimport \\\"./IToken.sol\\\";\\n\\n///\\n/// @notice a list of token definitions\\n///\\ninterface ITokenDefinitions {\\n\\n    struct TokenDefinitionsSettings {\\n\\n        IToken.TokenDefinition[] tokenDefinitions;\\n\\n    }\\n\\n    /// @notice emitted when a lootbox is created\\n    event TokenDefinitionsCreated(\\n        address indexed creator,\\n        address indexed contractAddress,\\n        IToken.TokenDefinition[] definitions\\n    );\\n\\n    /// @notice emitted when a lootbox is created\\n    event TokenDefinitionAdded(\\n        address indexed creator,\\n        address indexed contractAddress,\\n        IToken.TokenDefinition definitions\\n    );\\n\\n    /// @notice a set of tokens.\\n    struct TokenDefinitionSet {\\n\\n        mapping(uint256 => uint256) keyPointers;\\n        uint256[] keyList;\\n        IToken.TokenDefinition[] valueList;\\n\\n    }\\n\\n    function tokenDefinitions() external view returns (IToken.TokenDefinition[] memory);\\n    function makeHash(IToken.TokenDefinition memory _definition) external view returns (uint256);\\n}\\n\",\"keccak256\":\"0x2ecfc96bb7d8e059bb6a8ca79604904d95ff4c1d9409c134763b578479d6ddea\",\"license\":\"Unlicense\"},\"contracts/interfaces/ITokenMinter.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity >=0.8.0;\\n\\nimport \\\"./IERC1155Burn.sol\\\";\\n\\n/**\\n * @notice This intreface provides a way for users to register addresses as permissioned minters, mint * burn, unregister, and reload the permissioned minter account.\\n */\\ninterface ITokenMinter {\\n\\n    /// @notice a registration record for a permissioned minter.\\n    struct Minter {\\n\\n        // the account address of the permissioned minter.\\n        address account;\\n        // the amount of tokens minted by the permissioned minter.\\n        uint256 minted;\\n        // the amount of tokens minted by the permissioned minter.\\n        uint256 burned;\\n        // the amount of payment spent by the permissioned minter.\\n        uint256 spent;\\n        // an approval map for this minter. sets a count of tokens the approved can mint.\\n        // mapping(address => uint256) approved; // TODO implement this.\\n\\n    }\\n\\n    /// @notice event emitted when minter is registered\\n    event MinterRegistered(\\n        address indexed registrant,\\n        uint256 depositPaid\\n    );\\n\\n    /// @notice emoitted when minter is unregistered\\n    event MinterUnregistered(\\n        address indexed registrant,\\n        uint256 depositReturned\\n    );\\n\\n    /// @notice emitted when minter address is reloaded\\n    event MinterReloaded(\\n        address indexed registrant,\\n        uint256 amountDeposited\\n    );\\n\\n    /// @notice get the registration record for a permissioned minter.\\n    /// @param _minter the address\\n    /// @return _minterObj the address\\n    function minter(address _minter) external returns (Minter memory _minterObj);\\n\\n    /// @notice mint a token associated with a collection with an amount\\n    /// @param receiver the mint receiver\\n    /// @param collectionId the collection id\\n    /// @param amount the amount to mint\\n    function mint(address receiver, uint256 collectionId, uint256 id, uint256 amount) external;\\n\\n    /// @notice mint a token associated with a collection with an amount\\n    /// @param target the mint receiver\\n    /// @param id the collection id\\n    /// @param amount the amount to mint\\n    function burn(address target, uint256 id, uint256 amount) external;\\n\\n}\\n\",\"keccak256\":\"0xeed55742206b89aa5b45f8872e2af6a05f6976ca44f6e9e89b24b2761880ec55\",\"license\":\"MIT\"},\"contracts/interfaces/ITokenPrice.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity >=0.8.0;\\n\\n\\n/// @notice common struct definitions for tokens\\ninterface ITokenPrice {\\n\\n    /// @notice DIctates how the price of the token is increased post every sale\\n    enum PriceModifier {\\n\\n        None,\\n        Fixed,\\n        Exponential,\\n        InverseLog\\n\\n    }\\n\\n    /// @notice a token price and how it changes\\n    struct TokenPriceData {\\n\\n        // the price of the token\\n        uint256 price;\\n         // how the price is modified\\n        PriceModifier priceModifier;\\n        // only used if priceModifier is EXPONENTIAL or INVERSELOG or FIXED\\n        uint256 priceModifierFactor;\\n        // max price for the token\\n        uint256 maxPrice;\\n\\n    }\\n\\n    /// @notice get the increased price of the token\\n    function getIncreasedPrice() external view returns (uint256);\\n\\n    /// @notice get the increased price of the token\\n    function getTokenPrice() external view returns (TokenPriceData memory);\\n\\n\\n}\\n\",\"keccak256\":\"0xf02fd48efda614a43b09abf069628e12498052cd256ce5ea7fcfc56329ea09a8\",\"license\":\"MIT\"},\"contracts/interfaces/ITokenSale.sol\":{\"content\":\"//SPDX-License-Identifier: Unlicense\\npragma solidity ^0.8.0;\\n\\n///\\n/// @notice A token seller is a contract that can sell tokens to a token buyer.\\n/// The token buyer can buy tokens from the seller by paying a certain amount\\n/// of base currency to receive a certain amount of erc1155 tokens. the number\\n/// of tokens that can be bought is limited by the seller - the seller can\\n/// specify the maximum number of tokens that can be bought per transaction\\n/// and the maximum number of tokens that can be bought in total for a given\\n/// address. The seller can also specify the price of erc1155 tokens and how\\n/// that price increases per successful transaction.\\ninterface ITokenSale {\\n\\n    struct TokenSaleEntry {\\n        address payable receiver;\\n        address sourceToken;\\n        uint256 sourceTokenId;\\n        address token;\\n        uint256 quantity;\\n        uint256 price;\\n        uint256 quantitySold;\\n    }\\n\\n    event TokenSaleSet(address indexed token, uint256 indexed tokenId, uint256 price, uint256 quantity);\\n    event TokenSold(address indexed buyer, address indexed tokenAddress, uint256 indexed tokenId, uint256 salePrice);\\n    event TokensSet(address indexed tokenAddress, ITokenSale.TokenSaleEntry tokens);\\n\\n}\\n\",\"keccak256\":\"0xd2979d88618abb234e4f1391ebf6ba858602234682959b36c0621d2364f56f11\",\"license\":\"Unlicense\"},\"contracts/utils/AddressSet.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n\\npragma solidity >=0.8.0;\\n\\n/**\\n * @notice Key sets with enumeration and delete. Uses mappings for random\\n * and existence checks and dynamic arrays for enumeration. Key uniqueness is enforced.\\n * @dev Sets are unordered. Delete operations reorder keys. All operations have a\\n * fixed gas cost at any scale, O(1).\\n * author: Rob Hitchens\\n */\\n\\nlibrary AddressSet {\\n    struct Set {\\n        mapping(address => uint256) keyPointers;\\n        address[] keyList;\\n    }\\n\\n    /**\\n     * @notice insert a key.\\n     * @dev duplicate keys are not permitted.\\n     * @param self storage pointer to a Set.\\n     * @param key value to insert.\\n     */\\n    function insert(Set storage self, address key) public {\\n        require(\\n            !exists(self, key),\\n            \\\"AddressSet: key already exists in the set.\\\"\\n        );\\n        self.keyList.push(key);\\n        self.keyPointers[key] = self.keyList.length - 1;\\n    }\\n\\n    /**\\n     * @notice remove a key.\\n     * @dev key to remove must exist.\\n     * @param self storage pointer to a Set.\\n     * @param key value to remove.\\n     */\\n    function remove(Set storage self, address key) public {\\n        // TODO: I commented this out do get a test to pass - need to figure out what is up here\\n        require(\\n            exists(self, key),\\n            \\\"AddressSet: key does not exist in the set.\\\"\\n        );\\n        if (!exists(self, key)) return;\\n        uint256 last = count(self) - 1;\\n        uint256 rowToReplace = self.keyPointers[key];\\n        if (rowToReplace != last) {\\n            address keyToMove = self.keyList[last];\\n            self.keyPointers[keyToMove] = rowToReplace;\\n            self.keyList[rowToReplace] = keyToMove;\\n        }\\n        delete self.keyPointers[key];\\n        self.keyList.pop();\\n    }\\n\\n    /**\\n     * @notice count the keys.\\n     * @param self storage pointer to a Set.\\n     */\\n    function count(Set storage self) public view returns (uint256) {\\n        return (self.keyList.length);\\n    }\\n\\n    /**\\n     * @notice check if a key is in the Set.\\n     * @param self storage pointer to a Set.\\n     * @param key value to check.\\n     * @return bool true: Set member, false: not a Set member.\\n     */\\n    function exists(Set storage self, address key)\\n        public\\n        view\\n        returns (bool)\\n    {\\n        if (self.keyList.length == 0) return false;\\n        return self.keyList[self.keyPointers[key]] == key;\\n    }\\n\\n    /**\\n     * @notice fetch a key by row (enumerate).\\n     * @param self storage pointer to a Set.\\n     * @param index row to enumerate. Must be < count() - 1.\\n     */\\n    function keyAtIndex(Set storage self, uint256 index)\\n        public\\n        view\\n        returns (address)\\n    {\\n        return self.keyList[index];\\n    }\\n}\\n\",\"keccak256\":\"0x3b999937288120e5f0651a80c259e5016f7ed9db37ec78aafb0da8b9d70bcae7\",\"license\":\"MIT\"},\"contracts/utils/UInt256Set.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n\\npragma solidity >=0.8.0;\\n\\n/**\\n * @notice Key sets with enumeration and delete. Uses mappings for random\\n * and existence checks and dynamic arrays for enumeration. Key uniqueness is enforced.\\n * @dev Sets are unordered. Delete operations reorder keys. All operations have a\\n * fixed gas cost at any scale, O(1).\\n * author: Rob Hitchens\\n */\\n\\nlibrary UInt256Set {\\n    struct Set {\\n        mapping(uint256 => uint256) keyPointers;\\n        uint256[] keyList;\\n    }\\n\\n    /**\\n     * @notice insert a key.\\n     * @dev duplicate keys are not permitted.\\n     * @param self storage pointer to a Set.\\n     * @param key value to insert.\\n     */\\n    function insert(Set storage self, uint256 key) public {\\n        require(\\n            !exists(self, key),\\n            \\\"UInt256Set: key already exists in the set.\\\"\\n        );\\n        self.keyList.push(key);\\n        self.keyPointers[key] = self.keyList.length - 1;\\n    }\\n\\n    /**\\n     * @notice remove a key.\\n     * @dev key to remove must exist.\\n     * @param self storage pointer to a Set.\\n     * @param key value to remove.\\n     */\\n    function remove(Set storage self, uint256 key) public {\\n        // TODO: I commented this out do get a test to pass - need to figure out what is up here\\n        // require(\\n        //     exists(self, key),\\n        //     \\\"UInt256Set: key does not exist in the set.\\\"\\n        // );\\n        if (!exists(self, key)) return;\\n        uint256 last = count(self) - 1;\\n        uint256 rowToReplace = self.keyPointers[key];\\n        if (rowToReplace != last) {\\n            uint256 keyToMove = self.keyList[last];\\n            self.keyPointers[keyToMove] = rowToReplace;\\n            self.keyList[rowToReplace] = keyToMove;\\n        }\\n        delete self.keyPointers[key];\\n        delete self.keyList[self.keyList.length - 1];\\n    }\\n\\n    /**\\n     * @notice count the keys.\\n     * @param self storage pointer to a Set.\\n     */\\n    function count(Set storage self) public view returns (uint256) {\\n        return (self.keyList.length);\\n    }\\n\\n    /**\\n     * @notice check if a key is in the Set.\\n     * @param self storage pointer to a Set.\\n     * @param key value to check.\\n     * @return bool true: Set member, false: not a Set member.\\n     */\\n    function exists(Set storage self, uint256 key)\\n        public\\n        view\\n        returns (bool)\\n    {\\n        if (self.keyList.length == 0) return false;\\n        return self.keyList[self.keyPointers[key]] == key;\\n    }\\n\\n    /**\\n     * @notice fetch a key by row (enumerate).\\n     * @param self storage pointer to a Set.\\n     * @param index row to enumerate. Must be < count() - 1.\\n     */\\n    function keyAtIndex(Set storage self, uint256 index)\\n        public\\n        view\\n        returns (uint256)\\n    {\\n        return self.keyList[index];\\n    }\\n}\\n\",\"keccak256\":\"0x31d27b2c71ad5bb53daf91e37e2b56fc89341f0d2015a87efd609e12b93d32c8\",\"license\":\"MIT\"}},\"version\":1}",
+  "bytecode": "0x608060405234801561001057600080fd5b50610662806100206000396000f3fe608060405234801561001057600080fd5b50600436106100415760003560e01c8063144fa6d7146100465780636a6278421461005b5780639dc29fac14610080575b600080fd5b610059610054366004610582565b610093565b005b61006e610069366004610582565b610100565b60405190815260200160405180910390f35b61005961008e3660046105a4565b610430565b61009b610538565b6001600160a01b0316336001600160a01b031614806100b957503330145b6100de5760405162461bcd60e51b81526004016100d5906105ce565b60405180910390fd5b600480546001600160a01b0319166001600160a01b0392909216919091179055565b600061010a610538565b6001600160a01b0316336001600160a01b0316148061012857503330145b6101445760405162461bcd60e51b81526004016100d5906105ce565b6001600160a01b0382166101a65760405162461bcd60e51b815260206004820152602360248201527f72656365697665722063616e6e6f7420626520746865207a65726f206164647260448201526265737360e81b60648201526084016100d5565b6005546040516001600160601b03193060601b166020820152603481019190915260540160408051601f1981840301815291905280516020909101206005805491925060006101f483610603565b909155505060008181526006602052604080822080546001600160a01b03191633179055516328342f9960e01b815230916328342f99916102609185916004019182526060602083018190526006908301526552617269747960d01b6080830152604082015260a00190565b600060405180830381600087803b15801561027a57600080fd5b505af115801561028e573d6000803e3d6000fd5b50506040516328342f9960e01b81526004808201859052606060248301526064820152635479706560e01b6084820152600060448201523092506328342f99915060a401600060405180830381600087803b1580156102ec57600080fd5b505af1158015610300573d6000803e3d6000fd5b50506040516328342f9960e01b8152600481018490526060602482015260056064820152642837bbb2b960d91b6084820152600160448201523092506328342f99915060a401600060405180830381600087803b15801561036057600080fd5b505af1158015610374573d6000803e3d6000fd5b50506004805460405163731133e960e01b81526001600160a01b0387811693820193909352602481018690526001604482015260806064820152600060848201529116925063731133e9915060a401600060405180830381600087803b1580156103dd57600080fd5b505af11580156103f1573d6000803e3d6000fd5b50506040518392506001600160a01b03851691507fc5944f30962dfa9215d5658b97f33d61b34dc7a9681977a9a3007edc2fbed88e90600090a3919050565b610438610538565b6001600160a01b0316336001600160a01b0316148061045657503330145b6104725760405162461bcd60e51b81526004016100d5906105ce565b6000818152600660205260409081902080546001600160a01b0319169055600480549151637a94c56560e11b81526001600160a01b0385811692820192909252602481018490526001604482015291169063f5298aca90606401600060405180830381600087803b1580156104e657600080fd5b505af11580156104fa573d6000803e3d6000fd5b50506040518392506001600160a01b03851691507fab85194d35c4ea153d0b51f3a304d1d22cb8023e499a6503fb6c28c5864ae90e90600090a35050565b7fc8fcad8db84d3cc18b4c41d551ea0ee66dd599cde068d998e57d5e09332c1320546001600160a01b031690565b80356001600160a01b038116811461057d57600080fd5b919050565b60006020828403121561059457600080fd5b61059d82610566565b9392505050565b600080604083850312156105b757600080fd5b6105c083610566565b946020939093013593505050565b6020808252818101527f6f6e6c792074686520636f6e7472616374206f776e65722063616e206d696e74604082015260600190565b600060001982141561062557634e487b7160e01b600052601160045260246000fd5b506001019056fea2646970667358221220495b039a661dc1cbc2e3f0a54c8bd126ab5b3eb3428d09ecf2829c1993061f6064736f6c63430008060033",
+  "deployedBytecode": "0x608060405234801561001057600080fd5b50600436106100415760003560e01c8063144fa6d7146100465780636a6278421461005b5780639dc29fac14610080575b600080fd5b610059610054366004610582565b610093565b005b61006e610069366004610582565b610100565b60405190815260200160405180910390f35b61005961008e3660046105a4565b610430565b61009b610538565b6001600160a01b0316336001600160a01b031614806100b957503330145b6100de5760405162461bcd60e51b81526004016100d5906105ce565b60405180910390fd5b600480546001600160a01b0319166001600160a01b0392909216919091179055565b600061010a610538565b6001600160a01b0316336001600160a01b0316148061012857503330145b6101445760405162461bcd60e51b81526004016100d5906105ce565b6001600160a01b0382166101a65760405162461bcd60e51b815260206004820152602360248201527f72656365697665722063616e6e6f7420626520746865207a65726f206164647260448201526265737360e81b60648201526084016100d5565b6005546040516001600160601b03193060601b166020820152603481019190915260540160408051601f1981840301815291905280516020909101206005805491925060006101f483610603565b909155505060008181526006602052604080822080546001600160a01b03191633179055516328342f9960e01b815230916328342f99916102609185916004019182526060602083018190526006908301526552617269747960d01b6080830152604082015260a00190565b600060405180830381600087803b15801561027a57600080fd5b505af115801561028e573d6000803e3d6000fd5b50506040516328342f9960e01b81526004808201859052606060248301526064820152635479706560e01b6084820152600060448201523092506328342f99915060a401600060405180830381600087803b1580156102ec57600080fd5b505af1158015610300573d6000803e3d6000fd5b50506040516328342f9960e01b8152600481018490526060602482015260056064820152642837bbb2b960d91b6084820152600160448201523092506328342f99915060a401600060405180830381600087803b15801561036057600080fd5b505af1158015610374573d6000803e3d6000fd5b50506004805460405163731133e960e01b81526001600160a01b0387811693820193909352602481018690526001604482015260806064820152600060848201529116925063731133e9915060a401600060405180830381600087803b1580156103dd57600080fd5b505af11580156103f1573d6000803e3d6000fd5b50506040518392506001600160a01b03851691507fc5944f30962dfa9215d5658b97f33d61b34dc7a9681977a9a3007edc2fbed88e90600090a3919050565b610438610538565b6001600160a01b0316336001600160a01b0316148061045657503330145b6104725760405162461bcd60e51b81526004016100d5906105ce565b6000818152600660205260409081902080546001600160a01b0319169055600480549151637a94c56560e11b81526001600160a01b0385811692820192909252602481018490526001604482015291169063f5298aca90606401600060405180830381600087803b1580156104e657600080fd5b505af11580156104fa573d6000803e3d6000fd5b50506040518392506001600160a01b03851691507fab85194d35c4ea153d0b51f3a304d1d22cb8023e499a6503fb6c28c5864ae90e90600090a35050565b7fc8fcad8db84d3cc18b4c41d551ea0ee66dd599cde068d998e57d5e09332c1320546001600160a01b031690565b80356001600160a01b038116811461057d57600080fd5b919050565b60006020828403121561059457600080fd5b61059d82610566565b9392505050565b600080604083850312156105b757600080fd5b6105c083610566565b946020939093013593505050565b6020808252818101527f6f6e6c792074686520636f6e7472616374206f776e65722063616e206d696e74604082015260600190565b600060001982141561062557634e487b7160e01b600052601160045260246000fd5b506001019056fea2646970667358221220495b039a661dc1cbc2e3f0a54c8bd126ab5b3eb3428d09ecf2829c1993061f6064736f6c63430008060033",
+  "libraries": {
+    "AddressSet": "0xf88EB844922B1ab0e153cF9E9bEefecc9512DE06",
+    "UInt256Set": "0xCc995d7a8c7c499128cB34Ef0dA290F5f4f4EE71",
+    "LibAppStorage": "0x36DFFA53Be73EC4DC419d32142dce5577DbBe7DA",
+    "LibDiamond": "0xd77fa05d7Fba908919b3A4b9E41Cc62A1A7F728D",
+    "MerkleProof": "0xe2f6D7E396B31d50dc5d11aD23c17859aDc95bB3"
+  },
+  "devdoc": {
+    "kind": "dev",
+    "methods": {
+      "burn(address,uint256)": {
+        "params": {
+          "id": "the collection id",
+          "target": "the mint receiver"
+        }
+      }
+    },
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {
+      "burn(address,uint256)": {
+        "notice": "mint a token associated with a collection with an amount"
+      }
+    },
+    "version": 1
+  },
+  "storageLayout": {
+    "storage": [
+      {
+        "astId": 4713,
+        "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+        "label": "s",
+        "offset": 0,
+        "slot": "0",
+        "type": "t_struct(AppStorage)2440_storage"
+      }
+    ],
+    "types": {
+      "t_address": {
+        "encoding": "inplace",
+        "label": "address",
+        "numberOfBytes": "20"
+      },
+      "t_address_payable": {
+        "encoding": "inplace",
+        "label": "address payable",
+        "numberOfBytes": "20"
+      },
+      "t_array(t_string_storage)dyn_storage": {
+        "base": "t_string_storage",
+        "encoding": "dynamic_array",
+        "label": "string[]",
+        "numberOfBytes": "32"
+      },
+      "t_array(t_struct(ForgeItemRequirement)6272_storage)dyn_storage": {
+        "base": "t_struct(ForgeItemRequirement)6272_storage",
+        "encoding": "dynamic_array",
+        "label": "struct ForgeItemRequirement[]",
+        "numberOfBytes": "32"
+      },
+      "t_array(t_struct(Requirement)6784_storage)dyn_storage": {
+        "base": "t_struct(Requirement)6784_storage",
+        "encoding": "dynamic_array",
+        "label": "struct IRequirement.Requirement[]",
+        "numberOfBytes": "32"
+      },
+      "t_array(t_struct(Token)6891_storage)dyn_storage": {
+        "base": "t_struct(Token)6891_storage",
+        "encoding": "dynamic_array",
+        "label": "struct IToken.Token[]",
+        "numberOfBytes": "32"
+      },
+      "t_array(t_uint256)dyn_storage": {
+        "base": "t_uint256",
+        "encoding": "dynamic_array",
+        "label": "uint256[]",
+        "numberOfBytes": "32"
+      },
+      "t_bool": {
+        "encoding": "inplace",
+        "label": "bool",
+        "numberOfBytes": "1"
+      },
+      "t_bytes32": {
+        "encoding": "inplace",
+        "label": "bytes32",
+        "numberOfBytes": "32"
+      },
+      "t_enum(PriceModifier)7083": {
+        "encoding": "inplace",
+        "label": "enum ITokenPrice.PriceModifier",
+        "numberOfBytes": "1"
+      },
+      "t_enum(TokenSourceType)6942": {
+        "encoding": "inplace",
+        "label": "enum IToken.TokenSourceType",
+        "numberOfBytes": "1"
+      },
+      "t_mapping(t_address,t_bool)": {
+        "encoding": "mapping",
+        "key": "t_address",
+        "label": "mapping(address => bool)",
+        "numberOfBytes": "32",
+        "value": "t_bool"
+      },
+      "t_mapping(t_address,t_mapping(t_address,t_bool))": {
+        "encoding": "mapping",
+        "key": "t_address",
+        "label": "mapping(address => mapping(address => bool))",
+        "numberOfBytes": "32",
+        "value": "t_mapping(t_address,t_bool)"
+      },
+      "t_mapping(t_address,t_mapping(t_uint256,t_uint256))": {
+        "encoding": "mapping",
+        "key": "t_address",
+        "label": "mapping(address => mapping(uint256 => uint256))",
+        "numberOfBytes": "32",
+        "value": "t_mapping(t_uint256,t_uint256)"
+      },
+      "t_mapping(t_address,t_struct(AddressData)6187_storage)": {
+        "encoding": "mapping",
+        "key": "t_address",
+        "label": "mapping(address => struct IERC721A.AddressData)",
+        "numberOfBytes": "32",
+        "value": "t_struct(AddressData)6187_storage"
+      },
+      "t_mapping(t_address,t_struct(FractionalizedTokenData)2306_storage)": {
+        "encoding": "mapping",
+        "key": "t_address",
+        "label": "mapping(address => struct FractionalizedTokenData)",
+        "numberOfBytes": "32",
+        "value": "t_struct(FractionalizedTokenData)2306_storage"
+      },
+      "t_mapping(t_address,t_struct(TokenSaleEntry)7125_storage)": {
+        "encoding": "mapping",
+        "key": "t_address",
+        "label": "mapping(address => struct ITokenSale.TokenSaleEntry)",
+        "numberOfBytes": "32",
+        "value": "t_struct(TokenSaleEntry)7125_storage"
+      },
+      "t_mapping(t_address,t_uint256)": {
+        "encoding": "mapping",
+        "key": "t_address",
+        "label": "mapping(address => uint256)",
+        "numberOfBytes": "32",
+        "value": "t_uint256"
+      },
+      "t_mapping(t_string_memory_ptr,t_uint256)": {
+        "encoding": "mapping",
+        "key": "t_string_memory_ptr",
+        "label": "mapping(string => uint256)",
+        "numberOfBytes": "32",
+        "value": "t_uint256"
+      },
+      "t_mapping(t_uint256,t_address)": {
+        "encoding": "mapping",
+        "key": "t_uint256",
+        "label": "mapping(uint256 => address)",
+        "numberOfBytes": "32",
+        "value": "t_address"
+      },
+      "t_mapping(t_uint256,t_array(t_struct(Requirement)6784_storage)dyn_storage)": {
+        "encoding": "mapping",
+        "key": "t_uint256",
+        "label": "mapping(uint256 => struct IRequirement.Requirement[])",
+        "numberOfBytes": "32",
+        "value": "t_array(t_struct(Requirement)6784_storage)dyn_storage"
+      },
+      "t_mapping(t_uint256,t_array(t_struct(Token)6891_storage)dyn_storage)": {
+        "encoding": "mapping",
+        "key": "t_uint256",
+        "label": "mapping(uint256 => struct IToken.Token[])",
+        "numberOfBytes": "32",
+        "value": "t_array(t_struct(Token)6891_storage)dyn_storage"
+      },
+      "t_mapping(t_uint256,t_bool)": {
+        "encoding": "mapping",
+        "key": "t_uint256",
+        "label": "mapping(uint256 => bool)",
+        "numberOfBytes": "32",
+        "value": "t_bool"
+      },
+      "t_mapping(t_uint256,t_mapping(t_address,t_uint256))": {
+        "encoding": "mapping",
+        "key": "t_uint256",
+        "label": "mapping(uint256 => mapping(address => uint256))",
+        "numberOfBytes": "32",
+        "value": "t_mapping(t_address,t_uint256)"
+      },
+      "t_mapping(t_uint256,t_mapping(t_string_memory_ptr,t_uint256))": {
+        "encoding": "mapping",
+        "key": "t_uint256",
+        "label": "mapping(uint256 => mapping(string => uint256))",
+        "numberOfBytes": "32",
+        "value": "t_mapping(t_string_memory_ptr,t_uint256)"
+      },
+      "t_mapping(t_uint256,t_mapping(t_uint256,t_struct(ForgeItemDefinition)6293_storage))": {
+        "encoding": "mapping",
+        "key": "t_uint256",
+        "label": "mapping(uint256 => mapping(uint256 => struct ForgeItemDefinition))",
+        "numberOfBytes": "32",
+        "value": "t_mapping(t_uint256,t_struct(ForgeItemDefinition)6293_storage)"
+      },
+      "t_mapping(t_uint256,t_mapping(t_uint256,t_uint256))": {
+        "encoding": "mapping",
+        "key": "t_uint256",
+        "label": "mapping(uint256 => mapping(uint256 => uint256))",
+        "numberOfBytes": "32",
+        "value": "t_mapping(t_uint256,t_uint256)"
+      },
+      "t_mapping(t_uint256,t_struct(AirdropSettings)5195_storage)": {
+        "encoding": "mapping",
+        "key": "t_uint256",
+        "label": "mapping(uint256 => struct IAirdrop.AirdropSettings)",
+        "numberOfBytes": "32",
+        "value": "t_struct(AirdropSettings)5195_storage"
+      },
+      "t_mapping(t_uint256,t_struct(Claim)5386_storage)": {
+        "encoding": "mapping",
+        "key": "t_uint256",
+        "label": "mapping(uint256 => struct IClaim.Claim)",
+        "numberOfBytes": "32",
+        "value": "t_struct(Claim)5386_storage"
+      },
+      "t_mapping(t_uint256,t_struct(ForgeDefinition)6265_storage)": {
+        "encoding": "mapping",
+        "key": "t_uint256",
+        "label": "mapping(uint256 => struct ForgeDefinition)",
+        "numberOfBytes": "32",
+        "value": "t_struct(ForgeDefinition)6265_storage"
+      },
+      "t_mapping(t_uint256,t_struct(ForgeItemDefinition)6293_storage)": {
+        "encoding": "mapping",
+        "key": "t_uint256",
+        "label": "mapping(uint256 => struct ForgeItemDefinition)",
+        "numberOfBytes": "32",
+        "value": "t_struct(ForgeItemDefinition)6293_storage"
+      },
+      "t_mapping(t_uint256,t_struct(GemPoolStruct)6489_storage)": {
+        "encoding": "mapping",
+        "key": "t_uint256",
+        "label": "mapping(uint256 => struct IGemPool.GemPoolStruct)",
+        "numberOfBytes": "32",
+        "value": "t_struct(GemPoolStruct)6489_storage"
+      },
+      "t_mapping(t_uint256,t_struct(MarketItem)6753_storage)": {
+        "encoding": "mapping",
+        "key": "t_uint256",
+        "label": "mapping(uint256 => struct IMarketplace.MarketItem)",
+        "numberOfBytes": "32",
+        "value": "t_struct(MarketItem)6753_storage"
+      },
+      "t_mapping(t_uint256,t_struct(Set)8943_storage)": {
+        "encoding": "mapping",
+        "key": "t_uint256",
+        "label": "mapping(uint256 => struct UInt256Set.Set)",
+        "numberOfBytes": "32",
+        "value": "t_struct(Set)8943_storage"
+      },
+      "t_mapping(t_uint256,t_struct(TokenOwnership)6178_storage)": {
+        "encoding": "mapping",
+        "key": "t_uint256",
+        "label": "mapping(uint256 => struct IERC721A.TokenOwnership)",
+        "numberOfBytes": "32",
+        "value": "t_struct(TokenOwnership)6178_storage"
+      },
+      "t_mapping(t_uint256,t_struct(TokenSaleSettings)5293_storage)": {
+        "encoding": "mapping",
+        "key": "t_uint256",
+        "label": "mapping(uint256 => struct IAirdropTokenSale.TokenSaleSettings)",
+        "numberOfBytes": "32",
+        "value": "t_struct(TokenSaleSettings)5293_storage"
+      },
+      "t_mapping(t_uint256,t_struct(TokenSet)6903_storage)": {
+        "encoding": "mapping",
+        "key": "t_uint256",
+        "label": "mapping(uint256 => struct IToken.TokenSet)",
+        "numberOfBytes": "32",
+        "value": "t_struct(TokenSet)6903_storage"
+      },
+      "t_mapping(t_uint256,t_uint256)": {
+        "encoding": "mapping",
+        "key": "t_uint256",
+        "label": "mapping(uint256 => uint256)",
+        "numberOfBytes": "32",
+        "value": "t_uint256"
+      },
+      "t_string_memory_ptr": {
+        "encoding": "bytes",
+        "label": "string",
+        "numberOfBytes": "32"
+      },
+      "t_string_storage": {
+        "encoding": "bytes",
+        "label": "string",
+        "numberOfBytes": "32"
+      },
+      "t_struct(AddressData)6187_storage": {
+        "encoding": "inplace",
+        "label": "struct IERC721A.AddressData",
+        "members": [
+          {
+            "astId": 6180,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "balance",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_uint64"
+          },
+          {
+            "astId": 6182,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "numberMinted",
+            "offset": 8,
+            "slot": "0",
+            "type": "t_uint64"
+          },
+          {
+            "astId": 6184,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "numberBurned",
+            "offset": 16,
+            "slot": "0",
+            "type": "t_uint64"
+          },
+          {
+            "astId": 6186,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "aux",
+            "offset": 24,
+            "slot": "0",
+            "type": "t_uint64"
+          }
+        ],
+        "numberOfBytes": "32"
+      },
+      "t_struct(AirdropSettings)5195_storage": {
+        "encoding": "inplace",
+        "label": "struct IAirdrop.AirdropSettings",
+        "members": [
+          {
+            "astId": 5171,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "whitelistOnly",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_bool"
+          },
+          {
+            "astId": 5173,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "whitelistId",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 5175,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "whitelistHash",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_bytes32"
+          },
+          {
+            "astId": 5177,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "maxQuantity",
+            "offset": 0,
+            "slot": "3",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 5179,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "maxQuantityPerSale",
+            "offset": 0,
+            "slot": "4",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 5181,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "minQuantityPerSale",
+            "offset": 0,
+            "slot": "5",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 5183,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "maxQuantityPerAccount",
+            "offset": 0,
+            "slot": "6",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 5185,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "quantitySold",
+            "offset": 0,
+            "slot": "7",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 5187,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "startTime",
+            "offset": 0,
+            "slot": "8",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 5189,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "endTime",
+            "offset": 0,
+            "slot": "9",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 5192,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "initialPrice",
+            "offset": 0,
+            "slot": "10",
+            "type": "t_struct(TokenPriceData)7093_storage"
+          },
+          {
+            "astId": 5194,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "tokenHash",
+            "offset": 0,
+            "slot": "14",
+            "type": "t_uint256"
+          }
+        ],
+        "numberOfBytes": "480"
+      },
+      "t_struct(AirdropTokenSaleStorage)2351_storage": {
+        "encoding": "inplace",
+        "label": "struct AirdropTokenSaleStorage",
+        "members": [
+          {
+            "astId": 2327,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "tsnonce",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 2331,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "nonces",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_mapping(t_uint256,t_uint256)"
+          },
+          {
+            "astId": 2336,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "_tokenSales",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_mapping(t_uint256,t_struct(TokenSaleSettings)5293_storage)"
+          },
+          {
+            "astId": 2340,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "tokenSaleOpen",
+            "offset": 0,
+            "slot": "3",
+            "type": "t_mapping(t_uint256,t_bool)"
+          },
+          {
+            "astId": 2346,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "purchased",
+            "offset": 0,
+            "slot": "4",
+            "type": "t_mapping(t_uint256,t_mapping(t_address,t_uint256))"
+          },
+          {
+            "astId": 2350,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "totalPurchased",
+            "offset": 0,
+            "slot": "5",
+            "type": "t_mapping(t_uint256,t_uint256)"
+          }
+        ],
+        "numberOfBytes": "192"
+      },
+      "t_struct(AppStorage)2440_storage": {
+        "encoding": "inplace",
+        "label": "struct AppStorage",
+        "members": [
+          {
+            "astId": 2394,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "marketplaceStorage",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_struct(MarketplaceStorage)2284_storage"
+          },
+          {
+            "astId": 2397,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "tokenMinterStorage",
+            "offset": 0,
+            "slot": "4",
+            "type": "t_struct(TokenMinterStorage)2293_storage"
+          },
+          {
+            "astId": 2400,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "erc1155Storage",
+            "offset": 0,
+            "slot": "7",
+            "type": "t_struct(ERC1155Storage)2205_storage"
+          },
+          {
+            "astId": 2403,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "fractionalizerStorage",
+            "offset": 0,
+            "slot": "15",
+            "type": "t_struct(FractionalizerStorage)2314_storage"
+          },
+          {
+            "astId": 2406,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "marketUtilsStorage",
+            "offset": 0,
+            "slot": "17",
+            "type": "t_struct(MarketUtilsStorage)2382_storage"
+          },
+          {
+            "astId": 2409,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "tokenSaleStorage",
+            "offset": 0,
+            "slot": "18",
+            "type": "t_struct(TokenSaleStorage)2320_storage"
+          },
+          {
+            "astId": 2412,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "merkleAirdropStorage",
+            "offset": 0,
+            "slot": "19",
+            "type": "t_struct(MerkleAirdropStorage)2377_storage"
+          },
+          {
+            "astId": 2415,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "erc721AStorage",
+            "offset": 0,
+            "slot": "24",
+            "type": "t_struct(ERC721AStorage)2234_storage"
+          },
+          {
+            "astId": 2418,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "erc2981Storage",
+            "offset": 0,
+            "slot": "32",
+            "type": "t_struct(ERC2981Storage)2243_storage"
+          },
+          {
+            "astId": 2421,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "attributeMutationPoolStorage",
+            "offset": 0,
+            "slot": "34",
+            "type": "t_struct(AttributeMutationPoolStorage)2258_storage"
+          },
+          {
+            "astId": 2424,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "tokenAttributeStorage",
+            "offset": 0,
+            "slot": "39",
+            "type": "t_struct(TokenAttributeStorage)2265_storage"
+          },
+          {
+            "astId": 2427,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "airdropTokenSaleStorage",
+            "offset": 0,
+            "slot": "40",
+            "type": "t_struct(AirdropTokenSaleStorage)2351_storage"
+          },
+          {
+            "astId": 2430,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "feeManagerStorage",
+            "offset": 0,
+            "slot": "46",
+            "type": "t_struct(FeeManagerStorage)2325_storage"
+          },
+          {
+            "astId": 2433,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "bankStorage",
+            "offset": 0,
+            "slot": "47",
+            "type": "t_struct(BankStorage)2391_storage"
+          },
+          {
+            "astId": 2436,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "forgeStorage",
+            "offset": 0,
+            "slot": "49",
+            "type": "t_struct(ForgeStorage)2176_storage"
+          },
+          {
+            "astId": 2439,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "gemPoolStorage",
+            "offset": 0,
+            "slot": "57",
+            "type": "t_struct(GemPoolStorage)2146_storage"
+          }
+        ],
+        "numberOfBytes": "2272"
+      },
+      "t_struct(AttributeMutationPoolStorage)2258_storage": {
+        "encoding": "inplace",
+        "label": "struct AttributeMutationPoolStorage",
+        "members": [
+          {
+            "astId": 2245,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "_attributeKey",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_string_storage"
+          },
+          {
+            "astId": 2247,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "_attributeValuePerPeriod",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 2249,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "_attributeBlocksPerPeriod",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 2251,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "_totalValueThreshold",
+            "offset": 0,
+            "slot": "3",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 2257,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "_tokenDepositHeight",
+            "offset": 0,
+            "slot": "4",
+            "type": "t_mapping(t_address,t_mapping(t_uint256,t_uint256))"
+          }
+        ],
+        "numberOfBytes": "160"
+      },
+      "t_struct(BankStorage)2391_storage": {
+        "encoding": "inplace",
+        "label": "struct BankStorage",
+        "members": [
+          {
+            "astId": 2384,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "token",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_address"
+          },
+          {
+            "astId": 2390,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "balances",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_mapping(t_address,t_mapping(t_uint256,t_uint256))"
+          }
+        ],
+        "numberOfBytes": "64"
+      },
+      "t_struct(Claim)5386_storage": {
+        "encoding": "inplace",
+        "label": "struct IClaim.Claim",
+        "members": [
+          {
+            "astId": 5361,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "id",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 5363,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "poolId",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 5365,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "creator",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_address"
+          },
+          {
+            "astId": 5367,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "minter",
+            "offset": 0,
+            "slot": "3",
+            "type": "t_address"
+          },
+          {
+            "astId": 5369,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "depositAmount",
+            "offset": 0,
+            "slot": "4",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 5371,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "depositToken",
+            "offset": 0,
+            "slot": "5",
+            "type": "t_address"
+          },
+          {
+            "astId": 5373,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "mintQuantity",
+            "offset": 0,
+            "slot": "6",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 5375,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "depositLength",
+            "offset": 0,
+            "slot": "7",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 5377,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "createdTime",
+            "offset": 0,
+            "slot": "8",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 5379,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "createdBlock",
+            "offset": 0,
+            "slot": "9",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 5381,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "claimedBlock",
+            "offset": 0,
+            "slot": "10",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 5383,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "gemHash",
+            "offset": 0,
+            "slot": "11",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 5385,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "feePaid",
+            "offset": 0,
+            "slot": "12",
+            "type": "t_uint256"
+          }
+        ],
+        "numberOfBytes": "416"
+      },
+      "t_struct(ERC1155Storage)2205_storage": {
+        "encoding": "inplace",
+        "label": "struct ERC1155Storage",
+        "members": [
+          {
+            "astId": 2182,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "_balances",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_mapping(t_uint256,t_mapping(t_address,t_uint256))"
+          },
+          {
+            "astId": 2188,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "_operatorApprovals",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_mapping(t_address,t_mapping(t_address,t_bool))"
+          },
+          {
+            "astId": 2194,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "_minterApprovals",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_mapping(t_address,t_mapping(t_uint256,t_uint256))"
+          },
+          {
+            "astId": 2196,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "_uri",
+            "offset": 0,
+            "slot": "3",
+            "type": "t_string_storage"
+          },
+          {
+            "astId": 2198,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "_uriBase",
+            "offset": 0,
+            "slot": "4",
+            "type": "t_string_storage"
+          },
+          {
+            "astId": 2200,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "_symbol",
+            "offset": 0,
+            "slot": "5",
+            "type": "t_string_storage"
+          },
+          {
+            "astId": 2202,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "_name",
+            "offset": 0,
+            "slot": "6",
+            "type": "t_string_storage"
+          },
+          {
+            "astId": 2204,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "_approvalProxy",
+            "offset": 0,
+            "slot": "7",
+            "type": "t_address"
+          }
+        ],
+        "numberOfBytes": "256"
+      },
+      "t_struct(ERC2981Storage)2243_storage": {
+        "encoding": "inplace",
+        "label": "struct ERC2981Storage",
+        "members": [
+          {
+            "astId": 2238,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "royaltyReceiversByHash",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_mapping(t_uint256,t_address)"
+          },
+          {
+            "astId": 2242,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "royaltyFeesByHash",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_mapping(t_uint256,t_uint256)"
+          }
+        ],
+        "numberOfBytes": "64"
+      },
+      "t_struct(ERC721AStorage)2234_storage": {
+        "encoding": "inplace",
+        "label": "struct ERC721AStorage",
+        "members": [
+          {
+            "astId": 2207,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "_currentIndex",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 2209,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "_burnCounter",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 2211,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "_name",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_string_storage"
+          },
+          {
+            "astId": 2213,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "_symbol",
+            "offset": 0,
+            "slot": "3",
+            "type": "t_string_storage"
+          },
+          {
+            "astId": 2218,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "_ownerships",
+            "offset": 0,
+            "slot": "4",
+            "type": "t_mapping(t_uint256,t_struct(TokenOwnership)6178_storage)"
+          },
+          {
+            "astId": 2223,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "_addressData",
+            "offset": 0,
+            "slot": "5",
+            "type": "t_mapping(t_address,t_struct(AddressData)6187_storage)"
+          },
+          {
+            "astId": 2227,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "_tokenApprovals",
+            "offset": 0,
+            "slot": "6",
+            "type": "t_mapping(t_uint256,t_address)"
+          },
+          {
+            "astId": 2233,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "_operatorApprovals",
+            "offset": 0,
+            "slot": "7",
+            "type": "t_mapping(t_address,t_mapping(t_address,t_bool))"
+          }
+        ],
+        "numberOfBytes": "256"
+      },
+      "t_struct(FeeManagerStorage)2325_storage": {
+        "encoding": "inplace",
+        "label": "struct FeeManagerStorage",
+        "members": [
+          {
+            "astId": 2324,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "_fees",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_mapping(t_string_memory_ptr,t_uint256)"
+          }
+        ],
+        "numberOfBytes": "32"
+      },
+      "t_struct(ForgeDefinition)6265_storage": {
+        "encoding": "inplace",
+        "label": "struct ForgeDefinition",
+        "members": [
+          {
+            "astId": 6252,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "forgeId",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 6254,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "name",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_string_storage"
+          },
+          {
+            "astId": 6256,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "symbol",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_string_storage"
+          },
+          {
+            "astId": 6258,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "description",
+            "offset": 0,
+            "slot": "3",
+            "type": "t_string_storage"
+          },
+          {
+            "astId": 6260,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "maxForgeCount",
+            "offset": 0,
+            "slot": "4",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 6262,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "forgedCount",
+            "offset": 0,
+            "slot": "5",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 6264,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "forgeFee",
+            "offset": 0,
+            "slot": "6",
+            "type": "t_uint256"
+          }
+        ],
+        "numberOfBytes": "224"
+      },
+      "t_struct(ForgeItemDefinition)6293_storage": {
+        "encoding": "inplace",
+        "label": "struct ForgeItemDefinition",
+        "members": [
+          {
+            "astId": 6274,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "name",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_string_storage"
+          },
+          {
+            "astId": 6276,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "symbol",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_string_storage"
+          },
+          {
+            "astId": 6278,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "description",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_string_storage"
+          },
+          {
+            "astId": 6282,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "requirements",
+            "offset": 0,
+            "slot": "3",
+            "type": "t_array(t_struct(ForgeItemRequirement)6272_storage)dyn_storage"
+          },
+          {
+            "astId": 6284,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "probability",
+            "offset": 0,
+            "slot": "4",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 6286,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "maxForgeCount",
+            "offset": 0,
+            "slot": "5",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 6288,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "forgedCount",
+            "offset": 0,
+            "slot": "6",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 6290,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "forgeFee",
+            "offset": 0,
+            "slot": "7",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 6292,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "tokenHash",
+            "offset": 0,
+            "slot": "8",
+            "type": "t_uint256"
+          }
+        ],
+        "numberOfBytes": "288"
+      },
+      "t_struct(ForgeItemRequirement)6272_storage": {
+        "encoding": "inplace",
+        "label": "struct ForgeItemRequirement",
+        "members": [
+          {
+            "astId": 6267,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "tokenAddress",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_address"
+          },
+          {
+            "astId": 6269,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "tokenId",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 6271,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "amount",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_uint256"
+          }
+        ],
+        "numberOfBytes": "96"
+      },
+      "t_struct(ForgeStorage)2176_storage": {
+        "encoding": "inplace",
+        "label": "struct ForgeStorage",
+        "members": [
+          {
+            "astId": 2151,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "forges",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_mapping(t_uint256,t_struct(ForgeDefinition)6265_storage)"
+          },
+          {
+            "astId": 2154,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "forgeIds",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_array(t_uint256)dyn_storage"
+          },
+          {
+            "astId": 2161,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "forgeItems",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_mapping(t_uint256,t_mapping(t_uint256,t_struct(ForgeItemDefinition)6293_storage))"
+          },
+          {
+            "astId": 2164,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "forgeItemIds",
+            "offset": 0,
+            "slot": "3",
+            "type": "t_array(t_uint256)dyn_storage"
+          },
+          {
+            "astId": 2169,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "forgedItemHashes",
+            "offset": 0,
+            "slot": "4",
+            "type": "t_mapping(t_uint256,t_struct(Set)8943_storage)"
+          },
+          {
+            "astId": 2172,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "allforgedItemHashes",
+            "offset": 0,
+            "slot": "5",
+            "type": "t_struct(Set)8943_storage"
+          },
+          {
+            "astId": 2175,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "symbols",
+            "offset": 0,
+            "slot": "7",
+            "type": "t_array(t_string_storage)dyn_storage"
+          }
+        ],
+        "numberOfBytes": "256"
+      },
+      "t_struct(FractionalizedTokenData)2306_storage": {
+        "encoding": "inplace",
+        "label": "struct FractionalizedTokenData",
+        "members": [
+          {
+            "astId": 2295,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "symbol",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_string_storage"
+          },
+          {
+            "astId": 2297,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "name",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_string_storage"
+          },
+          {
+            "astId": 2299,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "tokenAddress",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_address"
+          },
+          {
+            "astId": 2301,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "tokenId",
+            "offset": 0,
+            "slot": "3",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 2303,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "fractionalizedToken",
+            "offset": 0,
+            "slot": "4",
+            "type": "t_address"
+          },
+          {
+            "astId": 2305,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "totalFractions",
+            "offset": 0,
+            "slot": "5",
+            "type": "t_uint256"
+          }
+        ],
+        "numberOfBytes": "192"
+      },
+      "t_struct(FractionalizerStorage)2314_storage": {
+        "encoding": "inplace",
+        "label": "struct FractionalizerStorage",
+        "members": [
+          {
+            "astId": 2308,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "fTokenTemplate",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_address"
+          },
+          {
+            "astId": 2313,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "fractionalizedTokens",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_mapping(t_address,t_struct(FractionalizedTokenData)2306_storage)"
+          }
+        ],
+        "numberOfBytes": "64"
+      },
+      "t_struct(GemPoolData)6442_storage": {
+        "encoding": "inplace",
+        "label": "struct IGemPool.GemPoolData",
+        "members": [
+          {
+            "astId": 6433,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "pool",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 6435,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "nextGemHash",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 6437,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "nextGemNumber",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 6439,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "gemsMintedCount",
+            "offset": 0,
+            "slot": "3",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 6441,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "totalStakedEth",
+            "offset": 0,
+            "slot": "4",
+            "type": "t_uint256"
+          }
+        ],
+        "numberOfBytes": "160"
+      },
+      "t_struct(GemPoolSettings)6482_storage": {
+        "encoding": "inplace",
+        "label": "struct IGemPool.GemPoolSettings",
+        "members": [
+          {
+            "astId": 6444,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "token",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_address"
+          },
+          {
+            "astId": 6447,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "tokenSource",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_struct(TokenSource)6950_storage"
+          },
+          {
+            "astId": 6450,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "tokenDefinition",
+            "offset": 0,
+            "slot": "4",
+            "type": "t_struct(TokenDefinition)6928_storage"
+          },
+          {
+            "astId": 6453,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "initialPrice",
+            "offset": 0,
+            "slot": "16",
+            "type": "t_struct(TokenPriceData)7093_storage"
+          },
+          {
+            "astId": 6455,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "enabled",
+            "offset": 0,
+            "slot": "20",
+            "type": "t_bool"
+          },
+          {
+            "astId": 6457,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "visible",
+            "offset": 1,
+            "slot": "20",
+            "type": "t_bool"
+          },
+          {
+            "astId": 6459,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "minTime",
+            "offset": 0,
+            "slot": "21",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 6461,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "maxTime",
+            "offset": 0,
+            "slot": "22",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 6463,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "diffstep",
+            "offset": 0,
+            "slot": "23",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 6465,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "maxClaims",
+            "offset": 0,
+            "slot": "24",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 6467,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "maxQuantityPerClaim",
+            "offset": 0,
+            "slot": "25",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 6469,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "maxClaimsPerAccount",
+            "offset": 0,
+            "slot": "26",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 6471,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "earnRatePerPeriod",
+            "offset": 0,
+            "slot": "27",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 6473,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "earnPeriodBlocks",
+            "offset": 0,
+            "slot": "28",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 6475,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "payPartialBlocks",
+            "offset": 0,
+            "slot": "29",
+            "type": "t_bool"
+          },
+          {
+            "astId": 6477,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "mintEarnedToken",
+            "offset": 1,
+            "slot": "29",
+            "type": "t_bool"
+          },
+          {
+            "astId": 6479,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "maxTotalEarnedAmount",
+            "offset": 0,
+            "slot": "30",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 6481,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "allowPurchase",
+            "offset": 0,
+            "slot": "31",
+            "type": "t_bool"
+          }
+        ],
+        "numberOfBytes": "1024"
+      },
+      "t_struct(GemPoolStorage)2146_storage": {
+        "encoding": "inplace",
+        "label": "struct GemPoolStorage",
+        "members": [
+          {
+            "astId": 2117,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "_gemPools",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_mapping(t_uint256,t_struct(GemPoolStruct)6489_storage)"
+          },
+          {
+            "astId": 2122,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "_recordHashes",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_mapping(t_uint256,t_struct(Set)8943_storage)"
+          },
+          {
+            "astId": 2128,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "_bankedRequirements",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_mapping(t_uint256,t_array(t_struct(Token)6891_storage)dyn_storage)"
+          },
+          {
+            "astId": 2133,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "_claims",
+            "offset": 0,
+            "slot": "3",
+            "type": "t_mapping(t_uint256,t_struct(Claim)5386_storage)"
+          },
+          {
+            "astId": 2135,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "_claimIndex",
+            "offset": 0,
+            "slot": "4",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 2139,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "_stakedTotal",
+            "offset": 0,
+            "slot": "5",
+            "type": "t_mapping(t_address,t_uint256)"
+          },
+          {
+            "astId": 2142,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "_requirementData",
+            "offset": 0,
+            "slot": "6",
+            "type": "t_struct(RequirementData)6807_storage"
+          },
+          {
+            "astId": 2145,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "_symbols",
+            "offset": 0,
+            "slot": "13",
+            "type": "t_array(t_string_storage)dyn_storage"
+          }
+        ],
+        "numberOfBytes": "448"
+      },
+      "t_struct(GemPoolStruct)6489_storage": {
+        "encoding": "inplace",
+        "label": "struct IGemPool.GemPoolStruct",
+        "members": [
+          {
+            "astId": 6485,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "_gemPoolSettings",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_struct(GemPoolSettings)6482_storage"
+          },
+          {
+            "astId": 6488,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "_gemPoolData",
+            "offset": 0,
+            "slot": "32",
+            "type": "t_struct(GemPoolData)6442_storage"
+          }
+        ],
+        "numberOfBytes": "1184"
+      },
+      "t_struct(MarketItem)6753_storage": {
+        "encoding": "inplace",
+        "label": "struct IMarketplace.MarketItem",
+        "members": [
+          {
+            "astId": 6736,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "itemId",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 6738,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "nftContract",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_address"
+          },
+          {
+            "astId": 6740,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "tokenId",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 6742,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "seller",
+            "offset": 0,
+            "slot": "3",
+            "type": "t_address"
+          },
+          {
+            "astId": 6744,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "owner",
+            "offset": 0,
+            "slot": "4",
+            "type": "t_address"
+          },
+          {
+            "astId": 6746,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "price",
+            "offset": 0,
+            "slot": "5",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 6748,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "quantity",
+            "offset": 0,
+            "slot": "6",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 6750,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "sold",
+            "offset": 0,
+            "slot": "7",
+            "type": "t_bool"
+          },
+          {
+            "astId": 6752,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "receiver",
+            "offset": 1,
+            "slot": "7",
+            "type": "t_address"
+          }
+        ],
+        "numberOfBytes": "256"
+      },
+      "t_struct(MarketUtilsStorage)2382_storage": {
+        "encoding": "inplace",
+        "label": "struct MarketUtilsStorage",
+        "members": [
+          {
+            "astId": 2381,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "validTokens",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_mapping(t_uint256,t_bool)"
+          }
+        ],
+        "numberOfBytes": "32"
+      },
+      "t_struct(MarketplaceStorage)2284_storage": {
+        "encoding": "inplace",
+        "label": "struct MarketplaceStorage",
+        "members": [
+          {
+            "astId": 2272,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "itemsSold",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 2274,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "itemIds",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 2279,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "idToMarketItem",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_mapping(t_uint256,t_struct(MarketItem)6753_storage)"
+          },
+          {
+            "astId": 2283,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "idToListed",
+            "offset": 0,
+            "slot": "3",
+            "type": "t_mapping(t_uint256,t_bool)"
+          }
+        ],
+        "numberOfBytes": "128"
+      },
+      "t_struct(MerkleAirdropStorage)2377_storage": {
+        "encoding": "inplace",
+        "label": "struct MerkleAirdropStorage",
+        "members": [
+          {
+            "astId": 2356,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "_settings",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_mapping(t_uint256,t_struct(AirdropSettings)5195_storage)"
+          },
+          {
+            "astId": 2358,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "numSettings",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 2364,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "_redeemedData",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_mapping(t_uint256,t_mapping(t_uint256,t_uint256))"
+          },
+          {
+            "astId": 2370,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "_redeemedDataQuantities",
+            "offset": 0,
+            "slot": "3",
+            "type": "t_mapping(t_uint256,t_mapping(t_address,t_uint256))"
+          },
+          {
+            "astId": 2376,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "_totalDataQuantities",
+            "offset": 0,
+            "slot": "4",
+            "type": "t_mapping(t_uint256,t_mapping(t_address,t_uint256))"
+          }
+        ],
+        "numberOfBytes": "160"
+      },
+      "t_struct(Requirement)6784_storage": {
+        "encoding": "inplace",
+        "label": "struct IRequirement.Requirement",
+        "members": [
+          {
+            "astId": 6772,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "minter",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_address"
+          },
+          {
+            "astId": 6775,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "source",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_struct(TokenSource)6950_storage"
+          },
+          {
+            "astId": 6777,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "quantity",
+            "offset": 0,
+            "slot": "4",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 6779,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "takeCustody",
+            "offset": 0,
+            "slot": "5",
+            "type": "t_bool"
+          },
+          {
+            "astId": 6781,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "burn",
+            "offset": 1,
+            "slot": "5",
+            "type": "t_bool"
+          },
+          {
+            "astId": 6783,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "requireExactAmount",
+            "offset": 2,
+            "slot": "5",
+            "type": "t_bool"
+          }
+        ],
+        "numberOfBytes": "192"
+      },
+      "t_struct(RequirementData)6807_storage": {
+        "encoding": "inplace",
+        "label": "struct IRequirement.RequirementData",
+        "members": [
+          {
+            "astId": 6786,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "token",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_address"
+          },
+          {
+            "astId": 6788,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "manager",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_address"
+          },
+          {
+            "astId": 6794,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "requirements",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_mapping(t_uint256,t_array(t_struct(Requirement)6784_storage)dyn_storage)"
+          },
+          {
+            "astId": 6799,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "tokens",
+            "offset": 0,
+            "slot": "3",
+            "type": "t_mapping(t_uint256,t_struct(TokenSet)6903_storage)"
+          },
+          {
+            "astId": 6802,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "burnedTokenIds",
+            "offset": 0,
+            "slot": "4",
+            "type": "t_struct(Set)8943_storage"
+          },
+          {
+            "astId": 6806,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "burnedTokenQuantities",
+            "offset": 0,
+            "slot": "6",
+            "type": "t_mapping(t_uint256,t_uint256)"
+          }
+        ],
+        "numberOfBytes": "224"
+      },
+      "t_struct(Set)8943_storage": {
+        "encoding": "inplace",
+        "label": "struct UInt256Set.Set",
+        "members": [
+          {
+            "astId": 8939,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "keyPointers",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_mapping(t_uint256,t_uint256)"
+          },
+          {
+            "astId": 8942,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "keyList",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_array(t_uint256)dyn_storage"
+          }
+        ],
+        "numberOfBytes": "64"
+      },
+      "t_struct(Token)6891_storage": {
+        "encoding": "inplace",
+        "label": "struct IToken.Token",
+        "members": [
+          {
+            "astId": 6886,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "id",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 6888,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "balance",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 6890,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "burn",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_bool"
+          }
+        ],
+        "numberOfBytes": "96"
+      },
+      "t_struct(TokenAttributeStorage)2265_storage": {
+        "encoding": "inplace",
+        "label": "struct TokenAttributeStorage",
+        "members": [
+          {
+            "astId": 2264,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "attributes",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_mapping(t_uint256,t_mapping(t_string_memory_ptr,t_uint256))"
+          }
+        ],
+        "numberOfBytes": "32"
+      },
+      "t_struct(TokenDefinition)6928_storage": {
+        "encoding": "inplace",
+        "label": "struct IToken.TokenDefinition",
+        "members": [
+          {
+            "astId": 6905,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "token",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_address"
+          },
+          {
+            "astId": 6907,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "id",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 6909,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "collectionId",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 6911,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "name",
+            "offset": 0,
+            "slot": "3",
+            "type": "t_string_storage"
+          },
+          {
+            "astId": 6913,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "symbol",
+            "offset": 0,
+            "slot": "4",
+            "type": "t_string_storage"
+          },
+          {
+            "astId": 6915,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "description",
+            "offset": 0,
+            "slot": "5",
+            "type": "t_string_storage"
+          },
+          {
+            "astId": 6917,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "decimals",
+            "offset": 0,
+            "slot": "6",
+            "type": "t_uint8"
+          },
+          {
+            "astId": 6919,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "totalSupply",
+            "offset": 0,
+            "slot": "7",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 6921,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "generateId",
+            "offset": 0,
+            "slot": "8",
+            "type": "t_bool"
+          },
+          {
+            "astId": 6923,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "probability",
+            "offset": 0,
+            "slot": "9",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 6925,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "probabilityIndex",
+            "offset": 0,
+            "slot": "10",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 6927,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "probabilityRoll",
+            "offset": 0,
+            "slot": "11",
+            "type": "t_uint256"
+          }
+        ],
+        "numberOfBytes": "384"
+      },
+      "t_struct(TokenMinterStorage)2293_storage": {
+        "encoding": "inplace",
+        "label": "struct TokenMinterStorage",
+        "members": [
+          {
+            "astId": 2286,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "token",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_address"
+          },
+          {
+            "astId": 2288,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "_tokenCounter",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 2292,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "_tokenMinters",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_mapping(t_uint256,t_address)"
+          }
+        ],
+        "numberOfBytes": "96"
+      },
+      "t_struct(TokenOwnership)6178_storage": {
+        "encoding": "inplace",
+        "label": "struct IERC721A.TokenOwnership",
+        "members": [
+          {
+            "astId": 6173,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "addr",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_address"
+          },
+          {
+            "astId": 6175,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "startTimestamp",
+            "offset": 20,
+            "slot": "0",
+            "type": "t_uint64"
+          },
+          {
+            "astId": 6177,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "burned",
+            "offset": 28,
+            "slot": "0",
+            "type": "t_bool"
+          }
+        ],
+        "numberOfBytes": "32"
+      },
+      "t_struct(TokenPriceData)7093_storage": {
+        "encoding": "inplace",
+        "label": "struct ITokenPrice.TokenPriceData",
+        "members": [
+          {
+            "astId": 7085,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "price",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 7088,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "priceModifier",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_enum(PriceModifier)7083"
+          },
+          {
+            "astId": 7090,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "priceModifierFactor",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 7092,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "maxPrice",
+            "offset": 0,
+            "slot": "3",
+            "type": "t_uint256"
+          }
+        ],
+        "numberOfBytes": "128"
+      },
+      "t_struct(TokenSaleEntry)7125_storage": {
+        "encoding": "inplace",
+        "label": "struct ITokenSale.TokenSaleEntry",
+        "members": [
+          {
+            "astId": 7112,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "receiver",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_address_payable"
+          },
+          {
+            "astId": 7114,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "sourceToken",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_address"
+          },
+          {
+            "astId": 7116,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "sourceTokenId",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 7118,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "token",
+            "offset": 0,
+            "slot": "3",
+            "type": "t_address"
+          },
+          {
+            "astId": 7120,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "quantity",
+            "offset": 0,
+            "slot": "4",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 7122,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "price",
+            "offset": 0,
+            "slot": "5",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 7124,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "quantitySold",
+            "offset": 0,
+            "slot": "6",
+            "type": "t_uint256"
+          }
+        ],
+        "numberOfBytes": "224"
+      },
+      "t_struct(TokenSaleSettings)5293_storage": {
+        "encoding": "inplace",
+        "label": "struct IAirdropTokenSale.TokenSaleSettings",
+        "members": [
+          {
+            "astId": 5259,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "contractAddress",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_address"
+          },
+          {
+            "astId": 5261,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "token",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_address"
+          },
+          {
+            "astId": 5263,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "tokenHash",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 5265,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "collectionHash",
+            "offset": 0,
+            "slot": "3",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 5267,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "owner",
+            "offset": 0,
+            "slot": "4",
+            "type": "t_address"
+          },
+          {
+            "astId": 5269,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "payee",
+            "offset": 0,
+            "slot": "5",
+            "type": "t_address"
+          },
+          {
+            "astId": 5271,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "symbol",
+            "offset": 0,
+            "slot": "6",
+            "type": "t_string_storage"
+          },
+          {
+            "astId": 5273,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "name",
+            "offset": 0,
+            "slot": "7",
+            "type": "t_string_storage"
+          },
+          {
+            "astId": 5275,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "description",
+            "offset": 0,
+            "slot": "8",
+            "type": "t_string_storage"
+          },
+          {
+            "astId": 5277,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "openState",
+            "offset": 0,
+            "slot": "9",
+            "type": "t_bool"
+          },
+          {
+            "astId": 5279,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "startTime",
+            "offset": 0,
+            "slot": "10",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 5281,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "endTime",
+            "offset": 0,
+            "slot": "11",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 5283,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "maxQuantity",
+            "offset": 0,
+            "slot": "12",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 5285,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "maxQuantityPerSale",
+            "offset": 0,
+            "slot": "13",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 5287,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "minQuantityPerSale",
+            "offset": 0,
+            "slot": "14",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 5289,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "maxQuantityPerAccount",
+            "offset": 0,
+            "slot": "15",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 5292,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "initialPrice",
+            "offset": 0,
+            "slot": "16",
+            "type": "t_struct(TokenPriceData)7093_storage"
+          }
+        ],
+        "numberOfBytes": "640"
+      },
+      "t_struct(TokenSaleStorage)2320_storage": {
+        "encoding": "inplace",
+        "label": "struct TokenSaleStorage",
+        "members": [
+          {
+            "astId": 2319,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "tokenSaleEntries",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_mapping(t_address,t_struct(TokenSaleEntry)7125_storage)"
+          }
+        ],
+        "numberOfBytes": "32"
+      },
+      "t_struct(TokenSet)6903_storage": {
+        "encoding": "inplace",
+        "label": "struct IToken.TokenSet",
+        "members": [
+          {
+            "astId": 6895,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "keyPointers",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_mapping(t_uint256,t_uint256)"
+          },
+          {
+            "astId": 6898,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "keyList",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_array(t_uint256)dyn_storage"
+          },
+          {
+            "astId": 6902,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "valueList",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_array(t_struct(Token)6891_storage)dyn_storage"
+          }
+        ],
+        "numberOfBytes": "96"
+      },
+      "t_struct(TokenSource)6950_storage": {
+        "encoding": "inplace",
+        "label": "struct IToken.TokenSource",
+        "members": [
+          {
+            "astId": 6945,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "_type",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_enum(TokenSourceType)6942"
+          },
+          {
+            "astId": 6947,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "staticSourceId",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 6949,
+            "contract": "contracts/facets/TokenMinterFacet.sol:TokenMinterFacet",
+            "label": "collectionSourceAddress",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_address"
+          }
+        ],
+        "numberOfBytes": "96"
+      },
+      "t_uint256": {
+        "encoding": "inplace",
+        "label": "uint256",
+        "numberOfBytes": "32"
+      },
+      "t_uint64": {
+        "encoding": "inplace",
+        "label": "uint64",
+        "numberOfBytes": "8"
+      },
+      "t_uint8": {
+        "encoding": "inplace",
+        "label": "uint8",
+        "numberOfBytes": "1"
+      }
+    }
+  }
+}
