@@ -25,6 +25,48 @@ npx solhint 'contracts/**/*.sol'
 npx solhint 'contracts/**/*.sol' --fix
 ```
 
+# Configuring the tokensale
+
+Configure the `config/tokensale.json`,  `config/airdrop.json` , and  `config/whitelist.json` files with the appropriate config information for your tokensale. Make sure these are configured before you deploy.
+
+# Deploying the project
+
+Instructions apply to test and production. First, create a Moralis server. Then, create a `.env` file in the root of the project. Then enter the new Moralis server credentials to your `.env` file. Once you have set up your `config/tokensale.json` file, run:
+
+`npx hardhat --network (rinkeby/kovan/ropsten/mainnet) deploy`. The deployer will:
+
+1. Deploy all smart contracts
+2. configure the Diamond contract
+3. install event listeners in Moralis for the installed smart contracts
+4. Publish the tokensale specified in the `config/tokensale.json file.
+
+The airdrop is not published. You will need to do that yourself.
+
+# Publish an tokensale
+
+Configure the `config/tokensale.json`  then open up a terminal window and enter:
+
+`npx hardhat --network rinkeby publish-tokensale --tokensale ./config/tokensale.json 
+
+# Publish an airdrop
+
+Configure the `config/airdrop.json` , and  `config/whitelist.json` files as you need them, then open up a terminal window and enter:
+
+`npx hardhat --network rinkeby publish-airdrop --airdrop ./config/airdrops.json --whitelist ./config/whitelist.json --id [tokensaleid]`
+
+# Redeem an airdrop
+
+To redeem an airdrop:
+
+`npx hardhat --network (rinkeby/kovan/ropsten/mainnet) redeem-airdrop --airdrop [airdropid] --address [address] --unitprice 0.0001 --tokensale [tokensaleid] --quantity 1`
+
+# Purchase a token (no airdrop)
+
+To purchase a token from the tokensale:
+
+`npx hardhat --network (rinkeby/kovan/ropsten/mainnet) purchase-token --airdrop [airdropid] --address [address] --unitprice 0.0001 --tokensale [tokensaleid] --quantity 1`
+
+
 # Etherscan verification
 
 To try out Etherscan verification, you first need to deploy a contract to an Ethereum network that's supported by Etherscan, such as Ropsten.
