@@ -15,6 +15,10 @@ import "../interfaces/IERC1155Mint.sol";
 
 import "../interfaces/IERC20Mint.sol";
 
+import "../interfaces/IERC721Mint.sol";
+
+import "../utils/InterfaceChecker.sol";
+
 import "../interfaces/IAirdropTokenSale.sol";
 
 import { IMerkleAirdropRedeemer } from "./MerkleAirdropFacet.sol";
@@ -346,15 +350,30 @@ contract AirdropTokenSaleFacet is ITokenSale, Modifiers {
 
   function airdropRedeemed(
     uint256 tokenSaleId,
-    uint256,
+    uint256 tHash,
     address recipient,
     uint256 amount
-  ) external {
+  ) external returns (uint256 tokenHash_) {
     // mint the token
-    IERC20Mint(s.airdropTokenSaleStorage._tokenSales[tokenSaleId].token).mintTo(
-      recipient,
-      amount
-    );
+    address targetTokenn = s.airdropTokenSaleStorage._tokenSales[tokenSaleId].token;
+    if(InterfaceChecker.isERC20(targetTokenn)) {
+      IERC20Mint(targetTokenn).mintTo(
+        recipient,
+        amount
+      );
+    } else if(InterfaceChecker.isERC721(targetTokenn)) {
+      IERC721Mint(targetTokenn).mintTo(
+        recipient,
+        amount
+      );
+    } else if(InterfaceChecker.isERC1155(targetTokenn)) {
+      IERC20Mint(targetTokenn).mintTo(
+        recipient,
+        amount
+      );
+    }
+
+    tokenHash_ = tHash;
   }
 
   /// @notice Get the token sale settings
