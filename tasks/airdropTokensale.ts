@@ -68,10 +68,11 @@ async function publishWhitelist(
 ) {
   // zero address
   const zeroAddress = "0x0000000000000000000000000000000000000000";
+  const airdropId = (await randomHash()).toString();
 
   const airdropValues = [
     airdropData.whitelistOnly,
-    airdropData.whitelistId,
+    airdropId,
     airdropData.whitelistHash,
     airdropData.maxQuantity,
     airdropData.maxQuantityPerSale,
@@ -87,21 +88,22 @@ async function publishWhitelist(
       airdropData.initialPrice.maxPrice,
     ],
     airdropData.tokenHash,
-    0,
-    zeroAddress,
+    airdropData.paymentType,
+    airdropData.paymentTokenAddress,
+    
   ];
 
   // create the merkle root for the whitelist
   const airdropObj = new AirDrop(whitelistData);
 
-  console.log("airdrop root hash", airdropObj.rootHash);
+  console.log("airdrop id",airdropId);
 
-  const airdropId = (airdropValues[1] = airdropValues[2] = airdropObj.rootHash);
+  airdropValues[2] = airdropObj.rootHash;
 
   // save the whitelist - destroy any existing data
   const MerkleProof = Moralis.Object.extend(dataModel.MerkleProofs.collection);
   const deleteQuery = new Moralis.Query(MerkleProof);
-  deleteQuery.equalTo("airdropId", airdropId);
+  deleteQuery.equalTo("merkleRoot", airdropObj.rootHash);
 
   // delete the existing whitelist
   const results = await deleteQuery.find();
@@ -116,7 +118,8 @@ async function publishWhitelist(
     const merkleProof = new MerkleProof();
     await merkleProof.save({
       airdropId,
-      tokensaleId: tokenSaleId.toString(),
+      merkleRoot: airdropObj.rootHash,
+      tokenSaleId,
       key: data.key,
       value: data.value,
       index: idx,
@@ -146,7 +149,11 @@ async function makeHash(stringToHash: string) {
   return keccak256(solidityPack(["string"], [stringToHash]));
 }
 
-export async function publishTokensale (
+async function randomHash() {
+  return makeHash(Math.random().toString() + '' +  Date.now().toString());
+}
+
+export async function publishTokensale(
   { tokensale }: any,
   hre: HardhatRuntimeEnvironment
 ) {
@@ -160,10 +167,7 @@ export async function publishTokensale (
 
   // load the token sale methods
   const multiToken = await getContractDeployment(hre, "ERC20");
-  const airdropTokenSale = await getDiamondFacet(
-    hre,
-    "AirdropTokenSaleFacet"
-  );
+  const airdropTokenSale = await getDiamondFacet(hre, "AirdropTokenSaleFacet");
   const ownerAddress = (await hre.ethers.getSigners())[0].address;
 
   //  get unit time for now, and a day from now
@@ -196,8 +200,8 @@ export async function publishTokensale (
       tokensaleData.initialPrice.priceModifierFactor,
       tokensaleData.initialPrice.maxPrice,
     ],
-    0,
-    zeroAddress,
+    tokensaleData.paymentType,
+    tokensaleData.paymentTokenAddress,
   ];
   console.log(`publish tokensale ${tokensaleData.name}`);
 
@@ -226,9 +230,7 @@ task(
   "publish tokensale contract using given tokensale json file and given airdrop json file"
 )
   .addParam("tokensale", "The tokensale json file")
-  .setAction(
-    publishTokensale
-  );
+  .setAction(publishTokensale);
 
 /**
  * publish the airdrop using the airdrop json file and the whitelist json file
@@ -314,7 +316,7 @@ task("redeem-airdrop", "Redeem airdrop")
   .addParam("tokensale", "The tokensale id")
   .addParam("airdrop", "The airdrop id")
   .addParam("address", "The redeem address")
-  .addParam("unitprice", "The value to attach")
+  .addParam("unitprice", "The unit price")
   .addParam("quantity", "The quantity to purchase")
   .setAction(
     async (

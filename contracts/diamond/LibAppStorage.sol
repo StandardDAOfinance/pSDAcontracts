@@ -4,13 +4,7 @@ pragma solidity ^0.8.0;
 import "../utils/UInt256Set.sol";
 import "../utils/AddressSet.sol";
 
-import "../interfaces/IMarketplace.sol";
 import "../interfaces/ITokenMinter.sol";
-import "../interfaces/ITokenSale.sol";
-import "../interfaces/IForge.sol";
-import "../interfaces/IGemPool.sol";
-import "../interfaces/IClaim.sol";
-import "../interfaces/IRequirement.sol";
 import "../interfaces/IAirdropTokenSale.sol";
 import "../interfaces/IERC721A.sol";
 
@@ -24,11 +18,6 @@ struct MerkleUtilsStorage {
 // token minter storage
 struct TokenMinterStorage {
     address token;
-}
-
-// token sale storage
-struct TokenSaleStorage {
-    mapping(address => ITokenSale.TokenSaleEntry) tokenSaleEntries;
 }
 
 struct AirdropTokenSaleStorage {

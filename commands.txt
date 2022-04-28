@@ -1,0 +1,8 @@
+npx hardhat --network localhost publish-tokensale --tokensale ./config/tokensale.json
+npx hardhat --network localhost publish-airdrop --airdrop ./config/airdrops.json --whitelist ./config/whitelist.json --id 44797043792147559671060967359654388209967620467213798393039984706300398657268
+npx hardhat --network localhost redeem-airdrop --address 0x97AEd3F8aaCbcB22b374aC49bC2354374f17235a --quantity 1 --txval 0.2 --tokensale 44797043792147559671060967359654388209967620467213798393039984706300398657268 --airdrop 
+npx hardhat --network rinkeby install-diamond-listeners --contracts "AirdropTokenSaleFacet,AttributeMutationPoolFacet,MerkleAirdropFacet,TokenAttributeFacet,TokenMinterFacet" --events all
+npx hardhat --network rinkeby redeem-airdrop --address 0x97AEd3F8aaCbcB22b374aC49bC2354374f17235a --quantity 1 --txval 0.2 --tokensale 44797043792147559671060967359654388209967620467213798393039984706300398657268 --airdrop 
+
+
+npx hardhat --network localhost purchase-token --tokensale 80667803822548423153443456798273810078279211996521512994249866397150740702484 --quantity 10 --unitprice 0.001

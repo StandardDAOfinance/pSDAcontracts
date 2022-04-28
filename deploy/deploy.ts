@@ -114,11 +114,11 @@ export default async function func(hre: HardhatRuntimeEnvironment) {
   await tx.wait();
 
 
-  await publishTokensale(
-    {
-      tokensale: "./config/tokensale.json",
-    },
-    hre
-  );
+  // await publishTokensale(
+  //   {
+  //     tokensale: "./config/tokensale.json",
+  //   },
+  //   hre
+  // );
 }
 func.tags = ["deploy"];

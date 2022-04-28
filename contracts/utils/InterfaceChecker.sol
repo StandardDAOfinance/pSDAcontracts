@@ -14,6 +14,10 @@ library InterfaceChecker {
         return IERC165(check).supportsInterface(type(IERC721).interfaceId);
     }
     function isERC20(address check) external view returns(bool) {
-        return IERC165(check).supportsInterface(type(IERC20).interfaceId);
+        try IERC165(check).supportsInterface(type(IERC20).interfaceId) returns (bool supported) {
+            return supported;
+        } catch (bytes memory) {
+            return false;
+        }
     }
 }

@@ -31,11 +31,14 @@ Moralis.Cloud.define("metadata", async (request) => {
   const _token = await getRecord("Token", "tokenId", request.params.tokenId);
   if (!_token) return undefined;
 
+  let latestPowerValue = await getLatestRecord('PowerUpdated', 'tokenId', request.params.tokenId);
+  latestPowerValue = latestPowerValue ? latestPowerValue.get('power') : 1;
+
   const attributes = [
     {
       "display_type": "number",
       "trait_type": "Power",
-      "value": _token.attributes.power
+      "value": latestPowerValue
     }
   ]
 

@@ -15,5 +15,7 @@
       "priceModifierFactor": 0,
       "maxPrice": 0
   },
-  "tokenHash": 0
+  "tokenHash": 0,
+  "paymentType": 0,
+  "paymentTokenAddress":"0x0000000000000000000000000000000000000000"
 }

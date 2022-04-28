@@ -1,11 +1,14 @@
+/* eslint-disable node/no-unpublished-import */
+/* eslint-disable node/no-missing-import */
+/* eslint-disable node/no-unsupported-features/es-syntax */
 import "dotenv/config";
 import "@nomiclabs/hardhat-waffle";
 import { task, subtask } from "hardhat/config";
 import { HardhatRuntimeEnvironment } from "hardhat/types";
 import { getUserServers, connectToMoralis } from "../src/lib/moralis";
+import axios from "axios";
 
 const BASE_URI = "https://admin.moralis.io";
-import axios from "axios";
 
 const _process = (s: any) => {
   let obj = JSON.parse(
@@ -73,9 +76,9 @@ task(
         action: "remove",
       });
     }
-);
-  
-export async function installDiamondListeners (
+  );
+
+export async function installDiamondListeners(
   { action, contracts, events }: any,
   hre: HardhatRuntimeEnvironment
 ): Promise<void> {
@@ -91,21 +94,20 @@ export async function installDiamondListeners (
   // get contract events
   const diamondDeployment = await hre.deployments.get("Diamond");
   const chainId = (await hre.ethers.provider.getNetwork()).chainId;
-  const pause = (ms: any) =>
-    new Promise((resolve) => setTimeout(resolve, ms));
+  const pause = (ms: any) => new Promise((resolve) => setTimeout(resolve, ms));
   const BASE_URI = "https://admin.moralis.io";
 
   const servers = await getUserServers(
     process.env.CLI_API_KEY,
     process.env.CLI_API_SECRET
   );
-  if (servers.length == 0) {
+  if (servers.length === 0) {
     console.log("No servers found!");
     return;
   }
   const server = servers[servers.length - 1];
-  const plugins2 = JSON.parse(server.plugins);
-  let plugins: any = JSON.parse(server.plugins);
+  // const plugins2 = JSON.parse(server.plugins);
+  const plugins: any = JSON.parse(server.plugins);
   // for(let i = 0; i < plugins2.length; i++) {
   //   plugins.push(plugins2[i]);
   // }
@@ -185,10 +187,8 @@ export async function installDiamondListeners (
   );
   await pause(90000);
   console.log("Events are now subscribed to!");
-  console.log(
-    `Completed ${isAdding ? "adding" : "removing"} event listeners!`
-  );
-}  
+  console.log(`Completed ${isAdding ? "adding" : "removing"} event listeners!`);
+}
 
 subtask(
   "update-diamond-listeners",
@@ -197,9 +197,7 @@ subtask(
   .addParam("action", `"add" or "remove"`)
   .addParam("contracts", "The name of the contract that the events are on")
   .addParam("events", 'The name of the events, comma-separated, or "all"')
-  .setAction(
-    installDiamondListeners
-  );
+  .setAction(installDiamondListeners);
 
 export const restartServer = async (
   apiKey: any,
@@ -224,7 +222,7 @@ export const restartServer = async (
       const apiSecret = process.env.CLI_API_SECRET;
 
       // Get all servers
-      let servers = await getUserServers(apiKey, apiSecret);
+      const servers = await getUserServers(apiKey, apiSecret);
 
       // Check if the server has completed the restart / update
       if (

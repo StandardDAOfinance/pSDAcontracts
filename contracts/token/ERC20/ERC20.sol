@@ -11,6 +11,8 @@ import "@openzeppelin/contracts/utils/Context.sol";
 import "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 import "../../access/Controllable.sol";
 
+import "../../interfaces/IERC165.sol";
+
 import "./utils/ApprovedSellers.sol";
 
 /**
@@ -38,7 +40,7 @@ import "./utils/ApprovedSellers.sol";
  * functions have been added to mitigate the well-known issues around setting
  * allowances. See {IERC20-approve}.
  */
-contract ERC20 is Context, IERC20, Pausable, ApprovedSellers, Ownable, Controllable, Initializable {
+contract ERC20 is Context, IERC20, Pausable, ApprovedSellers, Ownable, Controllable, Initializable, IERC165 {
     uint256 private _cap;
 
     mapping(address => uint256) private _balances;
@@ -65,6 +67,13 @@ contract ERC20 is Context, IERC20, Pausable, ApprovedSellers, Ownable, Controlla
             "caller is not a controller"
         );
         _;
+    }
+
+    /**
+     * @dev See {IERC165-supportsInterface}.
+     */
+    function supportsInterface(bytes4 interfaceId) public view virtual override returns (bool) {
+        return interfaceId == type(IERC20).interfaceId;
     }
 
     /**

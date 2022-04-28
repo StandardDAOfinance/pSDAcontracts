@@ -7,21 +7,26 @@ interface IERC1155Mint {
     /// @notice event emitted when tokens are minted
     event Minted(
         address target,
-        uint256 tokenHash,
+        uint256 id,
         uint256 amount
     );
 
     /// @notice mint tokens of specified amount to the specified address
-    /// @param recipient the mint target
-    /// @param tokenHash the token hash to mint
     /// @param amount the amount to mint
     function mint(
-        address recipient,
-        uint256 tokenHash,
+        uint256 id,
         uint256 amount,
         bytes memory data
-    ) external;
+    ) external returns (uint256 tokenId);
 
-    function setMintAllowance(address receiver, uint256 tokenId, uint256 amount) external;
-
+    /// @notice mint tokens of specified amount to the specified address
+    /// @param recipient the mint target
+    /// @param amount the amount to mint
+    function mintTo(
+        address recipient,
+        uint256 id,
+        uint256 amount,
+        bytes memory data
+    ) external returns (uint256 tokenId);
+    
 }
